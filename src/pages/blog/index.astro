@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import SectionLayout from '../../components/SectionLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+const allPosts = await getCollection('blog');
+const articles = allPosts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<BaseLayout
+  title="Blog — Joe Robinson"
+  description="Writing on SEO, growth, and operations."
+>
+  <SiteHeader />
+  <SectionLayout title="Blog" subtitle="Writing on SEO, growth, and operations">
+    <div class="space-y-2 max-w-3xl">
+      {articles.map((post) => (
+        <ArticleCard
+          title={post.data.title}
+          excerpt={post.data.excerpt}
+          date={post.data.date}
+          slug={post.slug}
+        />
+      ))}
+    </div>
+  </SectionLayout>
+  <SiteFooter />
+</BaseLayout>

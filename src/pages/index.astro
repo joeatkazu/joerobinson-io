@@ -1,0 +1,145 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Hero from '../components/Hero.astro';
+import SectionLayout from '../components/SectionLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+
+const tools = [
+  { name: 'Schema Markup Generator', url: '/tools' },
+  { name: 'Core Web Vitals Checker', url: '/tools' },
+  { name: 'Internal Link Analyzer', url: '/tools' },
+];
+
+const allPosts = await getCollection('blog');
+const recentArticles = allPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+---
+
+<BaseLayout>
+  <SiteHeader />
+
+  <Hero />
+
+  <div class="border-t border-border"></div>
+
+  <SectionLayout title="Results" subtitle="Recent results">
+    <ul class="space-y-0 mb-8 max-w-2xl">
+      <li class="border-t border-border pt-4 pb-4">
+        <span class="font-semibold text-foreground">+40% monthly MQLs</span>
+        <span class="text-muted-foreground"> after rebuilding organic acquisition and content strategy</span>
+      </li>
+      <li class="border-t border-border pt-4 pb-4">
+        <span class="font-semibold text-foreground">€250k ARR customer</span>
+        <span class="text-muted-foreground"> influenced by SEO-led discovery and content positioning</span>
+      </li>
+      <li class="border-t border-border pt-4 pb-4">
+        <span class="font-semibold text-foreground">+300% organic traffic</span>
+        <span class="text-muted-foreground"> in 7 months for a B2B SaaS client after fixing foundations and scaling content</span>
+      </li>
+      <li class="border-t border-border pt-4 pb-4">
+        <span class="font-semibold text-foreground">80% reduction in SEO operating costs</span>
+        <span class="text-muted-foreground"> while increasing output 50% through improved SOPs and team restructuring</span>
+      </li>
+      <li class="border-t border-border pt-4 pb-4">
+        <span class="font-semibold text-foreground">Scalable programmatic content infrastructure</span>
+        <span class="text-muted-foreground"> — 600k+ pages, serving thousands of daily visits</span>
+      </li>
+    </ul>
+    <p class="text-muted-foreground leading-relaxed max-w-2xl">
+      These results come from fixing the same underlying issues: unclear priorities, weak execution systems, and organic growth that isn't tied closely enough to the business.
+    </p>
+  </SectionLayout>
+
+  <div class="border-t border-border"></div>
+
+  <SectionLayout title="How I work">
+    <div class="space-y-5 text-muted-foreground leading-relaxed max-w-2xl">
+      <p>
+        I sit at the intersection of strategy and execution. At a high level, I help teams decide where to focus, how to sequence work, and how organic fits into the wider growth model. At a detailed level, I build the systems: site architecture, content operations, workflows, QA, attribution, and performance tracking.
+      </p>
+      <p>
+        I use AI to operationalise processes, speed up research, and improve execution quality — with human oversight on everything that matters.
+      </p>
+      <p>
+        This combination — strategic clarity, operational rigour, and hands-on technical depth — is what turns organic from a reporting metric into a compounding growth channel.
+      </p>
+    </div>
+  </SectionLayout>
+
+  <div class="border-t border-border"></div>
+
+  <SectionLayout title="Writing" subtitle="Recent thinking">
+    <div class="space-y-2">
+      {recentArticles.map((post) => (
+        <ArticleCard
+          title={post.data.title}
+          excerpt={post.data.excerpt}
+          date={post.data.date}
+          slug={post.slug}
+        />
+      ))}
+    </div>
+    <div class="mt-8">
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-foreground transition-colors group"
+      >
+        All articles
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="transition-transform group-hover:translate-x-0.5"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14"/>
+          <path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </SectionLayout>
+
+  <div class="border-t border-border"></div>
+
+  <SectionLayout title="Tools" subtitle="Useful resources">
+    <div class="flex flex-wrap gap-4">
+      {tools.map((tool) => (
+        <a
+          href={tool.url}
+          class="text-sm text-muted-foreground hover:text-primary transition-colors border border-border rounded-md px-4 py-2"
+        >
+          {tool.name}
+        </a>
+      ))}
+    </div>
+  </SectionLayout>
+
+  <section class="py-16 md:py-20 border-t border-border">
+    <div class="container max-w-2xl text-center">
+      <h2 class="text-2xl md:text-3xl font-heading font-semibold text-foreground mb-4">Let's talk.</h2>
+      <p class="text-muted-foreground leading-relaxed">
+        If you want sustainable, measurable growth — or you're hiring someone to lead it —{' '}
+        <a href="/contact" class="text-primary hover:text-foreground transition-colors underline underline-offset-2">start a conversation</a>
+        {' '}or connect with me on{' '}
+        <a
+          href="https://www.linkedin.com/in/robinson-j/"
+          class="text-primary hover:text-foreground transition-colors underline underline-offset-2"
+          target="_blank"
+          rel="noopener noreferrer"
+        >LinkedIn</a>.
+      </p>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>

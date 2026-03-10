@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SectionLayout from '../components/SectionLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+---
+
+<BaseLayout
+  title="Contact — Joe Robinson"
+  description="Get in touch to discuss SEO strategy, technical SEO, or organic growth."
+>
+  <SiteHeader />
+  <SectionLayout title="Contact" subtitle="Let's discuss your project">
+    <ContactForm />
+  </SectionLayout>
+  <SiteFooter />
+</BaseLayout>

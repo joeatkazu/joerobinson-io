@@ -1,0 +1,41 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { label: 'Home', path: '/' },
+  { label: 'Blog', path: '/blog' },
+  { label: 'Tools', path: '/tools' },
+  { label: 'Contact', path: '/contact' },
+];
+
+function isActive(linkPath: string): boolean {
+  if (linkPath === '/') return currentPath === '/';
+  return currentPath.startsWith(linkPath);
+}
+---
+
+<header class="border-b border-border">
+  <div class="container flex items-center justify-between h-16">
+    <a
+      href="/"
+      class="font-heading font-semibold text-lg tracking-tight text-foreground hover:text-primary transition-colors"
+    >
+      Joe Robinson
+    </a>
+    <nav class="flex items-center gap-8">
+      {navLinks.map((link) => (
+        <a
+          href={link.path}
+          class:list={[
+            'text-sm font-body transition-colors',
+            isActive(link.path)
+              ? 'text-foreground font-medium'
+              : 'text-muted-foreground hover:text-foreground',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

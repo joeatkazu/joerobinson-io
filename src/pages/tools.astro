@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SectionLayout from '../components/SectionLayout.astro';
+import ToolsListItem from '../components/ToolsListItem.astro';
+
+const tools = [
+  {
+    name: 'Schema Markup Generator',
+    description: 'Generate structured data markup for common schema types. Validate and preview before implementation.',
+    url: '#',
+  },
+  {
+    name: 'Core Web Vitals Checker',
+    description: 'Quick assessment of page performance metrics with actionable recommendations.',
+    url: '#',
+  },
+  {
+    name: 'Internal Link Analyzer',
+    description: 'Map internal link distribution and identify orphaned pages or weak link equity flow.',
+    url: '#',
+  },
+  {
+    name: 'SERP Feature Tracker',
+    description: 'Monitor which SERP features appear for your target queries and track changes over time.',
+    url: '#',
+  },
+  {
+    name: 'Content Decay Monitor',
+    description: 'Identify pages losing organic traffic over time and prioritise content refresh efforts.',
+    url: '#',
+  },
+];
+---
+
+<BaseLayout
+  title="Tools — Joe Robinson"
+  description="A curated collection of SEO tools for practitioners."
+>
+  <SiteHeader />
+  <SectionLayout title="Tools" subtitle="Useful resources for SEO practitioners">
+    <p class="text-muted-foreground leading-relaxed max-w-2xl mb-10">
+      A curated collection of tools I've built or find useful in day-to-day SEO work.
+      All free to use.
+    </p>
+    <div class="space-y-2 max-w-2xl">
+      {tools.map((tool) => (
+        <ToolsListItem name={tool.name} description={tool.description} url={tool.url} />
+      ))}
+    </div>
+  </SectionLayout>
+  <SiteFooter />
+</BaseLayout>

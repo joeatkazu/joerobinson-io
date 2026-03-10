@@ -1,0 +1,110 @@
+---
+title: "Blocked GPTBot in the top 1 Million websites"
+author: "Joe Robinson"
+canonicalUrl: "https://joerobinson.io/blocked-gptbot-in-the-top-1-million-websites/"
+publishedDate: "2023-09-27"
+description: "A study on the uptake of blocking OpenAI's GPTBot crawler across the top 1 million websites."
+---
+
+Following the announcement from OpenAI that they will be using web crawling bot GPTBot for training ChatGPT, many in SEO community have been discussing blocking the bot in robots.txt.
+
+I decided to check just how many websites were actually following these directions.
+
+I use ChatGPT frequently, for everything from simplifying work processes to finding new BBQ recipes, and right now I have no plans to block GPTBot from learning from mine or my clients’ content – ChatGPT is a significant development that has incredible potential, so I’m happy to contribute to it in whatever small way. However I can see why people are worried about the language model learning from their content and sharing their insights without directing people to the website, but that’s basically what Google has been trying to do for a while with featured snippets.
+
+This project aims to shed some light on the uptake of the *User-agent: GPTBot Disallow: /* directive in robots.txt files within the 1M most popular websites on the internet.
+
+The results will be updated monthly to analyse changes in the blocking of GPTBot
+
+## Why do I think this will be interesting?
+
+It’s a fairly simple project and not too time consuming, and it’s always good to have some numbers to go along with changes in the SEO industry. There are often hysterical outbursts whenever a *new thing* comes along - remember [Mobilegeddon](https://en.wikipedia.org/wiki/Mobilegeddon)? I like to treat SEO news with a healthy pinch of scepticism.
+
+## Methodology
+
+Steps taken to get the data:
+
+1. Download list of top 1 Million websites according to the [Majestic Million](https://majestic.com/reports/majestic-million)
+2. Remove all data except from the list of domains
+3. Ensure domains list has no trailing slash
+4. Add the suffix: `/robots.txt` to the end of each domain
+5. Create python script to scrape all websites, following redirects for `http://`, `https://`, `www.` etc.
+6. Allow for up to 10 seconds for timeout in case of slow sites.
+7. Search for the text `GPTBot`, different capitalisation such as `GPTBot`, `gptbot`, `GPTbot` etc.
+8. Add results to the `.csv`, returning: 0 for text doesn’t exist (website not blocking ChatGPT), 1 for text does exist (website blocking ChatGPT), and x if the robots.txt isn’t accessible or doesn’t exist.
+9. Output results for websites 1-100, 1-1000, 1-10000, 1-100000, and 1-1000000
+10. Run script monthly to analyse changes in behaviour towards GPTBot
+
+## Key takeaways from the first scrape (September 27, 2023)
+
+- Of the top 100 and top 1000 websites, 14.0 and 14.2% were blocking GPTBot at the time of crawling
+- That number drops to roughly half that for top 10,000 websites, to 7.46%
+- Further significant drop in the top 100,000 websites, down to 3.14%
+- Low blocking within the top 1,000,000 websites, only 1.1% have added the GPTBot to their robots.txt file disallow list.
+
+### Noteworthy domains in the top 100 blocking GPTBot
+
+- nytimes.com
+- medium.com
+- theguardian.com
+- cnn.com
+- sciencedirect.com
+- reuters.com
+- washingtonpost.com
+
+### Noteworthy domains in the top 1000 blocking GPTBot
+
+- wsj.com
+- businessinsider.com
+- webmd.com
+- cbsnews.com
+- stackoverflow.com
+- theverge.com
+- theatlantic.com
+- nationalgeographic.com
+- nbcnews.com
+- investopedia.com
+- quora.com
+- economist.com
+- pbs.org
+- theconversation.com
+- vice.com
+- wikihow.com
+- fortune.com
+- sciencemag.org
+- marketwatch.com
+- newyorker.com
+- scientificamerican.com
+- entrepreneur.com
+- thelancet.com
+- arstechnica.com
+- ikea.com
+- rollingstone.com
+- pcmag.com
+- venturebeat.com
+- dictionary.com
+- weather.com
+- insider.com
+- lonelyplanet.com
+- snopes.com
+- goodhousekeeping.com
+- msnbc.com
+- washingtontimes.com
+
+### Data collection method
+
+The data used was the Majestic Million, which changes frequently, and is built up using Majestic’s proprietary ranking system, so is not a perfect representation of the 1 Million most visited domains.
+
+### robots.txt not discovered
+
+A significant number of domains either didn’t have a robots.txt file, or my crawler didn’t find it. I added these to the “not blocking GPTBot category”.
+
+### Website intent
+
+I’m just collecting the data and reporting on the numbers, I don’t know why sites are blocking GPTBot or not. This is intended as an interesting project, interpret the results to back your claims how you wish.
+
+### Differences in results with other similar studies
+
+Other studies have shown different results. [Originality.ai](https://originality.ai/), for example, scraped the top 1000 websites and reported that 26% of websites are blocking GPTBot.
+
+When I checked their data to see why their results were so different to mine, I noticed that they are counting domains blocking GPTBot, ChatGPT-User, CCBot, and Anthropic AI, whereas my data only includes domains specifically blocking GPTBot. Checking the column for GPTBot shows the data aligns closely with that from this research.

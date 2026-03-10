@@ -1,0 +1,107 @@
+---
+title: Internal link mapping: How to create a visual link map
+url: https://joerobinson.io/link-map/
+author: Joe Robinson
+description: A process to map out the internal linking structure of a website and apply statistical analysis to find stronger pages to link from, and those that have too few incoming links.
+---
+
+This is a process to map out the internal linking structure of a website and apply statistical analysis to find stronger pages to link from, and those that have too few incoming links.
+
+A well thought out internal linking strategy can give a website a better chance of ranking well, compared to a site with a lot of dead ends and poor access to pages.
+
+We can shape our website’s internal architecture so that all pages are accessible within just a few clicks, creating a great user experience and keeping things simple and quick for Google to crawl.
+
+What you’ll need to follow this tutorial:
+1. Ahrefs
+2. Screaming Frog
+3. Gephi
+4. A spreadsheet – I’m using Google Sheets
+
+## Step 1. Gather all internal links
+
+The first thing we need to do is crawl the site and gather all the internal links.
+
+Open up Screaming Frog, but before entering your URL and starting the crawl, let’s change a couple of configuration options so we only bring back the results that will help us improve our internal linking.
+
+In the top menu, go to **Configuration** then choose **Spider**. This opens a box. Because we only want the internal links going to pages, we’re only going to check a few of the options.
+
+It’s also possible to only collect links within the content sections of pages by using the Screaming frog custom extraction feature. This can be a little tricky as the code you need will depend on how your site is set up.
+
+Now enter your domain and hit **Start**. When it’s done, go to **Bulk Export** and choose **All Inlinks**.
+
+Open up the .csv you’ve just created and delete the first column, then rename column B **Target**. Delete all the other columns except **Source** and **Target**.
+
+Now we want to clean up the spreadsheet a bit:
+1. Delete row one.
+2. Select the new row one, then go to **View**, **Freeze**, **1 row**.
+3. Sort column A by A-Z.
+4. Delete all the rows that don’t have AHREF in column A.
+5. Now delete all columns except B and C.
+6. Rename Column B **Target**.
+
+Now your spreadsheet only contains two columns, and shows all the links from each page (Source) to its destination (Target).
+
+## 2. Gather URL ratings
+
+Now we want to get the URL rating for each of the pages on the site. Go to Ahrefs Site Explorer and enter your domain. In the left toolbar, under **Pages**, click **Best by Links**. Then choose **Export**, **Full Export**.
+
+## 3. Combine internal links with URL ratings
+
+Now we’re going to put all the URL ratings and internal link data into a single spreadsheet.
+
+Open your new file and delete all columns except Page URL and URL ratings. Now copy those two columns into your Screaming Frog spreadsheet in columns C and D.
+
+Now:
+1. Insert one new column to the right of column A, and name it **URL rating**.
+2. Paste this exact formula into cell B2: `=VLOOKUP(A:A,D:DD,2,false)`
+3. Press enter.
+4. Double click the little blue square at the bottom right of B2 to copy the formula into the whole column.
+5. Export as CSV.
+
+## 4. Visualizing your internal links
+
+1. Open Gephi and create a new project.
+2. Go to **File**, **Import Spreadsheet**, and navigate to your .csv file.
+3. Choose **Edges Table**, and click next.
+4. In the next dialogue box, tick the **URL rating** box and choose **Float**.
+5. Untick **Page URL** and **URL rating (desc)**.
+
+What you have now is a scrambled mess of nodes and edges.
+- **Node** = a small circle that represents a page on your site.
+- **Edge** = an arrow that represents an internal link.
+
+In the toolbar on the left, choose a layout from the drop-down menu (e.g., **Fruchtman Reingold**) and click run.
+
+In the appearance section of the **Overview** tab:
+- Click **Nodes**, then the three circles (top right), choose **Ranking**, then **In-Degree**.
+- Click the **Edges** tab, choose the color palette, click **Ranking**, and choose **URL rating**.
+
+Now go to the **Data Laboratory** tab, click **Copy data to other column**, select **ID**, then copy to **Label**. Finally, go to the **Preview** tab, select **Show Labels**, and click refresh.
+
+## 5. Analysing your link map
+
+The larger nodes have more incoming internal links, and the darker colored nodes have more incoming external links (from the Ahrefs URL rating).
+
+### Size = Internal page rank
+
+Internal page rank is the likelihood of someone landing on a given page if randomly clicking links. The most linked to pages will tend to be larger.
+
+### Size = In Degree
+
+In Degree is the relative strength of a page determined by the number of incoming internal links.
+
+### Size = Betweenness Centrality
+
+Measures how often each page acts as a bridge between other pages. High betweenness centrality pages are good choices for building external backlinks.
+
+### Overall strength
+
+Combine the top 50 pages for each of the three metrics to determine the strongest pages for outgoing internal links, and identify the weakest pages that need more incoming links.
+
+## EXTRA – Add your map to your website
+
+Go to **Tools**, **Plugins**, and install **Sigma Exporter**. You can then export as a Sigma.js template to upload the "Network" folder to your site.
+
+## Did you find this useful?
+
+Let me know and I’ll add more fun SEO stuff you can try.

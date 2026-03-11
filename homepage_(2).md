@@ -16,7 +16,7 @@ My focus right now is on what's next in organic: GEO/AEO, LLM-search visibility,
 * **€250k ARR customer** influenced by SEO-led discovery and content positioning  
 * **\+300% organic traffic** in 7 months for a B2B SaaS client after fixing foundations and scaling content  
 * **80% reduction in SEO operating costs** while increasing output 50% through improved SOPs and team restructuring  
-* **Scalable programmatic content infrastructure** — 600k+ pages, serving thousands of daily visits
+* **Scalable programmatic content infrastructure**: 600k+ pages, serving thousands of daily visits
 
 These results come from fixing the same underlying issues: unclear priorities, weak execution systems, and organic growth that isn't tied closely enough to the business.
 
@@ -28,7 +28,7 @@ I sit at the intersection of strategy and execution. At a high level, I help tea
 
 I use AI to operationalise processes, speed up research, and improve execution quality, with human oversight on everything that matters.
 
-This combination — strategic clarity, operational rigour, and hands-on technical depth, is what turns organic from a reporting metric into a compounding growth channel.
+This combination: strategic clarity, operational rigour, and hands-on technical depth, is what turns organic from a reporting metric into a compounding growth channel.
 
 ---
 

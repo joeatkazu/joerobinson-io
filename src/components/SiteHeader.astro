@@ -13,28 +13,43 @@ function isActive(linkPath: string): boolean {
 }
 ---
 
-<header class="border-b border-border">
-  <div class="container flex items-center justify-between h-16">
-    <a
-      href="/"
-      class="font-heading font-semibold text-lg tracking-tight text-foreground hover:text-primary transition-colors"
-    >
-      Joe Robinson
-    </a>
-    <nav class="flex items-center gap-8">
-      {navLinks.map((link) => (
-        <a
-          href={link.path}
-          class:list={[
-            'text-sm font-body transition-colors',
-            isActive(link.path)
-              ? 'text-foreground font-medium'
-              : 'text-muted-foreground hover:text-foreground',
-          ]}
-        >
-          {link.label}
-        </a>
-      ))}
-    </nav>
-  </div>
+<header
+  class="w-full py-6 px-6 sm:px-12 flex justify-between items-center z-50 bg-white/80 backdrop-blur-md sticky top-0 border-b border-transparent transition-all duration-300"
+  id="main-header"
+>
+  <a
+    href="/"
+    class="font-bold text-lg tracking-tight text-foreground hover:text-muted-foreground transition-colors"
+  >
+    Joe Robinson
+  </a>
+  <nav class="flex items-center gap-8 text-sm font-medium">
+    {navLinks.map((link) => (
+      <a
+        href={link.path}
+        class:list={[
+          'transition-colors',
+          isActive(link.path)
+            ? 'text-foreground'
+            : 'text-muted-foreground hover:text-foreground',
+        ]}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
 </header>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('main-header');
+    if (!header) return;
+    if (window.scrollY > 10) {
+      header.classList.add('shadow-sm', 'border-border');
+      header.classList.remove('border-transparent');
+    } else {
+      header.classList.remove('shadow-sm', 'border-border');
+      header.classList.add('border-transparent');
+    }
+  });
+</script>

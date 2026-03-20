@@ -9,34 +9,35 @@ interface Props {
 const { title, excerpt, date, slug } = Astro.props;
 ---
 
-<article class="border-t border-border pt-6 pb-2 group">
-  <a href={`/blog/${slug}`} class="block">
-    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 md:gap-8">
-      <div class="flex-1">
-        <h3 class="text-lg font-heading font-semibold text-foreground group-hover:text-primary transition-colors mb-1.5">
-          {title}
-        </h3>
-        <p class="text-sm text-muted-foreground leading-relaxed">{excerpt}</p>
-      </div>
-      <div class="flex items-center gap-3 shrink-0">
-        <time class="text-xs font-mono text-muted-foreground whitespace-nowrap">{date}</time>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="text-muted-foreground group-hover:text-primary transition-colors"
-          aria-hidden="true"
-        >
-          <path d="M5 12h14"/>
-          <path d="m12 5 7 7-7 7"/>
-        </svg>
-      </div>
+<a
+  href={`/blog/${slug}`}
+  class="group block py-8 border-b border-border px-4 -mx-4 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200"
+>
+  <div class="flex justify-between items-start mb-3 gap-4">
+    <h3 class="text-lg sm:text-xl font-semibold text-foreground group-hover:text-muted-foreground transition-colors leading-snug pr-8">
+      {title}
+    </h3>
+    <div class="flex items-center gap-4 flex-shrink-0 mt-1">
+      {date && (
+        <time class="text-sm font-mono text-muted-foreground whitespace-nowrap">{date}</time>
+      )}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="text-border group-hover:text-foreground group-hover:translate-x-1 transition-all"
+        aria-hidden="true"
+      >
+        <line x1="5" y1="12" x2="19" y2="12"/>
+        <polyline points="12 5 19 12 12 19"/>
+      </svg>
     </div>
-  </a>
-</article>
+  </div>
+  <p class="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-3xl pr-12">{excerpt}</p>
+</a>

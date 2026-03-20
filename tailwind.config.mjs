@@ -9,14 +9,14 @@ export default {
         sm: '640px',
         md: '768px',
         lg: '1024px',
-        xl: '1100px',
+        xl: '900px',
       },
     },
     extend: {
       fontFamily: {
-        heading: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
-        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        heading: ['Inter', 'system-ui', 'sans-serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['"Roboto Mono"', 'monospace'],
       },
       colors: {
         border: 'hsl(var(--border))',

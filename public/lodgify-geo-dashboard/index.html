@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lodgify — GEO Dashboard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #1e293b;
+      background: #ffffff;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    header { margin-bottom: 2rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 1rem; }
+    header h1 { font-size: 1.75rem; font-weight: 700; color: #0f172a; }
+    header .meta { margin-top: 0.4rem; color: #64748b; font-size: 0.85rem; }
+    section { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #e2e8f0; }
+    h2 { font-size: 1.1rem; font-weight: 700; text-transform: uppercase;
+          letter-spacing: 0.05em; color: #475569; margin-bottom: 0.25rem; }
+    h3 { font-size: 0.9rem; font-weight: 600; color: #334155; margin: 1.25rem 0 0.5rem; }
+    .section-sub { font-size: 0.8rem; color: #94a3b8; margin-bottom: 1rem; }
+    .axis-note { font-size: 0.75rem; color: #94a3b8; font-weight: 400; }
+
+    /* stat cards */
+    .cards { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.25rem 0; }
+    .card {
+      flex: 1; min-width: 130px;
+      border: 1px solid #e2e8f0; border-radius: 8px;
+      padding: 0.9rem 1rem;
+      background: #f8fafc;
+    }
+    .card-val { font-size: 1.4rem; font-weight: 700; color: #0f172a; }
+    .card-lbl { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; }
+
+    /* table */
+    .table-wrap { overflow-x: auto; margin-top: 0.5rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead tr { background: #f8fafc; }
+    th {
+      text-align: left; padding: 0.5rem 0.75rem;
+      font-weight: 600; color: #475569;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    td { padding: 0.45rem 0.75rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    .prompt-cell { max-width: 340px; }
+
+    /* notice */
+    .notice {
+      background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 6px;
+      padding: 0.85rem 1rem; color: #64748b; font-size: 0.85rem;
+      margin-top: 0.75rem;
+    }
+    .notice code { background: #e2e8f0; padding: 0.1em 0.35em; border-radius: 3px; }
+
+    /* sentiment rows */
+    .sent-header {
+      display: grid;
+      grid-template-columns: 1fr 180px 56px 1fr;
+      gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 600; color: #94a3b8;
+      padding: 0.4rem 0; border-bottom: 1px solid #e2e8f0;
+      margin-bottom: 0.25rem;
+    }
+    .sent-row {
+      display: grid;
+      grid-template-columns: 1fr 180px 56px 1fr;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .sent-row:last-child { border-bottom: none; }
+    .sent-prompt { font-size: 0.85rem; }
+    .sent-bar-wrap { position: relative; height: 28px; }
+    .sent-score { text-align: right; font-weight: 600; font-size: 0.85rem; }
+    .sent-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+    .tag {
+      font-size: 0.7rem; padding: 0.1em 0.4em; border-radius: 3px;
+      background: #f1f5f9; color: #475569;
+    }
+    .tag-positive { background: #dcfce7; color: #166534; }
+    .tag-negative { background: #fee2e2; color: #991b1b; }
+    .tag-neutral  { background: #f1f5f9; color: #475569; }
+    .tag-mixed    { background: #fef3c7; color: #92400e; }
+
+    .summary-bar {
+      margin-top: 1.25rem; padding: 0.75rem 1rem;
+      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;
+      font-size: 0.85rem; color: #475569;
+    }
+
+    /* trend */
+    .trend-charts { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .trend-chart-wrap { flex: 1; min-width: 280px; }
+    .trend-chart-wrap canvas { max-height: 220px; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  
+<header>
+  <h1>Lodgify</h1>
+  <p class="meta">Run: 2026-05-24 20:43 &nbsp;·&nbsp; Generated: 2026-05-25</p>
+</header>
+  
+<section>
+  <h2>Non-Branded</h2>
+  <p class="section-sub">N=25 responses</p>
+
+  <h3>Leaderboard</h3>
+  <div style="position:relative;height:324px;max-width:700px">
+    <canvas id="leaderboard-chart"></canvas>
+  </div>
+
+  <div class="cards"><div class="card"><div class="card-val">80.0%</div><div class="card-lbl">Presence %</div></div><div class="card"><div class="card-val">#3 of 9</div><div class="card-lbl">Leaderboard Rank</div></div><div class="card"><div class="card-val">60.0%</div><div class="card-lbl">Top-3 Rate %</div></div><div class="card"><div class="card-val">3.0</div><div class="card-lbl">Avg Rank When Present</div></div></div>
+
+  <h3 style="margin-top:2rem">Per-Prompt Results</h3>
+  <div class="table-wrap"><table><thead><tr><th>Prompt</th><th>Rank</th><th>Presence</th><th>Samples</th><th>Spread</th><th>Δ prev</th></tr></thead><tbody><tr><td class="prompt-cell">What's the best channel manager for short-term rentals?</td><td style="background:#dcfce7;color:#166534;font-weight:600;text-align:center;border-radius:4px">3</td><td style="text-align:right">100.0%</td><td style="text-align:right">5/5</td><td style="text-align:center;color:#64748b">3–7</td><td style="text-align:center"><span style="color:#16a34a;font-weight:600">▲4</span></td></tr><tr><td class="prompt-cell">What's the best software for managing a small vacation rental business?</td><td style="background:#dcfce7;color:#166534;font-weight:600;text-align:center;border-radius:4px">2</td><td style="text-align:right">100.0%</td><td style="text-align:right">5/5</td><td style="text-align:center;color:#64748b">1–4</td><td style="text-align:center"><span style="color:#16a34a;font-weight:600">▲1</span></td></tr><tr><td class="prompt-cell">What's the best vacation rental software in 2026?</td><td style="background:#dcfce7;color:#166534;font-weight:600;text-align:center;border-radius:4px">3</td><td style="text-align:right">100.0%</td><td style="text-align:right">5/5</td><td style="text-align:center;color:#64748b">3–4</td><td style="text-align:center"><span style="color:#94a3b8">=</span></td></tr><tr><td class="prompt-cell">How can I build a direct booking website for my vacation rental?</td><td style="background:#dcfce7;color:#166534;font-weight:600;text-align:center;border-radius:4px">3</td><td style="text-align:right">80.0%</td><td style="text-align:right">4/5</td><td style="text-align:center;color:#64748b">1–4</td><td style="text-align:center"><span style="color:#dc2626;font-weight:600">▼2</span></td></tr><tr><td class="prompt-cell">What's the best vacation rental management software for a large portfolio of 50+ properties?</td><td style="background:#dcfce7;color:#166534;font-weight:600;text-align:center;border-radius:4px">3</td><td style="text-align:right">20.0%</td><td style="text-align:right">1/5</td><td style="text-align:center;color:#64748b"></td><td style="text-align:center"><span style="color:#16a34a;font-weight:600">entered</span></td></tr></tbody></table></div>
+</section>
+
+<script>
+(function() {
+  var labels = ["Guesty", "Hostaway", "Lodgify", "OwnerRez", "Hospitable", "Smoobu", "iGMS", "Hostfully", "Uplisting"];
+  var rates  = [100.0, 96.0, 80.0, 64.0, 56.0, 44.0, 32.0, 20.0, 8.0];
+  var colors = ["#94a3b8", "#94a3b8", "#3b82f6", "#94a3b8", "#94a3b8", "#94a3b8", "#94a3b8", "#94a3b8", "#94a3b8"];
+  var brandName = "Lodgify";
+  var ctx = document.getElementById('leaderboard-chart');
+  if (!ctx || typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Presence %',
+        data: rates,
+        backgroundColor: colors,
+        borderRadius: 3,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) { return ctx.parsed.x.toFixed(1) + '%'; }
+          }
+        }
+      },
+      scales: {
+        x: {
+          min: 0, max: 100,
+          ticks: { callback: function(v) { return v + '%'; } },
+          grid: { color: '#f1f5f9' }
+        },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+  
+<section>
+  <h2>Branded Sentiment</h2>
+  <p class="section-sub">Run: 2026-05-24T20-43-16Z &nbsp;·&nbsp; 25 scored</p>
+  <div class="sent-header">
+    <span class="sent-col-prompt">Prompt</span>
+    <span class="sent-col-bar">Distribution</span>
+    <span class="sent-col-score">Avg</span>
+    <span class="sent-col-tags">Top Sources</span>
+  </div>
+  <div class="sent-row"><div class="sent-prompt">Lodgify vs Guesty — which is better?</div><div class="sent-bar-wrap"><canvas id="sent-chart-0" height="28"></canvas></div><div class="sent-score">+0.64</div><div class="sent-tags"><span class="tag tag-positive">lodgify.com</span><span class="tag tag-positive">guesty.com</span><span class="tag tag-positive">reddit.com</span><span class="tag tag-positive">roommaster.com</span><span class="tag tag-positive">hostaway.com</span><span class="tag tag-mixed">lodgify.com</span><span class="tag tag-mixed">roommaster.com</span><span class="tag tag-mixed">propertymanagementstories.com</span><span class="tag tag-mixed">guesty.com</span><span class="tag tag-mixed">awning.com</span></div></div><div class="sent-row"><div class="sent-prompt">What are the best alternatives to Lodgify?</div><div class="sent-bar-wrap"><canvas id="sent-chart-1" height="28"></canvas></div><div class="sent-score">-0.58</div><div class="sent-tags"><span class="tag tag-negative">g2.com</span><span class="tag tag-negative">capterra.com</span><span class="tag tag-negative">lodgify.com</span><span class="tag tag-negative">hostfully.com</span><span class="tag tag-negative">guesty.com</span></div></div><div class="sent-row"><div class="sent-prompt">What are the most common complaints about Lodgify?</div><div class="sent-bar-wrap"><canvas id="sent-chart-2" height="28"></canvas></div><div class="sent-score">-0.58</div><div class="sent-tags"><span class="tag tag-negative">checkthat.ai</span><span class="tag tag-negative">lodgify.pissedconsumer.com</span><span class="tag tag-negative">apps.apple.com</span><span class="tag tag-negative">bbb.org</span><span class="tag tag-negative">starevaluator.com</span><span class="tag tag-mixed">checkthat.ai</span><span class="tag tag-mixed">truvi.com</span><span class="tag tag-mixed">g2.com</span><span class="tag tag-mixed">trustpilot.com</span><span class="tag tag-mixed">reddit.com</span></div></div><div class="sent-row"><div class="sent-prompt">What are the pros and cons of Lodgify?</div><div class="sent-bar-wrap"><canvas id="sent-chart-3" height="28"></canvas></div><div class="sent-score">+0.14</div><div class="sent-tags"><span class="tag tag-mixed">truvi.com</span><span class="tag tag-mixed">softwarefinder.com</span><span class="tag tag-mixed">g2.com</span><span class="tag tag-mixed">capterra.com</span><span class="tag tag-mixed">propertymanagementstories.com</span></div></div><div class="sent-row"><div class="sent-prompt">What is Lodgify and how does it work?</div><div class="sent-bar-wrap"><canvas id="sent-chart-4" height="28"></canvas></div><div class="sent-score">+0.62</div><div class="sent-tags"><span class="tag tag-positive">lodgify.com</span><span class="tag tag-positive">ainora.lt</span><span class="tag tag-positive">get.lodgify.com</span><span class="tag tag-positive">new.lodgify.com</span><span class="tag tag-positive">try.lodgify.com</span><span class="tag tag-mixed">lodgify.com</span><span class="tag tag-mixed">truvi.com</span><span class="tag tag-mixed">ainora.lt</span><span class="tag tag-mixed">propertymanagementstories.com</span><span class="tag tag-mixed">use.lodgify.com</span></div></div>
+  <div class="summary-bar"><strong>25</strong> scored &nbsp;·&nbsp; avg <strong>+0.048</strong> &nbsp;·&nbsp; <span style="color:#16a34a">positive 7</span> &nbsp;·&nbsp; <span style="color:#dc2626">negative 8</span> &nbsp;·&nbsp; <span style="color:#94a3b8">neutral 0</span> &nbsp;·&nbsp; <span style="color:#d97706">mixed 10</span></div>
+</section>
+<script>
+
+(function() {
+  var ctx = document.getElementById('sent-chart-0');
+  if (!ctx || typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [''],
+      datasets: [4, 0, 0, 1].map(function(v, i) {
+        var lbls = ["positive", "negative", "neutral", "mixed"];
+        var cols = ["#16a34a", "#dc2626", "#94a3b8", "#d97706"];
+        return { label: lbls[i], data: [v], backgroundColor: cols[i], borderRadius: 2 };
+      })
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: {
+        callbacks: { label: function(c) { return c.dataset.label + ': ' + c.parsed.x; } }
+      } },
+      scales: {
+        x: { stacked: true, display: false },
+        y: { stacked: true, display: false }
+      }
+    }
+  });
+})();
+(function() {
+  var ctx = document.getElementById('sent-chart-1');
+  if (!ctx || typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [''],
+      datasets: [0, 5, 0, 0].map(function(v, i) {
+        var lbls = ["positive", "negative", "neutral", "mixed"];
+        var cols = ["#16a34a", "#dc2626", "#94a3b8", "#d97706"];
+        return { label: lbls[i], data: [v], backgroundColor: cols[i], borderRadius: 2 };
+      })
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: {
+        callbacks: { label: function(c) { return c.dataset.label + ': ' + c.parsed.x; } }
+      } },
+      scales: {
+        x: { stacked: true, display: false },
+        y: { stacked: true, display: false }
+      }
+    }
+  });
+})();
+(function() {
+  var ctx = document.getElementById('sent-chart-2');
+  if (!ctx || typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [''],
+      datasets: [0, 3, 0, 2].map(function(v, i) {
+        var lbls = ["positive", "negative", "neutral", "mixed"];
+        var cols = ["#16a34a", "#dc2626", "#94a3b8", "#d97706"];
+        return { label: lbls[i], data: [v], backgroundColor: cols[i], borderRadius: 2 };
+      })
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: {
+        callbacks: { label: function(c) { return c.dataset.label + ': ' + c.parsed.x; } }
+      } },
+      scales: {
+        x: { stacked: true, display: false },
+        y: { stacked: true, display: false }
+      }
+    }
+  });
+})();
+(function() {
+  var ctx = document.getElementById('sent-chart-3');
+  if (!ctx || typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [''],
+      datasets: [0, 0, 0, 5].map(function(v, i) {
+        var lbls = ["positive", "negative", "neutral", "mixed"];
+        var cols = ["#16a34a", "#dc2626", "#94a3b8", "#d97706"];
+        return { label: lbls[i], data: [v], backgroundColor: cols[i], borderRadius: 2 };
+      })
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: {
+        callbacks: { label: function(c) { return c.dataset.label + ': ' + c.parsed.x; } }
+      } },
+      scales: {
+        x: { stacked: true, display: false },
+        y: { stacked: true, display: false }
+      }
+    }
+  });
+})();
+(function() {
+  var ctx = document.getElementById('sent-chart-4');
+  if (!ctx || typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [''],
+      datasets: [3, 0, 0, 2].map(function(v, i) {
+        var lbls = ["positive", "negative", "neutral", "mixed"];
+        var cols = ["#16a34a", "#dc2626", "#94a3b8", "#d97706"];
+        return { label: lbls[i], data: [v], backgroundColor: cols[i], borderRadius: 2 };
+      })
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: {
+        callbacks: { label: function(c) { return c.dataset.label + ': ' + c.parsed.x; } }
+      } },
+      scales: {
+        x: { stacked: true, display: false },
+        y: { stacked: true, display: false }
+      }
+    }
+  });
+})();
+</script>
+  
+<section>
+  <h2>Trend</h2>
+  <p class="section-sub">2 runs</p>
+  <div class="trend-charts">
+    <div class="trend-chart-wrap">
+      <h3>Brand Presence %</h3>
+      <canvas id="trend-presence"></canvas>
+    </div>
+    <div class="trend-chart-wrap">
+      <h3>Leaderboard Rank <span class="axis-note">(lower = better)</span></h3>
+      <canvas id="trend-rank"></canvas>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var labels   = ["2026-05-24 14:54", "2026-05-24 20:43"];
+  var presence = [80.0, 80.0];
+  var ranks    = [3, 3];
+
+  var presCtx = document.getElementById('trend-presence');
+  if (presCtx && typeof Chart !== 'undefined') {
+    new Chart(presCtx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Presence %',
+          data: presence,
+          borderColor: '#3b82f6',
+          backgroundColor: 'rgba(59,130,246,0.08)',
+          tension: 0.3,
+          pointRadius: 4,
+          fill: true,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: {
+            min: 0, max: 100,
+            ticks: { callback: function(v) { return v + '%'; } },
+            grid: { color: '#f1f5f9' }
+          },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  var rankCtx = document.getElementById('trend-rank');
+  if (rankCtx && typeof Chart !== 'undefined') {
+    var validRanks = ranks.filter(function(v) { return v !== null; });
+    var maxRank = validRanks.length ? Math.max.apply(null, validRanks) : 10;
+    new Chart(rankCtx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Leaderboard Rank',
+          data: ranks,
+          borderColor: '#f59e0b',
+          backgroundColor: 'rgba(245,158,11,0.08)',
+          tension: 0.3,
+          pointRadius: 4,
+          fill: true,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: {
+            min: 1,
+            max: maxRank + 1,
+            reverse: true,
+            ticks: { stepSize: 1, callback: function(v) { return '#' + v; } },
+            title: { display: true, text: '← better rank', color: '#94a3b8', font: { size: 11 } },
+            grid: { color: '#f1f5f9' }
+          },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

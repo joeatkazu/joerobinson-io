@@ -99,6 +99,22 @@
     .trend-charts { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 0.75rem; }
     .trend-chart-wrap { flex: 1; min-width: 280px; }
     .trend-chart-wrap canvas { max-height: 220px; }
+
+    /* description text */
+    .section-desc { font-size: 0.875rem; color: #475569; line-height: 1.6; margin-bottom: 1.25rem; }
+    .section-desc em { font-style: italic; }
+    .stat-glossary { margin: 0.75rem 0 1.5rem; display: flex; flex-direction: column; gap: 0.35rem; }
+    .stat-glossary dt { display: inline; font-weight: 600; color: #1e293b; }
+    .stat-glossary dd { display: inline; color: #475569; margin: 0; }
+    .stat-glossary .stat-line { font-size: 0.8rem; }
+    .limitations {
+      margin-top: 3rem; padding: 1rem 1.25rem;
+      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;
+      font-size: 0.85rem; color: #475569; line-height: 1.6;
+    }
+    .limitations strong { color: #1e293b; }
+    .limitations h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: #94a3b8; margin-bottom: 0.6rem; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -106,12 +122,13 @@
   
 <header>
   <h1>Lodgify</h1>
-  <p class="meta">Run: 2026-05-24 20:43 &nbsp;·&nbsp; Generated: 2026-05-25</p>
+  <p class="meta">Run: 2026-05-24 20:43 &nbsp;·&nbsp; Generated: 2026-05-26</p>
 </header>
   
 <section>
   <h2>Non-Branded</h2>
   <p class="section-sub">N=25 responses</p>
+  <p class="section-desc">This shows what happens when someone asks a general question like <em>"What's the best vacation rental management software?"</em> — without mentioning Lodgify by name. The bar chart ranks all players by how often they appear in AI answers. Lodgify is shown in blue; competitors in grey.</p>
 
   <h3>Leaderboard</h3>
   <div style="position:relative;height:324px;max-width:700px">
@@ -120,7 +137,15 @@
 
   <div class="cards"><div class="card"><div class="card-val">80.0%</div><div class="card-lbl">Presence %</div></div><div class="card"><div class="card-val">#3 of 9</div><div class="card-lbl">Leaderboard Rank</div></div><div class="card"><div class="card-val">60.0%</div><div class="card-lbl">Top-3 Rate %</div></div><div class="card"><div class="card-val">3.0</div><div class="card-lbl">Avg Rank When Present</div></div></div>
 
+  <dl class="stat-glossary">
+    <div class="stat-line"><dt>Presence %</dt> — <dd>what fraction of AI answers mention Lodgify at all</dd></div>
+    <div class="stat-line"><dt>Leaderboard Rank</dt> — <dd>where Lodgify sits among all 9 players</dd></div>
+    <div class="stat-line"><dt>Top-3 Rate</dt> — <dd>how often Lodgify is mentioned in the first three names (being mentioned early matters — AI answers taper off)</dd></div>
+    <div class="stat-line"><dt>Avg Rank When Present</dt> — <dd>when Lodgify does appear, how high up in the answer does it typically land</dd></div>
+  </dl>
+
   <h3 style="margin-top:2rem">Per-Prompt Results</h3>
+  <p class="section-desc" style="margin-bottom:0.5rem">The <strong>Δ prev</strong> column shows whether each prompt got better or worse between the two crawls.</p>
   <div class="table-wrap"><table><thead><tr><th>Prompt</th><th>Rank</th><th>Presence</th><th>Samples</th><th>Spread</th><th>Δ prev</th></tr></thead><tbody><tr><td class="prompt-cell">What's the best channel manager for short-term rentals?</td><td style="background:#dcfce7;color:#166534;font-weight:600;text-align:center;border-radius:4px">3</td><td style="text-align:right">100.0%</td><td style="text-align:right">5/5</td><td style="text-align:center;color:#64748b">3–7</td><td style="text-align:center"><span style="color:#16a34a;font-weight:600">▲4</span></td></tr><tr><td class="prompt-cell">What's the best software for managing a small vacation rental business?</td><td style="background:#dcfce7;color:#166534;font-weight:600;text-align:center;border-radius:4px">2</td><td style="text-align:right">100.0%</td><td style="text-align:right">5/5</td><td style="text-align:center;color:#64748b">1–4</td><td style="text-align:center"><span style="color:#16a34a;font-weight:600">▲1</span></td></tr><tr><td class="prompt-cell">What's the best vacation rental software in 2026?</td><td style="background:#dcfce7;color:#166534;font-weight:600;text-align:center;border-radius:4px">3</td><td style="text-align:right">100.0%</td><td style="text-align:right">5/5</td><td style="text-align:center;color:#64748b">3–4</td><td style="text-align:center"><span style="color:#94a3b8">=</span></td></tr><tr><td class="prompt-cell">How can I build a direct booking website for my vacation rental?</td><td style="background:#dcfce7;color:#166534;font-weight:600;text-align:center;border-radius:4px">3</td><td style="text-align:right">80.0%</td><td style="text-align:right">4/5</td><td style="text-align:center;color:#64748b">1–4</td><td style="text-align:center"><span style="color:#dc2626;font-weight:600">▼2</span></td></tr><tr><td class="prompt-cell">What's the best vacation rental management software for a large portfolio of 50+ properties?</td><td style="background:#dcfce7;color:#166534;font-weight:600;text-align:center;border-radius:4px">3</td><td style="text-align:right">20.0%</td><td style="text-align:right">1/5</td><td style="text-align:center;color:#64748b"></td><td style="text-align:center"><span style="color:#16a34a;font-weight:600">entered</span></td></tr></tbody></table></div>
 </section>
 
@@ -170,15 +195,16 @@
   
 <section>
   <h2>Branded Sentiment</h2>
-  <p class="section-sub">Run: 2026-05-24T20-43-16Z &nbsp;·&nbsp; 25 scored</p>
+  <p class="section-sub">Run: 2026-05-26T08-09-18Z &nbsp;·&nbsp; 25 scored</p>
+  <p class="section-desc">This shows what happens when someone asks questions <em>about</em> Lodgify specifically — like <em>"What are the pros and cons of Lodgify?"</em> or <em>"What are the best Lodgify alternatives?"</em> The stacked bars show whether the AI's answer felt positive, negative, neutral, or mixed, and the coloured tags show which websites the AI was pulling from when it formed that opinion.</p>
   <div class="sent-header">
     <span class="sent-col-prompt">Prompt</span>
     <span class="sent-col-bar">Distribution</span>
     <span class="sent-col-score">Avg</span>
     <span class="sent-col-tags">Top Sources</span>
   </div>
-  <div class="sent-row"><div class="sent-prompt">Lodgify vs Guesty — which is better?</div><div class="sent-bar-wrap"><canvas id="sent-chart-0" height="28"></canvas></div><div class="sent-score">+0.64</div><div class="sent-tags"><span class="tag tag-positive">lodgify.com</span><span class="tag tag-positive">guesty.com</span><span class="tag tag-positive">reddit.com</span><span class="tag tag-positive">roommaster.com</span><span class="tag tag-positive">hostaway.com</span><span class="tag tag-mixed">lodgify.com</span><span class="tag tag-mixed">roommaster.com</span><span class="tag tag-mixed">propertymanagementstories.com</span><span class="tag tag-mixed">guesty.com</span><span class="tag tag-mixed">awning.com</span></div></div><div class="sent-row"><div class="sent-prompt">What are the best alternatives to Lodgify?</div><div class="sent-bar-wrap"><canvas id="sent-chart-1" height="28"></canvas></div><div class="sent-score">-0.58</div><div class="sent-tags"><span class="tag tag-negative">g2.com</span><span class="tag tag-negative">capterra.com</span><span class="tag tag-negative">lodgify.com</span><span class="tag tag-negative">hostfully.com</span><span class="tag tag-negative">guesty.com</span></div></div><div class="sent-row"><div class="sent-prompt">What are the most common complaints about Lodgify?</div><div class="sent-bar-wrap"><canvas id="sent-chart-2" height="28"></canvas></div><div class="sent-score">-0.58</div><div class="sent-tags"><span class="tag tag-negative">checkthat.ai</span><span class="tag tag-negative">lodgify.pissedconsumer.com</span><span class="tag tag-negative">apps.apple.com</span><span class="tag tag-negative">bbb.org</span><span class="tag tag-negative">starevaluator.com</span><span class="tag tag-mixed">checkthat.ai</span><span class="tag tag-mixed">truvi.com</span><span class="tag tag-mixed">g2.com</span><span class="tag tag-mixed">trustpilot.com</span><span class="tag tag-mixed">reddit.com</span></div></div><div class="sent-row"><div class="sent-prompt">What are the pros and cons of Lodgify?</div><div class="sent-bar-wrap"><canvas id="sent-chart-3" height="28"></canvas></div><div class="sent-score">+0.14</div><div class="sent-tags"><span class="tag tag-mixed">truvi.com</span><span class="tag tag-mixed">softwarefinder.com</span><span class="tag tag-mixed">g2.com</span><span class="tag tag-mixed">capterra.com</span><span class="tag tag-mixed">propertymanagementstories.com</span></div></div><div class="sent-row"><div class="sent-prompt">What is Lodgify and how does it work?</div><div class="sent-bar-wrap"><canvas id="sent-chart-4" height="28"></canvas></div><div class="sent-score">+0.62</div><div class="sent-tags"><span class="tag tag-positive">lodgify.com</span><span class="tag tag-positive">ainora.lt</span><span class="tag tag-positive">get.lodgify.com</span><span class="tag tag-positive">new.lodgify.com</span><span class="tag tag-positive">try.lodgify.com</span><span class="tag tag-mixed">lodgify.com</span><span class="tag tag-mixed">truvi.com</span><span class="tag tag-mixed">ainora.lt</span><span class="tag tag-mixed">propertymanagementstories.com</span><span class="tag tag-mixed">use.lodgify.com</span></div></div>
-  <div class="summary-bar"><strong>25</strong> scored &nbsp;·&nbsp; avg <strong>+0.048</strong> &nbsp;·&nbsp; <span style="color:#16a34a">positive 7</span> &nbsp;·&nbsp; <span style="color:#dc2626">negative 8</span> &nbsp;·&nbsp; <span style="color:#94a3b8">neutral 0</span> &nbsp;·&nbsp; <span style="color:#d97706">mixed 10</span></div>
+  <div class="sent-row"><div class="sent-prompt">Lodgify vs Guesty — which is better?</div><div class="sent-bar-wrap"><canvas id="sent-chart-0" height="28"></canvas></div><div class="sent-score">+0.46</div><div class="sent-tags"><span class="tag tag-positive">lodgify.com</span><span class="tag tag-positive">roommaster.com</span><span class="tag tag-positive">guesty.com</span><span class="tag tag-positive">reddit.com</span><span class="tag tag-positive">propertymanagementstories.com</span><span class="tag tag-mixed">lodgify.com</span><span class="tag tag-mixed">guesty.com</span><span class="tag tag-mixed">roommaster.com</span><span class="tag tag-mixed">propertymanagementstories.com</span><span class="tag tag-mixed">hostaway.com</span></div></div><div class="sent-row"><div class="sent-prompt">What are the best alternatives to Lodgify?</div><div class="sent-bar-wrap"><canvas id="sent-chart-1" height="28"></canvas></div><div class="sent-score">-0.56</div><div class="sent-tags"><span class="tag tag-negative">capterra.com</span><span class="tag tag-negative">lodgify.com</span><span class="tag tag-negative">g2.com</span><span class="tag tag-negative">toolradar.com</span><span class="tag tag-negative">blog.axisrooms.com</span><span class="tag tag-mixed">lodgify.com</span><span class="tag tag-mixed">toolradar.com</span><span class="tag tag-mixed">reddit.com</span><span class="tag tag-mixed">capterra.com</span><span class="tag tag-mixed">getpulsesignal.com</span></div></div><div class="sent-row"><div class="sent-prompt">What are the most common complaints about Lodgify?</div><div class="sent-bar-wrap"><canvas id="sent-chart-2" height="28"></canvas></div><div class="sent-score">-0.80</div><div class="sent-tags"><span class="tag tag-negative">checkthat.ai</span><span class="tag tag-negative">truvi.com</span><span class="tag tag-negative">apps.apple.com</span><span class="tag tag-negative">bbb.org</span><span class="tag tag-negative">trustpilot.com</span></div></div><div class="sent-row"><div class="sent-prompt">What are the pros and cons of Lodgify?</div><div class="sent-bar-wrap"><canvas id="sent-chart-3" height="28"></canvas></div><div class="sent-score">+0.14</div><div class="sent-tags"><span class="tag tag-mixed">truvi.com</span><span class="tag tag-mixed">thehotelgm.com</span><span class="tag tag-mixed">capterra.com</span><span class="tag tag-mixed">rentalduel.com</span><span class="tag tag-mixed">propertymanagementstories.com</span></div></div><div class="sent-row"><div class="sent-prompt">What is Lodgify and how does it work?</div><div class="sent-bar-wrap"><canvas id="sent-chart-4" height="28"></canvas></div><div class="sent-score">+0.84</div><div class="sent-tags"><span class="tag tag-positive">lodgify.com</span><span class="tag tag-positive">ainora.lt</span><span class="tag tag-positive">use.lodgify.com</span><span class="tag tag-positive">try.lodgify.com</span><span class="tag tag-positive">truvi.com</span></div></div>
+  <div class="summary-bar"><strong>25</strong> scored &nbsp;·&nbsp; avg <strong>+0.016</strong> &nbsp;·&nbsp; <span style="color:#16a34a">positive 8</span> &nbsp;·&nbsp; <span style="color:#dc2626">negative 9</span> &nbsp;·&nbsp; <span style="color:#94a3b8">neutral 0</span> &nbsp;·&nbsp; <span style="color:#d97706">mixed 8</span></div>
 </section>
 <script>
 
@@ -189,7 +215,7 @@
     type: 'bar',
     data: {
       labels: [''],
-      datasets: [4, 0, 0, 1].map(function(v, i) {
+      datasets: [3, 0, 0, 2].map(function(v, i) {
         var lbls = ["positive", "negative", "neutral", "mixed"];
         var cols = ["#16a34a", "#dc2626", "#94a3b8", "#d97706"];
         return { label: lbls[i], data: [v], backgroundColor: cols[i], borderRadius: 2 };
@@ -216,7 +242,7 @@
     type: 'bar',
     data: {
       labels: [''],
-      datasets: [0, 5, 0, 0].map(function(v, i) {
+      datasets: [0, 4, 0, 1].map(function(v, i) {
         var lbls = ["positive", "negative", "neutral", "mixed"];
         var cols = ["#16a34a", "#dc2626", "#94a3b8", "#d97706"];
         return { label: lbls[i], data: [v], backgroundColor: cols[i], borderRadius: 2 };
@@ -243,7 +269,7 @@
     type: 'bar',
     data: {
       labels: [''],
-      datasets: [0, 3, 0, 2].map(function(v, i) {
+      datasets: [0, 5, 0, 0].map(function(v, i) {
         var lbls = ["positive", "negative", "neutral", "mixed"];
         var cols = ["#16a34a", "#dc2626", "#94a3b8", "#d97706"];
         return { label: lbls[i], data: [v], backgroundColor: cols[i], borderRadius: 2 };
@@ -297,7 +323,7 @@
     type: 'bar',
     data: {
       labels: [''],
-      datasets: [3, 0, 0, 2].map(function(v, i) {
+      datasets: [5, 0, 0, 0].map(function(v, i) {
         var lbls = ["positive", "negative", "neutral", "mixed"];
         var cols = ["#16a34a", "#dc2626", "#94a3b8", "#d97706"];
         return { label: lbls[i], data: [v], backgroundColor: cols[i], borderRadius: 2 };
@@ -322,13 +348,14 @@
 <section>
   <h2>Trend</h2>
   <p class="section-sub">2 runs</p>
+  <p class="section-desc">Two line charts showing how Lodgify's presence % and competitive rank have moved across the two crawls — so you can start to see direction of travel.</p>
   <div class="trend-charts">
     <div class="trend-chart-wrap">
       <h3>Brand Presence %</h3>
       <canvas id="trend-presence"></canvas>
     </div>
     <div class="trend-chart-wrap">
-      <h3>Leaderboard Rank </h3>
+      <h3>Leaderboard Rank <span class="axis-note">(lower = better)</span></h3>
       <canvas id="trend-rank"></canvas>
     </div>
   </div>
@@ -398,7 +425,7 @@
             max: maxRank + 1,
             reverse: true,
             ticks: { stepSize: 1, callback: function(v) { return '#' + v; } },
-            title: { display: true, text: 'rank', color: '#94a3b8', font: { size: 11 } },
+            title: { display: true, text: '← better rank', color: '#94a3b8', font: { size: 11 } },
             grid: { color: '#f1f5f9' }
           },
           x: { grid: { display: false } }
@@ -408,5 +435,13 @@
   }
 })();
 </script>
+
+<div class="limitations">
+  <h4>V1 Limitations — important context</h4>
+  <p>This is an early proof of concept. The most significant constraint right now is the <strong>number of prompts</strong> — each crawl only fired <strong>10 test questions</strong> (5 non-branded, 5 branded), each asked 5 times. That's 50 data points per run.</p>
+  <p style="margin-top:0.6rem">In a production version, you could run <strong>hundreds of prompts</strong> covering the full range of things potential customers actually ask — different use cases, geographies, competitor comparisons, feature-specific queries, etc. The more prompts, the more statistically reliable the numbers and the more useful the per-prompt breakdown becomes.</p>
+  <p style="margin-top:0.6rem">The two crawls shown here were both run on <strong>May 24, 2026</strong>, a few hours apart — so the "trend" is more of a consistency check than a real time-series. Meaningful trend data would come from weekly or monthly crawls over time.</p>
+</div>
+
 </body>
 </html>

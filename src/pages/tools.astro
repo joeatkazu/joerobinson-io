@@ -39,12 +39,12 @@ const tools = [
   description="A curated collection of SEO tools for practitioners."
 >
   <SiteHeader />
-  <SectionLayout title="Tools" subtitle="Useful resources for SEO practitioners">
-    <p class="text-muted-foreground leading-relaxed max-w-2xl mb-10">
+  <SectionLayout title="Tools" subtitle="Useful resources for SEO practitioners" noRule>
+    <p class="text-lg text-muted-foreground leading-relaxed max-w-[52ch] mb-12">
       A curated collection of tools I've built or find useful in day-to-day SEO work.
       All free to use.
     </p>
-    <div class="space-y-2 max-w-2xl">
+    <div class="flex flex-col max-w-3xl">
       {tools.map((tool) => (
         <ToolsListItem name={tool.name} description={tool.description} url={tool.url} />
       ))}

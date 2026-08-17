@@ -3,8 +3,8 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
-import SectionLayout from '../../components/SectionLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import CTABlock from '../../components/CTABlock.astro';
 
 const allPosts = await getCollection('blog');
 const articles = allPosts.sort((a, b) => {
@@ -15,21 +15,38 @@ const articles = allPosts.sort((a, b) => {
 ---
 
 <BaseLayout
-  title="Blog | Joe Robinson"
-  description="Writing on SEO, growth, and operations."
+  title="Writing on SEO, GEO and organic growth | Joe Robinson"
+  description="Writing on SEO, AI search, content systems and organic growth for B2B SaaS."
 >
   <SiteHeader />
-  <SectionLayout title="Blog" subtitle="Writing on SEO, growth, and operations">
-    <div class="space-y-2 max-w-3xl">
-      {articles.map((post) => (
-        <ArticleCard
-          title={post.data.title}
-          excerpt={post.data.description}
-          date={post.data.publishedDate ?? post.data.published ?? ''}
-          slug={post.slug}
-        />
-      ))}
+
+  <section class="border-b-2 border-foreground">
+    <div class="container py-16 md:py-20">
+      <span class="eyebrow">Writing</span>
+      <h1 class="max-w-[16ch] text-4xl sm:text-5xl md:text-6xl">
+        Notes on SEO, <span class="text-primary">AI search</span> and growth
+      </h1>
+      <p class="mt-6 text-lg text-muted-foreground max-w-[52ch]">
+        What I'm seeing in organic and AI search, and what I'd do about it.
+      </p>
     </div>
-  </SectionLayout>
+  </section>
+
+  <section class="py-14 md:py-20">
+    <div class="container">
+      <div class="flex flex-col">
+        {articles.map((post) => (
+          <ArticleCard
+            title={post.data.title}
+            excerpt={post.data.description}
+            date={post.data.publishedDate ?? post.data.published ?? ''}
+            slug={post.slug}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABlock />
   <SiteFooter />
 </BaseLayout>

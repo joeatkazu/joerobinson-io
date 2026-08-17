@@ -4,8 +4,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Hero from '../components/Hero.astro';
+import StatsBand from '../components/StatsBand.astro';
 import SectionLayout from '../components/SectionLayout.astro';
+import NumberedItem from '../components/NumberedItem.astro';
+import CapabilityCard from '../components/CapabilityCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import CTABlock from '../components/CTABlock.astro';
 
 const allPosts = await getCollection('blog');
 const recentArticles = allPosts
@@ -15,6 +19,13 @@ const recentArticles = allPosts
     return new Date(dateB).getTime() - new Date(dateA).getTime();
   })
   .slice(0, 3);
+
+const stats = [
+  { value: '+40%', label: 'monthly MQLs after rebuilding organic acquisition and content strategy' },
+  { value: '€250k', label: 'ARR customer influenced by SEO-led discovery and content positioning' },
+  { value: '+300%', label: 'organic traffic in seven months, after fixing technical and content foundations' },
+  { value: '600k+', label: 'page programmatic content system, serving thousands of daily visits' },
+];
 ---
 
 <BaseLayout
@@ -25,125 +36,87 @@ const recentArticles = allPosts
 
   <Hero />
 
-  <div class="w-full h-px bg-border"></div>
+  <StatsBand
+    stats={stats}
+    note="These came from running the channel week to week and staying accountable for the numbers."
+  />
 
-  <SectionLayout title="What I do" subtitle="GEO strategy and execution that generates leads">
-    <div class="space-y-10 max-w-3xl text-base sm:text-lg">
-      <div class="space-y-4">
-        <h3 class="font-semibold text-foreground">I find where you need to be visible in AI search</h3>
-        <p class="text-muted-foreground leading-relaxed">Buyers do a lot of research before spending, but far less of that time is done on vendors' websites now than even 24 months ago. By the time someone reaches your site they've already built a shortlist around recommendations from their AI engine. To be consistently part of that recommendation set, you need your brand represented properly in the sources LLMs draw upon to answer commercially relevant queries for your market. This can include work both on your website and on third-party sites.</p>
-      </div>
-      <div class="space-y-4">
-        <h3 class="font-semibold text-foreground">I write the briefs and edit the drafts</h3>
-        <p class="text-muted-foreground leading-relaxed">I build the pages that enter buying conversations: category, use case, comparison, integration and problem-led content, and do the editorial work that ensures consistency, clarity, and writing that doesn't seem like AI slop.</p>
-      </div>
-      <div class="space-y-4">
-        <h3 class="font-semibold text-foreground">I do the technical work</h3>
-        <p class="text-muted-foreground leading-relaxed">Technical work for GEO involves making sure AI search systems can easily find and understand your pages. Site architecture and internal linking, rendering, indexability, are the most important to get right. They also play an important role in traditional SEO, and I've spent a decade learning how to recognise and fix them.</p>
-      </div>
-      <div class="space-y-4">
-        <h3 class="font-semibold text-foreground">I build the tools I measure with</h3>
-        <p class="text-muted-foreground leading-relaxed">Off the shelf software is great for a lot of jobs, but the ecosystem is built around traditional SEO. There are a lot of new tools appearing that claim to help with GEO, but many either try to be a one size fits all solution, cramming in masses of unneeded features, or they just don't provide the answer to the questions I need to have. When I need a specific set of answers, I build a tool for it: an AI visibility tracker that identifies how the LLMs are coming to their recommendations, sentiment around a set of prompts, the specific content that is getting your competitors mentioned, and a prompt builder that scrapes real customer language to show us what to track.</p>
-      </div>
-      <div class="space-y-4">
-        <h3 class="font-semibold text-foreground">I report against pipeline</h3>
-        <p class="text-muted-foreground leading-relaxed">Share of search, LLM share of voice, assisted conversions, and a directional read on the channels that last-click no longer covers.</p>
-        <p class="text-muted-foreground leading-relaxed">I have spent years reporting SEO to finance teams, so the tracking I set up answers the questions they ask.</p>
-      </div>
-    </div>
+  <SectionLayout
+    id="work"
+    title="What I do"
+    subtitle="GEO strategy and execution that generates leads"
+  >
+    <NumberedItem number="01" title="I find where you need to be visible in AI search">
+      <p>Buyers do a lot of research before spending, but far less of that time is done on vendors' websites now than even 24 months ago. By the time someone reaches your site they've already built a shortlist around recommendations from their AI engine. To be consistently part of that recommendation set, you need your brand represented properly in the sources LLMs draw upon to answer commercially relevant queries for your market. This can include work both on your website and on third-party sites.</p>
+    </NumberedItem>
+
+    <NumberedItem number="02" title="I write the briefs and edit the drafts">
+      <p>I build the pages that enter buying conversations: category, use case, comparison, integration and problem-led content, and do the editorial work that ensures consistency, clarity, and writing that doesn't seem like AI slop.</p>
+    </NumberedItem>
+
+    <NumberedItem number="03" title="I do the technical work">
+      <p>Technical work for GEO involves making sure AI search systems can easily find and understand your pages. Site architecture and internal linking, rendering, indexability, are the most important to get right. They also play an important role in traditional SEO, and I've spent a decade learning how to recognise and fix them.</p>
+    </NumberedItem>
+
+    <NumberedItem number="04" title="I build the tools I measure with">
+      <p>Off the shelf software is great for a lot of jobs, but the ecosystem is built around traditional SEO. There are a lot of new tools appearing that claim to help with GEO, but many either try to be a one size fits all solution, cramming in masses of unneeded features, or they just don't provide the answer to the questions I need to have.</p>
+      <p>When I need a specific set of answers, I build a tool for it: an AI visibility tracker that identifies how the LLMs are coming to their recommendations, sentiment around a set of prompts, the specific content that is getting your competitors mentioned, and a prompt builder that scrapes real customer language to show us what to track.</p>
+    </NumberedItem>
+
+    <NumberedItem number="05" title="I report against pipeline">
+      <p>Share of search, LLM share of voice, assisted conversions, and a directional read on the channels that last-click no longer covers.</p>
+      <p>I have spent years reporting SEO to finance teams, so the tracking I set up answers the questions they ask.</p>
+    </NumberedItem>
   </SectionLayout>
-
-  <div class="w-full h-px bg-border"></div>
 
   <SectionLayout title="Approach" subtitle="How I work" class="bg-secondary">
-    <div class="space-y-6 max-w-3xl text-base sm:text-lg">
-      <div>
-        <p class="font-semibold text-foreground mb-1">I work inside your team</p>
-        <p class="text-muted-foreground leading-relaxed">Your Slack, your project management, your reporting. I join the planning rather than running a separate consulting process alongside it, and I work directly with your writers, developers and product people.</p>
-      </div>
-      <div>
-        <p class="font-semibold text-foreground mb-1">I stay close to implementation</p>
-        <p class="text-muted-foreground leading-relaxed">You won't get a strategy deck and a list of things for somebody else to figure out. I do the research, write the requirements, review the pages, and fix the technical problems.</p>
-      </div>
-      <div>
-        <p class="font-semibold text-foreground mb-1">I keep one prioritised roadmap</p>
-        <p class="text-muted-foreground leading-relaxed">There is always more SEO work available than a company can ship. I keep a clear backlog, explain why things are ordered the way they are, and focus on the actions that move the needle.</p>
-      </div>
+    <div class="grid md:grid-cols-3 gap-8 md:gap-10">
+      <CapabilityCard title="I work inside your team">
+        <p>Your Slack, your project management, your reporting. I join the planning rather than running a separate consulting process alongside it, and I work directly with your writers, developers and product people.</p>
+      </CapabilityCard>
+      <CapabilityCard title="I stay close to implementation">
+        <p>You won't get a strategy deck and a list of things for somebody else to figure out. I do the research, write the requirements, review the pages, and fix the technical problems.</p>
+      </CapabilityCard>
+      <CapabilityCard title="I keep one prioritised roadmap">
+        <p>There is always more SEO work available than a company can ship. I keep a clear backlog, explain why things are ordered the way they are, and focus on the actions that move the needle.</p>
+      </CapabilityCard>
     </div>
   </SectionLayout>
-
-  <div class="w-full h-px bg-border"></div>
 
   <SectionLayout title="Timeline" subtitle="What the first year looks like">
-    <div class="space-y-6 max-w-3xl text-base sm:text-lg">
-      <div>
-        <p class="font-semibold text-foreground mb-1">Weeks 1 to 4</p>
-        <p class="text-muted-foreground leading-relaxed">Technical and content audit with prioritised action plan. AI visibility baseline recorded. Competitor set and intent taxonomy agreed. Strategy set.</p>
-      </div>
-      <div>
-        <p class="font-semibold text-foreground mb-1">Months 2 to 3</p>
-        <p class="text-muted-foreground leading-relaxed">Technical fixes done. Content production running. Editorial standard written and in use. First movement in AI answers.</p>
-      </div>
-      <div>
-        <p class="font-semibold text-foreground mb-1">Months 4 to 12</p>
-        <p class="text-muted-foreground leading-relaxed">Content velocity holds while the programme expands into new commercial topics and page types. Technical work continues as the site grows. AI-search visibility compounds as the cited sources change and new pages start being pulled into answers. Reporting shows pipeline influence, and the roadmap is revised each quarter against what that data shows.</p>
-      </div>
+    <div class="grid md:grid-cols-3 gap-8 md:gap-10">
+      <CapabilityCard label="Weeks 1 to 4" title="Audit and baseline">
+        <p>Technical and content audit with prioritised action plan. AI visibility baseline recorded. Competitor set and intent taxonomy agreed. Strategy set.</p>
+      </CapabilityCard>
+      <CapabilityCard label="Months 2 to 3" title="Fixes and production">
+        <p>Technical fixes done. Content production running. Editorial standard written and in use. First movement in AI answers.</p>
+      </CapabilityCard>
+      <CapabilityCard label="Months 4 to 12" title="Compounding">
+        <p>Content velocity holds while the programme expands into new commercial topics and page types. Technical work continues as the site grows. AI-search visibility compounds as the cited sources change and new pages start being pulled into answers. Reporting shows pipeline influence, and the roadmap is revised each quarter against what that data shows.</p>
+      </CapabilityCard>
     </div>
   </SectionLayout>
 
-  <div class="w-full h-px bg-border"></div>
-
-  <SectionLayout title="Results" subtitle="Recent results" class="bg-secondary">
-    <ul class="flex flex-col w-full border-t border-border mb-8">
-      <li class="py-6 border-b border-border text-base sm:text-lg text-muted-foreground leading-relaxed hover:bg-muted/50 transition-colors px-4 -mx-4 rounded-lg">
-        <strong class="font-semibold text-foreground">+40% monthly MQLs</strong>
-        {' '}after rebuilding organic acquisition and content strategy
-      </li>
-      <li class="py-6 border-b border-border text-base sm:text-lg text-muted-foreground leading-relaxed hover:bg-muted/50 transition-colors px-4 -mx-4 rounded-lg">
-        <strong class="font-semibold text-foreground">€250k ARR customer</strong>
-        {' '}influenced by SEO-led discovery and content positioning
-      </li>
-      <li class="py-6 border-b border-border text-base sm:text-lg text-muted-foreground leading-relaxed hover:bg-muted/50 transition-colors px-4 -mx-4 rounded-lg">
-        <strong class="font-semibold text-foreground">+300% organic traffic in 7 months</strong>
-        {' '}for a B2B SaaS client, after fixing technical and content foundations
-      </li>
-      <li class="py-6 border-b border-border text-base sm:text-lg text-muted-foreground leading-relaxed hover:bg-muted/50 transition-colors px-4 -mx-4 rounded-lg">
-        <strong class="font-semibold text-foreground">600,000+ page programmatic content system</strong>
-        {', '}serving thousands of daily visits
-      </li>
-    </ul>
-    <p class="text-muted-foreground leading-relaxed max-w-3xl text-base sm:text-lg">
-      These came from running the channel week to week and staying accountable for the numbers.
-    </p>
-  </SectionLayout>
-
-  <div class="w-full h-px bg-border"></div>
-
-  <SectionLayout title="Services" subtitle="Working together">
-    <div class="space-y-4 max-w-3xl">
-      <div class="border border-border rounded-lg p-6">
-        <h3 class="font-semibold text-foreground mb-2">Retained SEO and GEO</h3>
-        <p class="text-muted-foreground leading-relaxed mb-3"><span class="font-medium text-foreground">This is the main way I work.</span> I take on organic and AI search as part of your team: strategy, technical, content and reporting. Monthly retainer.</p>
-        <p class="text-muted-foreground leading-relaxed mb-3">I have enough experience in marketing and revenue operations to understand how search fits into the wider business, and I can work with your existing attribution, CRM and reporting setup rather than around it. But SEO and AI search remain the focus.</p>
-        <p class="text-sm text-muted-foreground"><span class="font-medium text-foreground">For:</span> B2B SaaS companies with no SEO leader in house.</p>
-      </div>
-      <div class="border border-border rounded-lg p-6">
-        <h3 class="font-semibold text-foreground mb-2">AI search visibility programme</h3>
-        <p class="text-muted-foreground leading-relaxed mb-3">A measured baseline of where you appear across ChatGPT, Claude, Perplexity and Google AI Overviews, against a competitor set and an intent taxonomy we agree first. You get the citation sources behind those answers, an explanation of why competitors are being recommended, and a roadmap for changing it. Runs on its own, or as the first six to eight weeks of a retainer.</p>
-        <p class="text-sm text-muted-foreground"><span class="font-medium text-foreground">For:</span> SaaS teams who know AI search matters but cannot yet see where they appear, why competitors are winning, or what to change.</p>
-      </div>
-      <div class="border border-border rounded-lg p-6">
-        <h3 class="font-semibold text-foreground mb-2">Content and programmatic systems</h3>
-        <p class="text-muted-foreground leading-relaxed mb-3">Topic architecture, AI drafting pipelines with a written editorial standard, programmatic page builds, and the QA pass that keeps them publishable.</p>
-        <p class="text-sm text-muted-foreground"><span class="font-medium text-foreground">For:</span> companies that need to scale content without more headcount.</p>
-      </div>
+  <SectionLayout id="services" title="Services" subtitle="Working together" class="bg-secondary">
+    <div class="grid md:grid-cols-3 gap-8 md:gap-10">
+      <CapabilityCard label="Main engagement" title="Retained SEO and GEO">
+        <p><span class="font-semibold text-foreground">This is the main way I work.</span> I take on organic and AI search as part of your team: strategy, technical, content and reporting. Monthly retainer.</p>
+        <p>I have enough experience in marketing and revenue operations to understand how search fits into the wider business, and I can work with your existing attribution, CRM and reporting setup rather than around it. But SEO and AI search remain the focus.</p>
+        <p class="text-sm pt-2"><span class="font-semibold text-foreground uppercase tracking-[0.08em]">For:</span> B2B SaaS companies with no SEO leader in house.</p>
+      </CapabilityCard>
+      <CapabilityCard label="Programme" title="AI search visibility">
+        <p>A measured baseline of where you appear across ChatGPT, Claude, Perplexity and Google AI Overviews, against a competitor set and an intent taxonomy we agree first. You get the citation sources behind those answers, an explanation of why competitors are being recommended, and a roadmap for changing it. Runs on its own, or as the first six to eight weeks of a retainer.</p>
+        <p class="text-sm pt-2"><span class="font-semibold text-foreground uppercase tracking-[0.08em]">For:</span> SaaS teams who know AI search matters but cannot yet see where they appear, why competitors are winning, or what to change.</p>
+      </CapabilityCard>
+      <CapabilityCard label="Systems" title="Content and programmatic">
+        <p>Topic architecture, AI drafting pipelines with a written editorial standard, programmatic page builds, and the QA pass that keeps them publishable.</p>
+        <p class="text-sm pt-2"><span class="font-semibold text-foreground uppercase tracking-[0.08em]">For:</span> companies that need to scale content without more headcount.</p>
+      </CapabilityCard>
     </div>
   </SectionLayout>
 
-  <div class="w-full h-px bg-border"></div>
-
-  <SectionLayout title="Blog" subtitle="Recent posts" class="bg-secondary">
-    <div class="flex flex-col w-full border-t border-border">
+  <SectionLayout title="Writing" subtitle="Recent posts" noRule>
+    <div class="flex flex-col">
       {recentArticles.map((post) => (
         <ArticleCard
           title={post.data.title}
@@ -154,10 +127,7 @@ const recentArticles = allPosts
       ))}
     </div>
     <div class="mt-10">
-      <a
-        href="/blog"
-        class="inline-flex items-center gap-2 text-muted-foreground font-medium hover:text-foreground transition-colors group text-sm"
-      >
+      <a href="/blog" class="link-accent text-sm uppercase tracking-[0.08em]">
         All articles
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -166,10 +136,9 @@ const recentArticles = allPosts
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
+          stroke-width="2.5"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="group-hover:translate-x-1 transition-transform"
           aria-hidden="true"
         >
           <line x1="5" y1="12" x2="19" y2="12"/>
@@ -179,27 +148,12 @@ const recentArticles = allPosts
     </div>
   </SectionLayout>
 
-  <div class="w-full h-px bg-border"></div>
-
-  <section class="py-24 md:py-32">
-    <div class="container max-w-4xl text-center">
-      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">Let's talk.</h2>
-      <p class="text-muted-foreground leading-relaxed text-base sm:text-lg">
-        If you need someone to own organic and AI search at your B2B SaaS company,{' '}
-        <a href="/contact" class="text-foreground hover:text-muted-foreground transition-colors underline underline-offset-2">start a conversation</a>
-        {' '}or find me on{' '}
-        <a
-          href="https://www.linkedin.com/in/robinson-j/"
-          class="text-foreground hover:text-muted-foreground transition-colors underline underline-offset-2"
-          target="_blank"
-          rel="noopener noreferrer"
-        >LinkedIn</a>.
-      </p>
-      <p class="text-muted-foreground leading-relaxed text-base sm:text-lg mt-4">
-        I work with two or three retained clients at a time.
-      </p>
-    </div>
-  </section>
+  <CTABlock
+    heading="Let's talk."
+    text="If you need someone to own organic and AI search at your B2B SaaS company, start a conversation. I work with two or three retained clients at a time."
+    linkText="Start a conversation"
+    linkTo="/contact"
+  />
 
   <SiteFooter />
 </BaseLayout>

@@ -1,0 +1,33 @@
+---
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+  note?: string;
+}
+
+const { stats, note } = Astro.props;
+---
+
+<section class="bg-primary text-primary-foreground border-b-2 border-foreground">
+  <div class="container">
+    <div class="grid grid-cols-2 lg:grid-cols-4">
+      {stats.map((stat) => (
+        <div class="py-8 md:py-10 pr-6">
+          <div class="font-heading font-bold text-3xl md:text-4xl lg:text-5xl leading-none tracking-[-0.04em]">
+            {stat.value}
+          </div>
+          <div class="mt-3 text-sm leading-snug opacity-90 max-w-[24ch]">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+    {note && (
+      <div class="border-t border-primary-foreground/30 py-5">
+        <p class="text-sm opacity-90 max-w-[70ch]">{note}</p>
+      </div>
+    )}
+  </div>
+</section>

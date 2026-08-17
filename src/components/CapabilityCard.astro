@@ -1,13 +1,22 @@
 ---
 interface Props {
   title: string;
-  description: string;
+  label?: string;
+  description?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, label, description } = Astro.props;
 ---
 
-<div class="border-t border-border pt-6">
-  <h3 class="text-base font-heading font-semibold text-foreground mb-2">{title}</h3>
-  <p class="text-sm text-muted-foreground leading-relaxed">{description}</p>
+<div class="border-t-2 border-foreground pt-6">
+  {label && (
+    <span class="block font-heading font-bold text-xs uppercase tracking-[0.12em] text-primary mb-3">
+      {label}
+    </span>
+  )}
+  <h3 class="mb-3">{title}</h3>
+  {description && <p class="text-muted-foreground">{description}</p>}
+  <div class="text-muted-foreground space-y-3">
+    <slot />
+  </div>
 </div>

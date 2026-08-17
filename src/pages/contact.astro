@@ -2,17 +2,29 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import SectionLayout from '../components/SectionLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
 ---
 
 <BaseLayout
   title="Contact | Joe Robinson"
-  description="Get in touch to discuss SEO strategy, technical SEO, or organic growth."
+  description="Get in touch to discuss SEO strategy, AI search visibility, or organic growth for B2B SaaS."
 >
   <SiteHeader />
-  <SectionLayout title="Contact" subtitle="Let's discuss your project">
-    <ContactForm />
-  </SectionLayout>
+
+  <section class="border-b-2 border-foreground">
+    <div class="container py-16 md:py-20">
+      <span class="eyebrow">Contact</span>
+      <h1 class="max-w-[14ch] text-4xl sm:text-5xl md:text-6xl">
+        Let's talk about <span class="text-primary">search.</span>
+      </h1>
+    </div>
+  </section>
+
+  <section class="py-14 md:py-20">
+    <div class="container">
+      <ContactForm />
+    </div>
+  </section>
+
   <SiteFooter />
 </BaseLayout>

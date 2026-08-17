@@ -4,21 +4,22 @@ interface Props {
   subtitle?: string;
   class?: string;
   id?: string;
+  /** Drop the heavy bottom rule (use on the last section before the footer) */
+  noRule?: boolean;
 }
 
-const { title, subtitle, class: className = '', id } = Astro.props;
+const { title, subtitle, class: className = '', id, noRule = false } = Astro.props;
 ---
 
-<section class:list={['py-24 md:py-32', className]} id={id}>
-  <div class="container max-w-4xl">
+<section
+  class:list={['py-16 md:py-24', !noRule && 'border-b-2 border-foreground', className]}
+  id={id}
+>
+  <div class="container">
     {(title || subtitle) && (
-      <div class="mb-12">
-        {title && (
-          <span class="font-mono text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase mb-4 block">{title}</span>
-        )}
-        {subtitle && (
-          <h2 class="text-3xl sm:text-4xl font-bold text-foreground tracking-tight">{subtitle}</h2>
-        )}
+      <div class="mb-10 md:mb-12">
+        {title && <span class="eyebrow">{title}</span>}
+        {subtitle && <h2 class="max-w-[20ch]">{subtitle}</h2>}
       </div>
     )}
     <slot />

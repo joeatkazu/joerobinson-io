@@ -3,74 +3,52 @@
 
 <div class="grid md:grid-cols-2 gap-12 md:gap-16">
   <div>
-    <p class="text-muted-foreground leading-relaxed mb-6">
-      I work with a small number of clients at any given time to ensure depth and quality.
-      If you're facing SEO challenges or looking to build scalable organic growth systems,
+    <p class="text-lg text-muted-foreground leading-relaxed mb-8 max-w-[46ch]">
+      I work with two or three retained clients at a time, to keep the work deep rather than wide.
+      If you're facing SEO challenges or want to be part of the recommendation set in AI search,
       I'd welcome a conversation.
     </p>
     <a
       href="mailto:joe@joerobinson.io"
-      class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-foreground transition-colors"
+      class="link-accent text-base border-b-2 border-primary"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <rect width="20" height="16" x="2" y="4" rx="2"/>
-        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-      </svg>
       joe@joerobinson.io
     </a>
-    <p class="text-xs text-muted-foreground mt-8">
-      Typically respond within 24 hours.
-    </p>
+    <p class="text-sm text-muted-foreground mt-8">Typically respond within 24 hours.</p>
   </div>
 
   <!-- Set action to your form endpoint, e.g. https://formspree.io/f/your-id -->
-  <form class="space-y-5" method="post" action="mailto:joe@joerobinson.io">
+  <form class="space-y-5 border-t-2 border-foreground pt-8" method="post" action="mailto:joe@joerobinson.io">
     <div>
-      <label for="name" class="block text-sm font-medium text-foreground mb-1.5">Name</label>
+      <label for="name" class="block text-xs font-bold uppercase tracking-[0.1em] text-foreground mb-2">Name</label>
       <input
         id="name"
         name="name"
         type="text"
-        class="w-full bg-background border border-border rounded-md px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring transition-shadow"
+        class="w-full bg-background border-2 border-foreground px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary transition-colors"
         placeholder="Your name"
       />
     </div>
     <div>
-      <label for="email" class="block text-sm font-medium text-foreground mb-1.5">Email</label>
+      <label for="email" class="block text-xs font-bold uppercase tracking-[0.1em] text-foreground mb-2">Email</label>
       <input
         id="email"
         name="email"
         type="email"
-        class="w-full bg-background border border-border rounded-md px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring transition-shadow"
+        class="w-full bg-background border-2 border-foreground px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary transition-colors"
         placeholder="you@company.com"
       />
     </div>
     <div>
-      <label for="message" class="block text-sm font-medium text-foreground mb-1.5">Message</label>
+      <label for="message" class="block text-xs font-bold uppercase tracking-[0.1em] text-foreground mb-2">Message</label>
       <textarea
         id="message"
         name="message"
-        rows="5"
-        class="w-full bg-background border border-border rounded-md px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring transition-shadow resize-none"
-        placeholder="Tell me about your project or challenge"
+        rows="6"
+        class="w-full bg-background border-2 border-foreground px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary transition-colors resize-none"
+        placeholder="Tell me about your company and what you're trying to fix"
       ></textarea>
     </div>
-    <button
-      type="submit"
-      class="bg-foreground text-background px-5 py-2.5 text-sm font-medium rounded-md hover:bg-foreground/90 transition-colors"
-    >
-      Send message
-    </button>
+    <button type="submit" class="btn w-full justify-center">Send message</button>
   </form>
 </div>

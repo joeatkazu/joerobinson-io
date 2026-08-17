@@ -5,35 +5,35 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --foreground: 0 0% 4%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 0 0% 4%;
 
-    --primary: 215 19% 35%;
+    /* Accent: #FF4A1C */
+    --primary: 13 100% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 98%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 0 0% 96.5%;
+    --secondary-foreground: 0 0% 4%;
 
-    --muted: 210 40% 98%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 0 0% 96.5%;
+    --muted-foreground: 240 3% 35%;
 
-    --accent: 215 19% 35%;
+    --accent: 13 100% 55%;
     --accent-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 215 19% 35%;
+    /* Hairline rules inside sections. Heavy 2px rules use border-foreground. */
+    --border: 0 0% 85%;
+    --input: 0 0% 4%;
+    --ring: 13 100% 55%;
 
-    --radius: 0.375rem;
-
-    --grid-line: 214 32% 94%;
+    --radius: 0px;
   }
 
   ::selection {
-    background-color: #e2e8f0;
-    color: #0f172a;
+    background-color: #ff4a1c;
+    color: #ffffff;
   }
 
   * {
@@ -52,19 +52,25 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-semibold tracking-tight text-foreground;
+    @apply font-heading font-bold text-foreground;
   }
 
   h1 {
-    @apply text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight;
+    @apply text-5xl sm:text-6xl md:text-7xl;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
   }
 
   h2 {
-    @apply text-2xl md:text-3xl leading-tight;
+    @apply text-3xl md:text-4xl;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
   }
 
   h3 {
-    @apply text-xl md:text-2xl leading-snug;
+    @apply text-xl md:text-2xl;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
   }
 
   p {
@@ -73,41 +79,45 @@
 
   /* Prose styles for blog content */
   .prose {
-    @apply text-foreground max-w-[65ch] mx-auto;
+    @apply text-foreground max-w-[68ch];
   }
 
   .prose h2 {
-    @apply mt-12 mb-4;
+    @apply mt-14 mb-4 text-2xl md:text-3xl;
   }
 
   .prose h3 {
-    @apply mt-8 mb-3;
+    @apply mt-10 mb-3 text-lg md:text-xl;
   }
 
   .prose p {
     @apply mb-6 text-base md:text-lg leading-relaxed;
-    color: hsl(var(--foreground) / 0.85);
-  }
-
-  .prose a {
-    @apply text-primary underline underline-offset-2 decoration-primary/40 hover:decoration-primary transition-colors;
-  }
-
-  .prose blockquote {
-    @apply border-l-2 border-primary/30 pl-6 my-8 italic;
     color: hsl(var(--muted-foreground));
   }
 
+  .prose a {
+    @apply text-foreground underline decoration-primary decoration-2 underline-offset-4 hover:text-primary transition-colors;
+  }
+
+  .prose strong {
+    @apply font-semibold text-foreground;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-primary pl-6 my-8 text-foreground;
+    font-weight: 500;
+  }
+
   .prose code {
-    @apply font-mono text-sm bg-secondary px-1.5 py-0.5 rounded;
+    @apply font-mono text-sm bg-secondary px-1.5 py-0.5;
   }
 
   .prose pre {
-    @apply bg-secondary rounded-md p-4 my-6 overflow-x-auto;
+    @apply bg-foreground text-background p-5 my-8 overflow-x-auto text-sm;
   }
 
   .prose pre code {
-    @apply bg-transparent p-0;
+    @apply bg-transparent p-0 text-inherit;
   }
 
   .prose ul, .prose ol {
@@ -116,11 +126,15 @@
 
   .prose li {
     @apply mb-2 leading-relaxed;
-    color: hsl(var(--foreground) / 0.85);
+    color: hsl(var(--muted-foreground));
   }
 
   .prose ul li {
     @apply list-disc;
+  }
+
+  .prose ul li::marker {
+    color: hsl(var(--primary));
   }
 
   .prose ol li {
@@ -128,17 +142,28 @@
   }
 
   .prose hr {
-    @apply my-12 border-border;
+    @apply my-12 border-t-2 border-foreground;
   }
 
   .prose img {
-    @apply rounded-md my-8;
+    @apply my-8 border-2 border-foreground;
   }
 }
 
-.bg-grid {
-  background-image:
-    linear-gradient(hsl(var(--grid-line)) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--grid-line)) 1px, transparent 1px);
-  background-size: 60px 60px;
+@layer components {
+  /* Uppercase section label, used above every section heading */
+  .eyebrow {
+    @apply block text-xs font-bold uppercase text-primary mb-6;
+    letter-spacing: 0.12em;
+  }
+
+  /* Solid block button */
+  .btn {
+    @apply inline-flex items-center gap-2 bg-foreground text-background px-6 py-4 text-base font-semibold hover:bg-primary transition-colors;
+  }
+
+  /* Text link with a heavy accent underline on hover */
+  .link-accent {
+    @apply inline-flex items-center gap-2 font-semibold text-foreground border-b-2 border-transparent hover:border-primary hover:text-primary transition-colors;
+  }
 }

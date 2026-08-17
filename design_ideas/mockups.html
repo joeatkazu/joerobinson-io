@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joe Robinson — Design Directions</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  .mock { display: none; }
+  .mock.on { display: block; }
+
+  /* ---------- switcher ---------- */
+  .switch {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; gap: 8px; align-items: center;
+    padding: 10px 16px;
+    background: #111; color: #fff;
+    font: 500 13px/1 ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
+  }
+  .switch b { font-weight: 600; opacity: .55; margin-right: 8px; letter-spacing: .04em; text-transform: uppercase; font-size: 11px; }
+  .switch button {
+    font: inherit; cursor: pointer;
+    padding: 7px 13px; border-radius: 999px;
+    border: 1px solid #3a3a3a; background: transparent; color: #bbb;
+  }
+  .switch button:hover { color: #fff; border-color: #666; }
+  .switch button[aria-pressed="true"] { background: #fff; color: #111; border-color: #fff; }
+
+/* =========================================================
+   DIRECTION 1 — EDITORIAL
+   Paper, serif display, numbered sections, hairline rules.
+   ========================================================= */
+#v1 {
+  --paper: #FBFAF6; --ink: #16150F; --soft: #5D5B51; --rule: #DFDBCE; --accent: #8A4B2A;
+  background: var(--paper); color: var(--ink);
+  font: 400 17px/1.65 ui-sans-serif, -apple-system, "Segoe UI", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+#v1 .wrap { max-width: 940px; margin: 0 auto; padding: 0 32px; }
+#v1 .serif { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+#v1 .eyebrow { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--soft); }
+
+#v1 nav { display: flex; justify-content: space-between; align-items: baseline; padding: 30px 0; }
+#v1 nav .name { font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+#v1 nav ul { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; font-size: 15px; }
+#v1 nav a { color: var(--soft); text-decoration: none; }
+#v1 nav a:hover { color: var(--ink); }
+
+#v1 .hero { padding: 90px 0 100px; border-bottom: 1px solid var(--rule); }
+#v1 .hero h1 {
+  font-size: clamp(42px, 6vw, 68px); line-height: 1.04; letter-spacing: -.02em;
+  font-weight: 400; margin: 22px 0 0; max-width: 15ch;
+}
+#v1 .hero .lede { margin: 32px 0 0; max-width: 58ch; font-size: 19px; color: var(--soft); }
+#v1 .hero .lede strong { color: var(--ink); font-weight: 500; }
+#v1 .cta {
+  display: inline-block; margin-top: 40px; padding-bottom: 3px;
+  color: var(--accent); text-decoration: none; font-weight: 500;
+  border-bottom: 1px solid currentColor;
+}
+
+#v1 .row { display: grid; grid-template-columns: 150px 1fr; gap: 40px; padding: 60px 0; border-bottom: 1px solid var(--rule); }
+#v1 .row h2 { font-size: 15px; font-weight: 600; margin: 0; letter-spacing: -.01em; }
+#v1 .row .num { display: block; color: var(--accent); font-size: 12px; letter-spacing: .1em; margin-bottom: 8px; }
+#v1 .item + .item { margin-top: 34px; }
+#v1 .item h3 { font-size: 21px; font-weight: 400; margin: 0 0 8px; letter-spacing: -.01em; }
+#v1 .item p { margin: 0; color: var(--soft); max-width: 62ch; }
+
+#v1 .results { list-style: none; margin: 0; padding: 0; }
+#v1 .results li { padding: 18px 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 240px 1fr; gap: 24px; align-items: baseline; }
+#v1 .results li:first-child { border-top: 0; padding-top: 0; }
+#v1 .results .big { font-size: 26px; letter-spacing: -.02em; }
+#v1 .results span:last-child { color: var(--soft); font-size: 16px; }
+
+#v1 footer { padding: 60px 0 80px; display: flex; justify-content: space-between; font-size: 14px; color: var(--soft); }
+#v1 footer a { color: var(--soft); }
+
+/* =========================================================
+   DIRECTION 2 — TERMINAL
+   Dark, monospace, dense, engineer-signalling.
+   ========================================================= */
+#v2 {
+  --bg: #0C0E10; --fg: #E7EAEC; --dim: #7C858C; --line: #1E2327; --acc: #6EE79B;
+  background: var(--bg); color: var(--fg);
+  font: 400 15px/1.6 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  -webkit-font-smoothing: antialiased;
+}
+#v2 .wrap { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+#v2 a { color: inherit; }
+
+#v2 nav { display: flex; justify-content: space-between; padding: 22px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+#v2 nav .name { color: var(--fg); }
+#v2 nav .name::before { content: "▍"; color: var(--acc); margin-right: 7px; }
+#v2 nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+#v2 nav a { color: var(--dim); text-decoration: none; }
+#v2 nav a::before { content: "/"; color: #3A4147; margin-right: 3px; }
+#v2 nav a:hover { color: var(--acc); }
+
+#v2 .hero { padding: 76px 0 70px; }
+#v2 .prompt { color: var(--acc); font-size: 13px; }
+#v2 .prompt::before { content: "$ "; color: var(--dim); }
+#v2 .hero h1 {
+  font-size: clamp(30px, 4.6vw, 46px); line-height: 1.18; letter-spacing: -.02em;
+  font-weight: 500; margin: 20px 0 0; max-width: 20ch;
+}
+#v2 .hero h1 em { font-style: normal; color: var(--acc); }
+#v2 .hero p { color: var(--dim); max-width: 66ch; margin: 24px 0 0; font-size: 14.5px; }
+#v2 .cta {
+  display: inline-block; margin-top: 34px; padding: 11px 18px;
+  border: 1px solid var(--acc); color: var(--acc); text-decoration: none; font-size: 13.5px;
+}
+#v2 .cta:hover { background: var(--acc); color: #0C0E10; }
+
+#v2 section { padding: 54px 0; border-top: 1px solid var(--line); }
+#v2 .sechead { display: flex; gap: 14px; align-items: baseline; margin-bottom: 30px; font-size: 13px; }
+#v2 .sechead .id { color: var(--acc); }
+#v2 .sechead .t { color: var(--fg); letter-spacing: .02em; }
+#v2 .sechead .fill { flex: 1; border-bottom: 1px dashed #262C31; }
+#v2 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+#v2 .cell { background: var(--bg); padding: 22px; }
+#v2 .cell h3 { margin: 0 0 8px; font-size: 14px; font-weight: 500; }
+#v2 .cell h3::before { content: "→ "; color: var(--acc); }
+#v2 .cell p { margin: 0; color: var(--dim); font-size: 13.5px; line-height: 1.65; }
+
+#v2 table { width: 100%; border-collapse: collapse; font-size: 14px; }
+#v2 td { padding: 14px 0; border-bottom: 1px solid var(--line); vertical-align: baseline; }
+#v2 td:first-child { color: var(--acc); width: 250px; white-space: nowrap; }
+#v2 td:last-child { color: var(--dim); }
+
+#v2 footer { padding: 40px 0 70px; color: var(--dim); font-size: 13px; display: flex; justify-content: space-between; border-top: 1px solid var(--line); }
+
+/* =========================================================
+   DIRECTION 3 — BOLD
+   Huge type, hard rules, one loud accent band.
+   ========================================================= */
+#v3 {
+  --bg: #FFFFFF; --fg: #0B0B0B; --dim: #57575A; --acc: #FF4A1C; --line: #0B0B0B;
+  background: var(--bg); color: var(--fg);
+  font: 400 17px/1.6 "Helvetica Neue", ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+#v3 .wrap { max-width: 1180px; margin: 0 auto; padding: 0 36px; }
+
+#v3 nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; border-bottom: 2px solid var(--line); }
+#v3 nav .name { font-weight: 700; letter-spacing: -.03em; font-size: 19px; }
+#v3 nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; }
+#v3 nav a { color: var(--fg); text-decoration: none; }
+#v3 nav a:hover { color: var(--acc); }
+
+#v3 .hero { padding: 76px 0 66px; border-bottom: 2px solid var(--line); }
+#v3 .tag { display: inline-block; background: var(--acc); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 6px 11px; }
+#v3 .hero h1 {
+  font-size: clamp(48px, 8.4vw, 104px); line-height: .93; letter-spacing: -.045em;
+  font-weight: 700; margin: 26px 0 0; max-width: 13ch;
+}
+#v3 .hero h1 span { color: var(--acc); }
+#v3 .heroFoot { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 44px; align-items: end; }
+#v3 .heroFoot p { margin: 0; color: var(--dim); font-size: 18px; max-width: 46ch; }
+#v3 .cta {
+  justify-self: start; display: inline-block; background: var(--fg); color: #fff;
+  text-decoration: none; font-weight: 600; font-size: 16px; padding: 16px 26px;
+}
+#v3 .cta:hover { background: var(--acc); }
+
+#v3 .band { background: var(--acc); color: #fff; border-bottom: 2px solid var(--line); }
+#v3 .stats { display: grid; grid-template-columns: repeat(4, 1fr); }
+#v3 .stats div { padding: 34px 26px 34px 0; }
+#v3 .stats .n { font-size: clamp(30px, 3.6vw, 46px); font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+#v3 .stats .l { margin-top: 10px; font-size: 14px; line-height: 1.45; opacity: .88; }
+
+#v3 section { padding: 72px 0; border-bottom: 2px solid var(--line); }
+#v3 .sechead { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--acc); margin-bottom: 34px; }
+#v3 .items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid #D8D8D8; }
+#v3 .items > div { padding: 30px 30px 30px 0; border-right: 1px solid #D8D8D8; }
+#v3 .items > div:last-child { border-right: 0; }
+#v3 .items > div:not(:first-child) { padding-left: 30px; }
+#v3 .items h3 { font-size: 24px; font-weight: 700; letter-spacing: -.025em; margin: 0 0 10px; line-height: 1.15; }
+#v3 .items p { margin: 0; color: var(--dim); font-size: 16px; }
+
+#v3 footer { padding: 46px 0 76px; display: flex; justify-content: space-between; font-size: 14px; color: var(--dim); }
+
+@media (max-width: 760px) {
+  #v1 .row, #v1 .results li { grid-template-columns: 1fr; gap: 14px; }
+  #v2 .grid, #v3 .heroFoot, #v3 .items { grid-template-columns: 1fr; }
+  #v3 .stats { grid-template-columns: 1fr 1fr; }
+  #v3 .items > div { border-right: 0; border-bottom: 1px solid #D8D8D8; padding-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="switch">
+  <b>Direction</b>
+  <button data-t="v1" aria-pressed="true">1 · Editorial</button>
+  <button data-t="v2" aria-pressed="false">2 · Terminal</button>
+  <button data-t="v3" aria-pressed="false">3 · Bold</button>
+</div>
+
+<!-- ============ 1 · EDITORIAL ============ -->
+<div class="mock on" id="v1">
+  <div class="wrap">
+    <nav>
+      <div class="name">Joe Robinson</div>
+      <ul><li><a href="#">What I do</a></li><li><a href="#">Approach</a></li><li><a href="#">Writing</a></li><li><a href="#">Contact</a></li></ul>
+    </nav>
+
+    <div class="hero">
+      <div class="eyebrow">B2B SaaS · SEO &amp; GEO</div>
+      <h1 class="serif">I help you get more leads from search.</h1>
+      <p class="lede">A large part of my work now is GEO, or AI search. <strong>I work out which questions your buyers are asking their LLM, who is being recommended and why, and what specifically needs to be done to get you into those answers.</strong></p>
+      <a class="cta" href="#">Talk to me about SEO and AI search →</a>
+    </div>
+
+    <div class="row">
+      <h2><span class="num">01</span>What I do</h2>
+      <div>
+        <div class="item"><h3 class="serif">I find where you need to be visible in AI search</h3><p>By the time someone reaches your site they have already built a shortlist around recommendations from their AI engine. To be part of that set, your brand has to be represented properly in the sources LLMs draw on.</p></div>
+        <div class="item"><h3 class="serif">I write the briefs and edit the drafts</h3><p>Category, use case, comparison, integration and problem-led content — plus the editorial work that keeps it consistent, clear, and not obviously machine-written.</p></div>
+        <div class="item"><h3 class="serif">I do the technical work</h3><p>Site architecture, internal linking, rendering and indexability. A decade of learning how to recognise and fix them.</p></div>
+        <div class="item"><h3 class="serif">I build the tools I measure with</h3><p>An AI visibility tracker, sentiment across a prompt set, competitor citation analysis, and a prompt builder that scrapes real customer language.</p></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <h2><span class="num">02</span>Results</h2>
+      <ul class="results">
+        <li><span class="big serif">+40% monthly MQLs</span><span>after rebuilding organic acquisition and content strategy</span></li>
+        <li><span class="big serif">€250k ARR customer</span><span>influenced by SEO-led discovery and content positioning</span></li>
+        <li><span class="big serif">+300% organic in 7 months</span><span>after fixing technical and content foundations</span></li>
+        <li><span class="big serif">600,000+ page system</span><span>programmatic content serving thousands of daily visits</span></li>
+      </ul>
+    </div>
+
+    <footer>
+      <span>© 2026 Joe Robinson</span>
+      <span><a href="#">LinkedIn</a> · <a href="#">joe@joerobinson.io</a></span>
+    </footer>
+  </div>
+</div>
+
+<!-- ============ 2 · TERMINAL ============ -->
+<div class="mock" id="v2">
+  <div class="wrap">
+    <nav>
+      <div class="name">joerobinson.io</div>
+      <ul><li><a href="#">work</a></li><li><a href="#">approach</a></li><li><a href="#">writing</a></li><li><a href="#">contact</a></li></ul>
+    </nav>
+
+    <div class="hero">
+      <div class="prompt">seo --mode=geo --market=b2b-saas</div>
+      <h1>I help you get more leads from <em>search</em>.</h1>
+      <p>A large part of my work now is GEO, or AI search. I work out which questions your buyers are asking their LLM, who is being recommended and why, and what specifically needs to be done to get you into those answers.</p>
+      <a class="cta" href="#">→ talk to me about SEO and AI search</a>
+    </div>
+
+    <section>
+      <div class="sechead"><span class="id">[01]</span><span class="t">WHAT I DO</span><span class="fill"></span></div>
+      <div class="grid">
+        <div class="cell"><h3>find where you need to be visible</h3><p>Buyers build a shortlist from AI recommendations before they reach your site. I map the sources those answers are drawn from.</p></div>
+        <div class="cell"><h3>write briefs, edit drafts</h3><p>Category, use case, comparison, integration and problem-led pages — with the editorial pass that keeps them publishable.</p></div>
+        <div class="cell"><h3>do the technical work</h3><p>Architecture, internal linking, rendering, indexability. Ten years of recognising and fixing them.</p></div>
+        <div class="cell"><h3>build the tools I measure with</h3><p>Visibility tracker, prompt-set sentiment, competitor citation analysis, customer-language prompt builder.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sechead"><span class="id">[02]</span><span class="t">RESULTS</span><span class="fill"></span></div>
+      <table>
+        <tr><td>+40% monthly MQLs</td><td>after rebuilding organic acquisition and content strategy</td></tr>
+        <tr><td>€250k ARR customer</td><td>influenced by SEO-led discovery and content positioning</td></tr>
+        <tr><td>+300% organic / 7mo</td><td>after fixing technical and content foundations</td></tr>
+        <tr><td>600,000+ page system</td><td>programmatic content, thousands of daily visits</td></tr>
+      </table>
+    </section>
+
+    <footer><span>© 2026 joe robinson</span><span>two or three retained clients at a time</span></footer>
+  </div>
+</div>
+
+<!-- ============ 3 · BOLD ============ -->
+<div class="mock" id="v3">
+  <div class="wrap">
+    <nav>
+      <div class="name">JOE ROBINSON</div>
+      <ul><li><a href="#">Work</a></li><li><a href="#">Approach</a></li><li><a href="#">Writing</a></li><li><a href="#">Contact</a></li></ul>
+    </nav>
+    <div class="hero">
+      <span class="tag">B2B SaaS SEO &amp; GEO</span>
+      <h1>More leads from <span>search.</span></h1>
+      <div class="heroFoot">
+        <p>A large part of my work now is GEO, or AI search. I work out which questions your buyers are asking their LLM, who is being recommended and why, and what needs to happen to get you into those answers.</p>
+        <a class="cta" href="#">Talk to me about SEO and AI search</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap">
+      <div class="stats">
+        <div><div class="n">+40%</div><div class="l">monthly MQLs after rebuilding organic acquisition</div></div>
+        <div><div class="n">€250k</div><div class="l">ARR customer influenced by SEO-led discovery</div></div>
+        <div><div class="n">+300%</div><div class="l">organic traffic in seven months</div></div>
+        <div><div class="n">600k</div><div class="l">page programmatic content system</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section>
+      <div class="sechead">What I do</div>
+      <div class="items">
+        <div><h3>Find where you need to be visible</h3><p>Buyers build a shortlist from AI recommendations long before they reach your site. I map the sources behind those answers and get you into them.</p></div>
+        <div><h3>Write the briefs, edit the drafts</h3><p>Category, use case, comparison and problem-led pages, with the editorial work that keeps them clear and human.</p></div>
+        <div><h3>Do the technical work</h3><p>Architecture, internal linking, rendering, indexability — a decade of recognising and fixing them.</p></div>
+      </div>
+    </section>
+    <footer><span>© 2026 Joe Robinson</span><span>Two or three retained clients at a time</span></footer>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.switch button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.switch button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      document.querySelectorAll('.mock').forEach(function (m) { m.classList.toggle('on', m.id === b.dataset.t); });
+      window.scrollTo(0, 0);
+    });
+  });
+</script>
+</body>
+</html>

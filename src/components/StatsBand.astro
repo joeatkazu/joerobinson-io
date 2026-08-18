@@ -12,22 +12,25 @@ interface Props {
 const { stats, note } = Astro.props;
 ---
 
-<section class="bg-primary text-primary-foreground border-b-2 border-foreground">
+<section class="border-b border-border py-14 md:py-20">
   <div class="container">
-    <div class="grid grid-cols-2 lg:grid-cols-4">
-      {stats.map((stat) => (
-        <div class="py-8 md:py-10 pr-6">
-          <div class="font-heading font-bold text-3xl md:text-4xl lg:text-5xl leading-none tracking-[-0.04em]">
-            {stat.value}
-          </div>
-          <div class="mt-3 text-sm leading-snug opacity-90 max-w-[24ch]">{stat.label}</div>
-        </div>
-      ))}
+    <div class="flex items-baseline gap-3 text-xs sm:text-sm mb-8">
+      <span class="text-primary">[00]</span>
+      <span class="text-foreground uppercase tracking-[0.08em]">Results</span>
+      <span class="leader"></span>
     </div>
-    {note && (
-      <div class="border-t border-primary-foreground/30 py-5">
-        <p class="text-sm opacity-90 max-w-[70ch]">{note}</p>
-      </div>
-    )}
+
+    <table class="w-full text-sm">
+      <tbody>
+        {stats.map((stat) => (
+          <tr class="border-b border-border align-baseline">
+            <td class="py-4 pr-8 text-primary whitespace-nowrap">{stat.value}</td>
+            <td class="py-4 text-muted-foreground leading-relaxed">{stat.label}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    {note && <p class="mt-6 text-sm text-muted-foreground max-w-[70ch]">{note}</p>}
   </div>
 </section>

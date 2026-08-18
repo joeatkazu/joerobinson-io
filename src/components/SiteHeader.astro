@@ -14,24 +14,21 @@ function isActive(linkPath: string): boolean {
 }
 ---
 
-<header class="w-full bg-background border-b-2 border-foreground">
-  <div class="container flex justify-between items-center py-5">
-    <a
-      href="/"
-      class="font-heading font-bold text-lg tracking-[-0.03em] uppercase text-foreground hover:text-primary transition-colors"
-    >
-      Joe Robinson
+<header class="w-full bg-background border-b border-border">
+  <div class="container flex justify-between items-center py-4">
+    <a href="/" class="text-sm text-foreground hover:text-primary transition-colors">
+      <span class="text-primary mr-1.5" aria-hidden="true">&#9613;</span>Joe Robinson
     </a>
-    <nav class="flex items-center gap-5 sm:gap-7 text-xs sm:text-sm font-semibold uppercase tracking-[0.06em]">
+    <nav class="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm">
       {navLinks.map((link) => (
         <a
           href={link.path}
           class:list={[
             'transition-colors hover:text-primary',
-            isActive(link.path) ? 'text-primary' : 'text-foreground',
+            isActive(link.path) ? 'text-primary' : 'text-muted-foreground',
           ]}
         >
-          {link.label}
+          <span class="text-border" aria-hidden="true">/</span>{link.label}
         </a>
       ))}
     </nav>

@@ -9,37 +9,14 @@ interface Props {
 const { title, excerpt, date, slug } = Astro.props;
 ---
 
-<a href={`/blog/${slug}`} class="group block border-t border-border py-8 first:border-t-0 first:pt-0">
-  <div class="grid md:grid-cols-[9rem_1fr] gap-3 md:gap-10">
-    {date ? (
-      <time class="text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground md:pt-2">
-        {date}
-      </time>
-    ) : (
-      <span></span>
-    )}
+<a href={`/blog/${slug}`} class="group block border-b border-border py-6">
+  <div class="grid md:grid-cols-[7.5rem_1fr] gap-2 md:gap-6">
+    {date ? <time class="text-xs text-muted-foreground md:pt-1">{date}</time> : <span></span>}
     <div>
-      <h3 class="mb-3 max-w-[30ch] group-hover:text-primary transition-colors">{title}</h3>
-      <p class="text-muted-foreground max-w-[68ch]">{excerpt}</p>
-      <span class="inline-flex items-center gap-2 mt-5 text-sm font-bold uppercase tracking-[0.08em] text-foreground group-hover:text-primary transition-colors">
-        Read
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="group-hover:translate-x-1 transition-transform"
-          aria-hidden="true"
-        >
-          <line x1="5" y1="12" x2="19" y2="12"/>
-          <polyline points="12 5 19 12 12 19"/>
-        </svg>
-      </span>
+      <h3 class="max-w-[52ch] group-hover:text-primary transition-colors">
+        <span class="text-primary mr-1.5" aria-hidden="true">&rarr;</span>{title}
+      </h3>
+      <p class="mt-2 text-sm text-muted-foreground leading-relaxed max-w-[76ch]">{excerpt}</p>
     </div>
   </div>
 </a>

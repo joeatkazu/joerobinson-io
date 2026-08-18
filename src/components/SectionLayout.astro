@@ -2,26 +2,29 @@
 interface Props {
   title?: string;
   subtitle?: string;
+  index?: string;
   class?: string;
   id?: string;
-  /** Drop the heavy bottom rule (use on the last section before the footer) */
+  /** Drop the bottom rule (use on the last section before the footer) */
   noRule?: boolean;
 }
 
-const { title, subtitle, class: className = '', id, noRule = false } = Astro.props;
+const { title, subtitle, index, class: className = '', id, noRule = false } = Astro.props;
 ---
 
 <section
-  class:list={['py-16 md:py-24', !noRule && 'border-b-2 border-foreground', className]}
+  class:list={['py-14 md:py-20', !noRule && 'border-b border-border', className]}
   id={id}
 >
   <div class="container">
-    {(title || subtitle) && (
-      <div class="mb-10 md:mb-12">
-        {title && <span class="eyebrow">{title}</span>}
-        {subtitle && <h2 class="max-w-[20ch]">{subtitle}</h2>}
+    {title && (
+      <div class="flex items-baseline gap-3 text-xs sm:text-sm mb-8">
+        {index && <span class="text-primary">[{index}]</span>}
+        <span class="text-foreground uppercase tracking-[0.08em]">{title}</span>
+        <span class="leader"></span>
       </div>
     )}
+    {subtitle && <h2 class="max-w-[26ch] mb-10">{subtitle}</h2>}
     <slot />
   </div>
 </section>

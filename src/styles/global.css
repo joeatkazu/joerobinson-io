@@ -4,36 +4,35 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 4%;
+    /* Terminal direction: dark ground, mono type, green accent */
+    --background: 210 14% 6%;      /* #0C0E10 */
+    --foreground: 200 8% 92%;      /* #E7EAEC */
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 4%;
+    --card: 210 13% 8%;
+    --card-foreground: 200 8% 92%;
 
-    /* Accent: #FF4A1C */
-    --primary: 13 100% 55%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 142 72% 67%;        /* #6EE79B */
+    --primary-foreground: 210 14% 6%;
 
-    --secondary: 0 0% 96.5%;
-    --secondary-foreground: 0 0% 4%;
+    --secondary: 210 12% 9%;
+    --secondary-foreground: 200 8% 92%;
 
-    --muted: 0 0% 96.5%;
-    --muted-foreground: 240 3% 35%;
+    --muted: 210 12% 9%;
+    --muted-foreground: 206 10% 63%;
 
-    --accent: 13 100% 55%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 142 72% 67%;
+    --accent-foreground: 210 14% 6%;
 
-    /* Hairline rules inside sections. Heavy 2px rules use border-foreground. */
-    --border: 0 0% 85%;
-    --input: 0 0% 4%;
-    --ring: 13 100% 55%;
+    --border: 207 12% 16%;
+    --input: 207 12% 16%;
+    --ring: 142 72% 67%;
 
     --radius: 0px;
   }
 
   ::selection {
-    background-color: #ff4a1c;
-    color: #ffffff;
+    background-color: #6ee79b;
+    color: #0c0e10;
   }
 
   * {
@@ -43,60 +42,60 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+    color-scheme: dark;
   }
 
   body {
-    @apply bg-background text-foreground font-body;
-    font-feature-settings: "kern" 1, "liga" 1;
+    @apply bg-background text-foreground font-mono text-[15px];
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold text-foreground;
+    @apply font-mono font-medium text-foreground;
   }
 
   h1 {
-    @apply text-5xl sm:text-6xl md:text-7xl;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
+    @apply text-3xl sm:text-4xl md:text-5xl;
+    line-height: 1.14;
+    letter-spacing: -0.02em;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl;
-    line-height: 1.05;
-    letter-spacing: -0.035em;
+    @apply text-2xl md:text-3xl;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
   h3 {
-    @apply text-xl md:text-2xl;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
+    @apply text-base md:text-lg;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
   }
 
-  p {
-    @apply leading-relaxed;
-  }
-
-  /* Prose styles for blog content */
+  /* Long-form reading uses the sans face; mono stays on chrome and headings. */
   .prose {
-    @apply text-foreground max-w-[68ch];
+    @apply font-sans text-foreground max-w-[70ch];
   }
 
   .prose h2 {
-    @apply mt-14 mb-4 text-2xl md:text-3xl;
+    @apply font-mono mt-14 mb-4 text-xl md:text-2xl;
   }
 
   .prose h3 {
-    @apply mt-10 mb-3 text-lg md:text-xl;
+    @apply font-mono mt-10 mb-3 text-base md:text-lg;
+  }
+
+  .prose h2::before, .prose h3::before {
+    content: "# ";
+    color: hsl(var(--primary));
   }
 
   .prose p {
-    @apply mb-6 text-base md:text-lg leading-relaxed;
+    @apply mb-6 text-base md:text-[17px] leading-relaxed;
     color: hsl(var(--muted-foreground));
   }
 
   .prose a {
-    @apply text-foreground underline decoration-primary decoration-2 underline-offset-4 hover:text-primary transition-colors;
+    @apply text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors;
   }
 
   .prose strong {
@@ -104,20 +103,19 @@
   }
 
   .prose blockquote {
-    @apply border-l-4 border-primary pl-6 my-8 text-foreground;
-    font-weight: 500;
+    @apply border-l-2 border-primary pl-6 my-8 text-foreground;
   }
 
   .prose code {
-    @apply font-mono text-sm bg-secondary px-1.5 py-0.5;
+    @apply font-mono text-sm bg-secondary text-primary px-1.5 py-0.5;
   }
 
   .prose pre {
-    @apply bg-foreground text-background p-5 my-8 overflow-x-auto text-sm;
+    @apply bg-secondary border border-border p-5 my-8 overflow-x-auto text-sm;
   }
 
   .prose pre code {
-    @apply bg-transparent p-0 text-inherit;
+    @apply bg-transparent p-0 text-foreground;
   }
 
   .prose ul, .prose ol {
@@ -142,28 +140,32 @@
   }
 
   .prose hr {
-    @apply my-12 border-t-2 border-foreground;
+    @apply my-12 border-border;
   }
 
   .prose img {
-    @apply my-8 border-2 border-foreground;
+    @apply my-8 border border-border;
   }
 }
 
 @layer components {
-  /* Uppercase section label, used above every section heading */
+  /* Green section marker, e.g. [01] */
   .eyebrow {
-    @apply block text-xs font-bold uppercase text-primary mb-6;
-    letter-spacing: 0.12em;
+    @apply block text-xs text-primary uppercase mb-4;
+    letter-spacing: 0.1em;
   }
 
-  /* Solid block button */
+  /* Outlined terminal button */
   .btn {
-    @apply inline-flex items-center gap-2 bg-foreground text-background px-6 py-4 text-base font-semibold hover:bg-primary transition-colors;
+    @apply inline-flex items-center gap-2 border border-primary text-primary px-5 py-3 text-sm hover:bg-primary hover:text-primary-foreground transition-colors;
   }
 
-  /* Text link with a heavy accent underline on hover */
   .link-accent {
-    @apply inline-flex items-center gap-2 font-semibold text-foreground border-b-2 border-transparent hover:border-primary hover:text-primary transition-colors;
+    @apply inline-flex items-center gap-2 text-primary hover:underline underline-offset-4 transition-colors;
+  }
+
+  /* Dashed leader that fills the rest of a section header row */
+  .leader {
+    @apply flex-1 border-b border-dashed border-border;
   }
 }

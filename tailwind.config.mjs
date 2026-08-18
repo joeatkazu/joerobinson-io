@@ -4,19 +4,20 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: { DEFAULT: '1.5rem', lg: '2.25rem' },
+      padding: { DEFAULT: '1.5rem', lg: '1.75rem' },
       screens: {
         sm: '640px',
         md: '768px',
         lg: '1024px',
-        xl: '1180px',
+        xl: '940px',
       },
     },
     extend: {
       fontFamily: {
-        heading: ['Inter', 'system-ui', 'sans-serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['"Roboto Mono"', 'monospace'],
+        heading: ['"Roboto Mono"', 'ui-monospace', 'monospace'],
+        body: ['"Roboto Mono"', 'ui-monospace', 'monospace'],
+        mono: ['"Roboto Mono"', 'ui-monospace', 'monospace'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: 'hsl(var(--border))',

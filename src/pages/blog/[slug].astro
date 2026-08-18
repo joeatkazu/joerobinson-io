@@ -21,7 +21,7 @@ const date = post.data.publishedDate ?? post.data.published ?? '';
 <BaseLayout title={`${post.data.title} | Joe Robinson`} description={post.data.description}>
   <SiteHeader />
 
-  <header class="border-b-2 border-foreground">
+  <header class="border-b border-border">
     <div class="container py-14 md:py-20">
       <a
         href="/blog"
@@ -48,7 +48,7 @@ const date = post.data.publishedDate ?? post.data.published ?? '';
       {date && (
         <span class="block text-xs font-bold uppercase tracking-[0.12em] text-primary mb-5">{date}</span>
       )}
-      <h1 class="text-4xl sm:text-5xl md:text-6xl max-w-[20ch]">{post.data.title}</h1>
+      <h1 class="max-w-[20ch]">{post.data.title}</h1>
       {post.data.description && (
         <p class="mt-6 text-lg text-muted-foreground max-w-[60ch]">{post.data.description}</p>
       )}

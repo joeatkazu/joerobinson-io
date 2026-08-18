@@ -8,15 +8,13 @@ interface Props {
 const { title, label, description } = Astro.props;
 ---
 
-<div class="border-t-2 border-foreground pt-6">
-  {label && (
-    <span class="block font-heading font-bold text-xs uppercase tracking-[0.12em] text-primary mb-3">
-      {label}
-    </span>
-  )}
-  <h3 class="mb-3">{title}</h3>
-  {description && <p class="text-muted-foreground">{description}</p>}
-  <div class="text-muted-foreground space-y-3">
+<div class="border border-border p-6 h-full">
+  {label && <span class="block text-xs text-primary uppercase tracking-[0.08em] mb-3">{label}</span>}
+  <h3 class="mb-3">
+    <span class="text-primary mr-1.5" aria-hidden="true">&rarr;</span>{title}
+  </h3>
+  {description && <p class="text-sm text-muted-foreground leading-relaxed">{description}</p>}
+  <div class="text-sm text-muted-foreground leading-relaxed space-y-3">
     <slot />
   </div>
 </div>

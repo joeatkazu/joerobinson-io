@@ -4,35 +4,36 @@
 
 @layer base {
   :root {
-    /* Terminal direction: dark ground, mono type, green accent */
-    --background: 210 14% 6%;      /* #0C0E10 */
-    --foreground: 200 8% 92%;      /* #E7EAEC */
+    /* Ruled direction: pale ground, white sheet, cobalt accent.
+       Rules are horizontal only — the sheet edges are the sole verticals. */
+    --background: 220 16% 96%;     /* #F4F5F7 paper */
+    --foreground: 220 23% 8%;      /* #0F1218 ink */
 
-    --card: 210 13% 8%;
-    --card-foreground: 200 8% 92%;
+    --card: 0 0% 100%;             /* the sheet */
+    --card-foreground: 220 23% 8%;
 
-    --primary: 142 72% 67%;        /* #6EE79B */
-    --primary-foreground: 210 14% 6%;
+    --primary: 225 76% 50%;        /* #2050E0 cobalt */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 12% 9%;
-    --secondary-foreground: 200 8% 92%;
+    --secondary: 220 20% 97%;      /* recessed panel inside the sheet */
+    --secondary-foreground: 220 23% 8%;
 
-    --muted: 210 12% 9%;
-    --muted-foreground: 206 10% 63%;
+    --muted: 220 20% 97%;
+    --muted-foreground: 215 9% 39%; /* #5B626C */
 
-    --accent: 142 72% 67%;
-    --accent-foreground: 210 14% 6%;
+    --accent: 225 76% 50%;
+    --accent-foreground: 0 0% 100%;
 
-    --border: 207 12% 16%;
-    --input: 207 12% 16%;
-    --ring: 142 72% 67%;
+    --border: 217 13% 88%;         /* #DDE0E5 hairline */
+    --input: 217 13% 88%;
+    --ring: 225 76% 50%;
 
     --radius: 0px;
   }
 
   ::selection {
-    background-color: #6ee79b;
-    color: #0c0e10;
+    background-color: #2050e0;
+    color: #ffffff;
   }
 
   * {
@@ -42,51 +43,47 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   body {
-    @apply bg-background text-foreground font-mono text-[15px];
+    @apply bg-background text-foreground font-sans text-base;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-mono font-medium text-foreground;
+    @apply font-sans font-semibold text-foreground;
   }
 
   h1 {
-    @apply text-3xl sm:text-4xl md:text-5xl;
-    line-height: 1.14;
-    letter-spacing: -0.02em;
+    @apply text-4xl sm:text-5xl md:text-[3.5rem];
+    line-height: 1.05;
+    letter-spacing: -0.04em;
   }
 
   h2 {
     @apply text-2xl md:text-3xl;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
   }
 
   h3 {
-    @apply text-base md:text-lg;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
+    @apply text-[17px] md:text-lg;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
   }
 
-  /* Long-form reading uses the sans face; mono stays on chrome and headings. */
+  /* Long-form reading. Same face as the rest of the site — mono is
+     reserved for labels, indices and nav. */
   .prose {
-    @apply font-sans text-foreground max-w-[70ch];
+    @apply text-foreground max-w-[70ch];
   }
 
   .prose h2 {
-    @apply font-mono mt-14 mb-4 text-xl md:text-2xl;
+    @apply mt-14 mb-4 pt-8 text-xl md:text-2xl border-t border-border;
   }
 
   .prose h3 {
-    @apply font-mono mt-10 mb-3 text-base md:text-lg;
-  }
-
-  .prose h2::before, .prose h3::before {
-    content: "# ";
-    color: hsl(var(--primary));
+    @apply mt-10 mb-3 text-base md:text-lg;
   }
 
   .prose p {
@@ -103,11 +100,11 @@
   }
 
   .prose blockquote {
-    @apply border-l-2 border-primary pl-6 my-8 text-foreground;
+    @apply border-y border-border py-6 my-8 text-foreground;
   }
 
   .prose code {
-    @apply font-mono text-sm bg-secondary text-primary px-1.5 py-0.5;
+    @apply font-mono text-[13.5px] bg-secondary border border-border text-primary px-1.5 py-0.5;
   }
 
   .prose pre {
@@ -115,7 +112,7 @@
   }
 
   .prose pre code {
-    @apply bg-transparent p-0 text-foreground;
+    @apply bg-transparent border-0 p-0 text-foreground;
   }
 
   .prose ul, .prose ol {
@@ -149,23 +146,68 @@
 }
 
 @layer components {
-  /* Green section marker, e.g. [01] */
-  .eyebrow {
-    @apply block text-xs text-primary uppercase mb-4;
-    letter-spacing: 0.1em;
+  /* The sheet: white panels stacked on the paper ground. Each one carries
+     its own bottom rule, so consecutive sheets read as one ruled column. */
+  .sheet {
+    @apply bg-card border-x border-b border-border px-6 sm:px-8 md:px-12 py-14 md:py-16;
   }
 
-  /* Outlined terminal button */
+  /* First sheet on a page needs the closing rule at the top. */
+  .sheet-top {
+    @apply border-t;
+  }
+
+  /* Ink block — used once per page, at the contact prompt. */
+  .sheet-ink {
+    @apply bg-foreground border-foreground text-background;
+  }
+
+  /* Crop marks on the hero sheet. Parent needs `relative`. */
+  .tick {
+    @apply absolute w-[9px] h-[9px] pointer-events-none;
+  }
+
+  .tick::before,
+  .tick::after {
+    content: "";
+    @apply absolute bg-primary;
+  }
+
+  .tick::before {
+    @apply w-[9px] h-px top-0 left-0;
+  }
+
+  .tick::after {
+    @apply w-px h-[9px] top-0 left-0;
+  }
+
+  .tick-tl { @apply -top-px -left-px; }
+  .tick-tr { @apply -top-px -right-px -scale-x-100; }
+  .tick-bl { @apply -bottom-px -left-px -scale-y-100; }
+  .tick-br { @apply -bottom-px -right-px -scale-100; }
+
+  /* Small mono label: section indices, field keys, meta. */
+  .label {
+    @apply font-mono text-[11px] uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  /* Cobalt section marker, e.g. [01] WHAT I DO */
+  .eyebrow {
+    @apply label block text-primary mb-4;
+  }
+
+  /* Solid cobalt button */
   .btn {
-    @apply inline-flex items-center gap-2 border border-primary text-primary px-5 py-3 text-sm hover:bg-primary hover:text-primary-foreground transition-colors;
+    @apply inline-flex items-center gap-2.5 bg-primary text-primary-foreground px-6 py-4 text-sm font-medium hover:bg-primary/90 transition-colors;
+  }
+
+  /* Outlined button for use on the ink block */
+  .btn-invert {
+    @apply inline-flex items-center gap-2.5 font-mono text-[13.5px] text-background border border-background/25 px-5 py-3.5 hover:border-background/60 transition-colors;
   }
 
   .link-accent {
     @apply inline-flex items-center gap-2 text-primary hover:underline underline-offset-4 transition-colors;
-  }
-
-  /* Dashed leader that fills the rest of a section header row */
-  .leader {
-    @apply flex-1 border-b border-dashed border-border;
   }
 }

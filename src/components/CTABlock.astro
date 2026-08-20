@@ -14,20 +14,18 @@ const {
 } = Astro.props;
 ---
 
-<section class="border-t border-border bg-secondary">
-  <div class="container py-14 md:py-20">
-    <div class="flex items-baseline gap-3 text-xs sm:text-sm mb-8">
-      <span class="text-primary">[--]</span>
-      <span class="text-foreground uppercase tracking-[0.08em]">Contact</span>
-      <span class="leader"></span>
-    </div>
-    <h2 class="max-w-[24ch]">{heading}</h2>
-    <p class="mt-5 text-muted-foreground max-w-[64ch] leading-relaxed">{text}</p>
-    <div class="mt-9">
-      <a href={linkTo} class="btn">
-        <span aria-hidden="true">&rarr;</span>
-        {linkText}
-      </a>
+<section>
+  <div class="container">
+    <div class="sheet sheet-ink">
+      <span class="label block text-background/55 mb-6">[--] Contact</span>
+      <h2 class="max-w-[24ch] text-white">{heading}</h2>
+      <p class="mt-5 text-background/70 max-w-[64ch] leading-relaxed">{text}</p>
+      <div class="mt-9">
+        <a href={linkTo} class="btn-invert">
+          <span aria-hidden="true">&rarr;</span>
+          {linkText}
+        </a>
+      </div>
     </div>
   </div>
 </section>

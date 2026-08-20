@@ -12,25 +12,25 @@ interface Props {
 const { stats, note } = Astro.props;
 ---
 
-<section class="border-b border-border py-14 md:py-20">
+<section>
   <div class="container">
-    <div class="flex items-baseline gap-3 text-xs sm:text-sm mb-8">
-      <span class="text-primary">[00]</span>
-      <span class="text-foreground uppercase tracking-[0.08em]">Results</span>
-      <span class="leader"></span>
-    </div>
+    <div class="sheet">
+      <span class="eyebrow">[00] Results</span>
 
-    <table class="w-full text-sm">
-      <tbody>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 border-t border-border pt-8">
         {stats.map((stat) => (
-          <tr class="border-b border-border align-baseline">
-            <td class="py-4 pr-8 text-primary whitespace-nowrap">{stat.value}</td>
-            <td class="py-4 text-muted-foreground leading-relaxed">{stat.label}</td>
-          </tr>
+          <div>
+            <div class="text-[28px] font-semibold tracking-[-0.04em] text-primary">{stat.value}</div>
+            <p class="mt-2 text-[13px] text-muted-foreground leading-relaxed">{stat.label}</p>
+          </div>
         ))}
-      </tbody>
-    </table>
+      </div>
 
-    {note && <p class="mt-6 text-sm text-muted-foreground max-w-[70ch]">{note}</p>}
+      {note && (
+        <div class="mt-10 pt-6 border-t border-border">
+          <p class="text-sm text-muted-foreground max-w-[70ch]">{note}</p>
+        </div>
+      )}
+    </div>
   </div>
 </section>

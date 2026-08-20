@@ -6,8 +6,9 @@ import SiteFooter from '../components/SiteFooter.astro';
 
 <BaseLayout title="Page not found | Joe Robinson">
   <SiteHeader />
-  <section class="border-b border-border">
-    <div class="container py-20 md:py-28">
+  <section>
+    <div class="container">
+      <div class="sheet sheet-top py-20 md:py-28">
       <span class="eyebrow">Error 404</span>
       <h1>Page not <span class="text-primary">found.</span></h1>
       <p class="text-lg text-muted-foreground leading-relaxed max-w-[46ch] mt-6 mb-10">
@@ -31,6 +32,7 @@ import SiteFooter from '../components/SiteFooter.astro';
           <polyline points="12 5 19 12 12 19"/>
         </svg>
       </a>
+      </div>
     </div>
   </section>
   <SiteFooter />

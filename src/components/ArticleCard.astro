@@ -9,14 +9,12 @@ interface Props {
 const { title, excerpt, date, slug } = Astro.props;
 ---
 
-<a href={`/blog/${slug}`} class="group block border-b border-border py-6">
-  <div class="grid md:grid-cols-[7.5rem_1fr] gap-2 md:gap-6">
-    {date ? <time class="text-xs text-muted-foreground md:pt-1">{date}</time> : <span></span>}
+<a href={`/blog/${slug}`} class="group block border-t border-border py-6">
+  <div class="grid md:grid-cols-[7.5rem_1fr] gap-2 md:gap-5">
+    {date ? <time class="font-mono text-xs text-muted-foreground/70 md:pt-1.5">{date}</time> : <span></span>}
     <div>
-      <h3 class="max-w-[52ch] group-hover:text-primary transition-colors">
-        <span class="text-primary mr-1.5" aria-hidden="true">&rarr;</span>{title}
-      </h3>
-      <p class="mt-2 text-sm text-muted-foreground leading-relaxed max-w-[76ch]">{excerpt}</p>
+      <h3 class="max-w-[52ch] group-hover:text-primary transition-colors">{title}</h3>
+      <p class="mt-2 text-sm text-muted-foreground leading-relaxed max-w-[68ch]">{excerpt}</p>
     </div>
   </div>
 </a>

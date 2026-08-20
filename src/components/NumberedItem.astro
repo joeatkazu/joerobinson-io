@@ -7,12 +7,12 @@ interface Props {
 const { number, title } = Astro.props;
 ---
 
-<div class="border-t border-border py-7 first:border-t-0 first:pt-0">
-  <h3 class="flex gap-3">
-    <span class="text-primary shrink-0">[{number}]</span>
-    <span class="max-w-[46ch]">{title}</span>
-  </h3>
-  <div class="mt-3 md:pl-[3.9rem] text-muted-foreground text-sm md:text-[15px] leading-relaxed space-y-4 max-w-[76ch]">
-    <slot />
+<div class="grid md:grid-cols-[3.75rem_1fr] gap-2 md:gap-5 border-t border-border py-7">
+  <span class="font-mono text-xs text-muted-foreground/70 md:pt-1.5">{number}</span>
+  <div>
+    <h3 class="max-w-[46ch]">{title}</h3>
+    <div class="mt-3 text-muted-foreground text-sm md:text-[15px] leading-relaxed space-y-4 max-w-[68ch]">
+      <slot />
+    </div>
   </div>
 </div>

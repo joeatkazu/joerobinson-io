@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>joerobinson.io — design directions v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#101012;font-family:Inter,system-ui,sans-serif}
+  img{max-width:100%}
+
+  /* ---------- chrome around the mockups ---------- */
+  .switcher{
+    position:sticky;top:0;z-index:50;display:flex;gap:2px;flex-wrap:wrap;
+    background:#000;padding:10px 14px;border-bottom:1px solid #26262a;
+  }
+  .switcher a{
+    font:500 12px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;
+    color:#9a9aa2;text-decoration:none;padding:8px 12px;border:1px solid #2c2c31;
+  }
+  .switcher a:hover{color:#fff;border-color:#5a5a63}
+  .switcher .who{margin-right:auto;color:#5c5c63;padding:8px 4px;border:0;text-transform:none;letter-spacing:0}
+  .plate{border-bottom:1px solid #000}
+  .plate-bar{scroll-margin-top:44px}
+  .plate-bar{
+    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+    background:#000;color:#8a8a92;padding:26px 22px 22px;
+    font:400 13px/1.5 Inter,sans-serif;
+  }
+  .plate-bar b{color:#fff;font:600 15px/1 Inter,sans-serif;letter-spacing:.02em}
+  .plate-bar .tag{color:#57575e;font-size:12px}
+  .frame{border:0;display:block}
+
+  /* ================================================================
+     A · LEDGER  — light, neutral, report-like. Numbers do the talking.
+     ================================================================ */
+  #a{--paper:#F7F7F5;--ink:#15161A;--soft:#6A6C74;--rule:#E0E0DC;--acc:#1B4D3E;
+     background:var(--paper);color:var(--ink);font-family:Inter,sans-serif;}
+  #a .wrap{max-width:1000px;margin:0 auto;padding:0 40px}
+  #a .nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--rule)}
+  #a .logo{font-weight:600;letter-spacing:-.01em;font-size:15px}
+  #a .nav nav{display:flex;gap:26px;font-size:13px;color:var(--soft)}
+  #a .nav nav a{color:inherit;text-decoration:none}
+  #a .hero{padding:96px 0 80px;display:grid;grid-template-columns:1fr 300px;gap:60px;align-items:start}
+  #a .kicker{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:26px}
+  #a h1{font-size:56px;line-height:1.04;letter-spacing:-.035em;font-weight:600;margin:0 0 32px;max-width:14ch}
+  #a .lede{font-size:18px;line-height:1.6;color:var(--soft);max-width:56ch;margin:0 0 16px}
+  #a .lede strong{color:var(--ink);font-weight:600}
+  #a .cta{display:inline-block;margin-top:22px;background:var(--acc);color:#fff;text-decoration:none;
+          font-size:14px;font-weight:500;padding:15px 26px;border-radius:2px}
+  #a .card{border:1px solid var(--rule);background:#fff;padding:26px;border-radius:3px}
+  #a .card .h{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:20px}
+  #a .card dl{margin:0;display:grid;gap:16px}
+  #a .card .n{font-size:26px;font-weight:600;letter-spacing:-.03em;color:var(--acc)}
+  #a .card .d{font-size:12.5px;line-height:1.45;color:var(--soft);margin-top:3px}
+  #a .band{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:#fff}
+  #a .band .wrap{display:grid;grid-template-columns:repeat(4,1fr);max-width:1000px}
+  #a .band .c{padding:30px 26px;border-left:1px solid var(--rule)}
+  #a .band .c:first-child{border-left:0}
+  #a .band .c:first-child{padding-left:0}
+  #a .band .c:last-child{padding-right:0}
+  #a .band .v{font-size:32px;font-weight:600;letter-spacing:-.035em;margin-bottom:8px}
+  #a .band .l{font-size:12.5px;line-height:1.5;color:var(--soft)}
+  #a .sec{padding:84px 0}
+  #a .sec-h{display:grid;grid-template-columns:200px 1fr;gap:40px;margin-bottom:44px}
+  #a .sec-h .idx{font:500 11px/1.6 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+  #a .sec-h h2{margin:0;font-size:30px;letter-spacing:-.03em;font-weight:600}
+  #a .row{display:grid;grid-template-columns:200px 1fr;gap:40px;padding:26px 0;border-top:1px solid var(--rule)}
+  #a .row .num{font:500 12px/1.6 "IBM Plex Mono",monospace;color:var(--acc)}
+  #a .row h3{margin:0 0 10px;font-size:17px;font-weight:600;letter-spacing:-.015em}
+  #a .row p{margin:0;font-size:14.5px;line-height:1.65;color:var(--soft);max-width:64ch}
+  #a .foot{background:var(--ink);color:#fff;padding:70px 0}
+  #a .foot h2{margin:0 0 14px;font-size:34px;letter-spacing:-.03em;font-weight:600}
+  #a .foot p{margin:0;color:#9EA1A8;font-size:15px;line-height:1.6;max-width:56ch}
+  #a .foot a{display:inline-block;margin-top:26px;color:var(--paper);border-bottom:1px solid #4d5056;text-decoration:none;font-size:14px;padding-bottom:4px}
+
+  /* ================================================================
+     B · SLATE — dark but not a terminal. Deep blue-grey, sans, amber.
+     ================================================================ */
+  #b{--bg:#111418;--pane:#171B21;--fg:#EDEFF2;--soft:#98A0AB;--line:#242A32;--acc:#F2A93B;
+     background:var(--bg);color:var(--fg);font-family:Inter,sans-serif}
+  #b .wrap{max-width:1080px;margin:0 auto;padding:0 40px}
+  #b .nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0}
+  #b .logo{font-weight:600;font-size:15px;letter-spacing:-.01em}
+  #b .logo i{color:var(--acc);font-style:normal}
+  #b .nav nav{display:flex;gap:28px;font-size:13.5px;color:var(--soft)}
+  #b .nav nav a{color:inherit;text-decoration:none}
+  #b .nav .btn{border:1px solid var(--line);padding:9px 16px;border-radius:999px;color:var(--fg);font-size:13px;text-decoration:none}
+  #b .hero{padding:110px 0 90px;max-width:900px}
+  #b .pill{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;color:var(--acc);
+           border:1px solid rgba(242,169,59,.32);background:rgba(242,169,59,.07);padding:7px 15px;border-radius:999px}
+  #b .pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--acc)}
+  #b h1{font-size:64px;line-height:1.03;letter-spacing:-.04em;font-weight:600;margin:34px 0 30px;max-width:16ch}
+  #b .sig{font-size:16px;color:var(--fg);margin:0 0 14px;font-weight:500}
+  #b .lede{font-size:17.5px;line-height:1.68;color:var(--soft);max-width:62ch;margin:0 0 14px}
+  #b .cta{display:inline-flex;align-items:center;gap:10px;margin-top:28px;background:var(--acc);color:#15181C;
+          text-decoration:none;font-size:14.5px;font-weight:600;padding:15px 26px;border-radius:6px}
+  #b .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding-bottom:20px}
+  #b .stat{background:var(--pane);border:1px solid var(--line);border-radius:8px;padding:26px 22px}
+  #b .stat .v{font-size:34px;font-weight:600;letter-spacing:-.04em;color:var(--acc);margin-bottom:10px}
+  #b .stat .l{font-size:12.5px;line-height:1.55;color:var(--soft)}
+  #b .note{font-size:13.5px;color:#717984;margin:18px 0 0}
+  #b .sec{padding:96px 0}
+  #b .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:16px}
+  #b .sec h2{font-size:36px;letter-spacing:-.035em;font-weight:600;margin:0 0 8px}
+  #b .sec .sub{color:var(--soft);font-size:16px;margin:0 0 48px}
+  #b .item{display:grid;grid-template-columns:56px 1fr;gap:24px;padding:28px 0;border-top:1px solid var(--line)}
+  #b .item .n{font:500 13px/1.7 "JetBrains Mono",monospace;color:#5D6673}
+  #b .item h3{margin:0 0 10px;font-size:19px;font-weight:600;letter-spacing:-.02em}
+  #b .item p{margin:0;font-size:15px;line-height:1.7;color:var(--soft);max-width:66ch}
+  #b .foot{border-top:1px solid var(--line);background:var(--pane);padding:76px 0}
+  #b .foot h2{font-size:38px;letter-spacing:-.035em;margin:0 0 14px}
+  #b .foot p{color:var(--soft);max-width:56ch;line-height:1.65;margin:0}
+
+  /* ================================================================
+     C · BROADSHEET — cold white, huge condensed display, red rules.
+     ================================================================ */
+  #c{--paper:#fff;--ink:#0A0A0A;--soft:#4A4A4A;--rule:#0A0A0A;--acc:#C8102E;
+     background:var(--paper);color:var(--ink);font-family:Archivo,Inter,sans-serif}
+  #c .wrap{max-width:1120px;margin:0 auto;padding:0 36px}
+  #c .nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:3px solid var(--rule)}
+  #c .logo{font-weight:800;font-size:17px;letter-spacing:-.02em;text-transform:uppercase}
+  #c .nav nav{display:flex;gap:22px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+  #c .nav nav a{color:var(--ink);text-decoration:none}
+  #c .strap{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+            color:var(--soft);padding:9px 0;border-bottom:1px solid var(--rule)}
+  #c .strap .hi{color:var(--acc);font-weight:600}
+  #c .hero{padding:52px 0 44px;border-bottom:1px solid var(--rule)}
+  #c h1{font-size:104px;line-height:.92;letter-spacing:-.045em;font-weight:800;margin:0 0 34px;max-width:13ch;text-transform:none}
+  #c h1 em{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.02em}
+  #c .cols{display:grid;grid-template-columns:1fr 1fr 320px;gap:34px;padding-top:26px;border-top:1px solid #D8D8D8}
+  #c .cols p{margin:0 0 14px;font-size:15px;line-height:1.62;color:var(--soft)}
+  #c .cols .sig{color:var(--ink);font-weight:600}
+  #c .cta{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;
+          font-size:14px;letter-spacing:.01em;padding:16px 22px}
+  #c .fig{border-top:3px solid var(--acc);padding-top:14px}
+  #c .fig .lab{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:16px}
+  #c .fig .r{display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid #E2E2E2}
+  #c .fig .v{font-size:22px;font-weight:800;letter-spacing:-.03em;min-width:74px;color:var(--acc)}
+  #c .fig .d{font-size:12px;line-height:1.45;color:var(--soft)}
+  #c .sec{padding:54px 0}
+  #c .sec-h{display:flex;align-items:baseline;gap:16px;border-bottom:3px solid var(--rule);padding-bottom:10px;margin-bottom:34px}
+  #c .sec-h h2{margin:0;font-size:34px;font-weight:800;letter-spacing:-.03em}
+  #c .sec-h .s{font-size:13px;color:var(--soft);margin-left:auto}
+  #c .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px}
+  #c .art{padding:22px 0;border-top:1px solid #D8D8D8}
+  #c .art .n{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--acc);margin-bottom:8px}
+  #c .art h3{margin:0 0 9px;font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+  #c .art p{margin:0;font-size:14px;line-height:1.6;color:var(--soft)}
+  #c .foot{border-top:3px solid var(--rule);padding:48px 0 60px}
+  #c .foot h2{font-size:56px;font-weight:800;letter-spacing:-.04em;margin:0 0 12px}
+  #c .foot p{font-size:15px;line-height:1.6;color:var(--soft);max-width:54ch;margin:0 0 22px}
+
+  /* ================================================================
+     D · BLUEPRINT — pale graph paper, mono labels, cobalt accent.
+     ================================================================ */
+  #d{--paper:#F2F3F5;--ink:#101318;--soft:#5C6470;--line:#D6D9DE;--acc:#2050E0;
+     background:var(--paper);color:var(--ink);font-family:Inter,sans-serif;
+     background-image:linear-gradient(#E4E6EA 1px,transparent 1px),linear-gradient(90deg,#E4E6EA 1px,transparent 1px);
+     background-size:28px 28px}
+  #d .wrap{max-width:1020px;margin:0 auto;padding:0 36px}
+  #d .sheet .wrap{padding:0 40px}
+  #d .sheet{background:#FBFCFD;max-width:1020px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  #d .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+  #d .logo{font:500 13px/1 "JetBrains Mono",monospace;letter-spacing:-.01em}
+  #d .logo i{color:var(--acc);font-style:normal}
+  #d .nav nav{display:flex;gap:24px;font:400 12.5px/1 "JetBrains Mono",monospace;color:var(--soft)}
+  #d .nav nav a{color:inherit;text-decoration:none}
+  #d .hero{padding:84px 0 72px;position:relative}
+  #d .tick{font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);
+           display:inline-flex;align-items:center;gap:10px;margin-bottom:30px}
+  #d .tick::before{content:"";width:26px;height:1px;background:var(--acc)}
+  #d h1{font-size:58px;line-height:1.05;letter-spacing:-.04em;font-weight:600;margin:0 0 34px;max-width:15ch}
+  #d .who{font-size:15.5px;font-weight:600;margin:0 0 14px}
+  #d .lede{font-size:16.5px;line-height:1.7;color:var(--soft);max-width:60ch;margin:0 0 14px}
+  #d .cta{display:inline-flex;align-items:center;gap:10px;margin-top:26px;background:var(--acc);color:#fff;
+          font:500 14px/1 Inter,sans-serif;text-decoration:none;padding:16px 24px}
+  #d .cta span{font-family:"JetBrains Mono",monospace}
+  #d .measure{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  #d .measure .c{padding:28px 24px;border-right:1px solid var(--line)}
+  #d .measure .c:last-child{border-right:0}
+  #d .measure .k{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.12em;color:#98A0AC;margin-bottom:14px}
+  #d .measure .v{font-size:30px;font-weight:600;letter-spacing:-.04em;color:var(--acc);margin-bottom:9px}
+  #d .measure .l{font-size:12px;line-height:1.5;color:var(--soft)}
+  #d .sec{padding:76px 0}
+  #d .sec-h{margin-bottom:38px}
+  #d .sec-h .idx{font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.12em;color:var(--acc);margin-bottom:14px}
+  #d .sec-h h2{margin:0 0 6px;font-size:30px;letter-spacing:-.03em;font-weight:600}
+  #d .sec-h p{margin:0;color:var(--soft);font-size:15px}
+  #d .spec{display:grid;grid-template-columns:88px 1fr;border-top:1px solid var(--line)}
+  #d .spec .n{padding:24px 0;font:500 12px/1.6 "JetBrains Mono",monospace;color:#9AA2AE;border-right:1px solid var(--line)}
+  #d .spec .b{padding:24px 0 24px 28px}
+  #d .spec h3{margin:0 0 10px;font-size:17px;font-weight:600;letter-spacing:-.02em}
+  #d .spec p{margin:0;font-size:14.5px;line-height:1.68;color:var(--soft);max-width:64ch}
+  #d .foot{border-top:1px solid var(--line);padding:64px 0 72px;background:#101318;color:#fff;margin-top:0}
+  #d .foot .wrap{max-width:1020px}
+  #d .foot h2{margin:0 0 14px;font-size:34px;letter-spacing:-.035em;font-weight:600}
+  #d .foot p{margin:0;color:#98A0AC;font-size:15px;line-height:1.65;max-width:56ch}
+  #d .foot a{display:inline-flex;gap:10px;margin-top:24px;color:#fff;text-decoration:none;
+             font:500 13.5px/1 "JetBrains Mono",monospace;border:1px solid #2E3540;padding:14px 20px}
+
+  @media (max-width:900px){
+    #a .hero,#a .sec-h,#a .row{grid-template-columns:1fr;gap:20px}
+    #a .band .wrap,#b .stats,#c .grid,#d .measure{grid-template-columns:1fr 1fr}
+    #c h1{font-size:56px}
+    #c .cols{grid-template-columns:1fr}
+    #b h1{font-size:40px}
+    #a h1,#d h1{font-size:38px}
+  }
+</style>
+</head>
+<body>
+
+<div class="switcher">
+  <span class="who">joerobinson.io — four new directions</span>
+  <a href="#a">A · Ledger</a>
+  <a href="#b">B · Slate</a>
+  <a href="#c">C · Broadsheet</a>
+  <a href="#d">D · Blueprint</a>
+</div>
+
+<!-- ============================== A · LEDGER ============================== -->
+<div class="plate-bar" id="a-bar">
+  <b>A · Ledger</b>
+  <span>Light, neutral, quietly expensive. Reads like a consultancy's own report — the numbers are the loudest thing on the page.</span>
+  <span class="tag">Inter + IBM Plex Mono · deep green accent</span>
+</div>
+<section id="a" class="plate">
+  <div class="wrap">
+    <div class="nav">
+      <div class="logo">Joe Robinson</div>
+      <nav><a href="#">Work</a><a href="#">Services</a><a href="#">Writing</a><a href="#">Contact</a></nav>
+    </div>
+    <div class="hero">
+      <div>
+        <div class="kicker">Get more leads from search</div>
+        <h1>B2B SaaS SEO and GEO consultant</h1>
+        <p class="lede"><strong>Hi, I'm Joe Robinson,</strong></p>
+        <p class="lede">Hands-on SEO and GEO consultant, I build strategies and lead implementation that get more leads across search platforms.</p>
+        <p class="lede">I find exactly who is being recommended for the real language your customers use in LLMs, and what specifically needs to happen to get you into the answers that turn into leads.</p>
+        <a class="cta" href="#">Talk to me about SEO and AI search &nbsp;&rarr;</a>
+      </div>
+      <div class="card">
+        <div class="h">Currently</div>
+        <dl>
+          <div><div class="n">2–3</div><div class="d">retained clients at a time</div></div>
+          <div><div class="n">10 yrs</div><div class="d">organic search, in-house and consulting</div></div>
+          <div><div class="n">B2B SaaS</div><div class="d">the only market I work in</div></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="band">
+    <div class="wrap">
+      <div class="c"><div class="v">+40%</div><div class="l">monthly MQLs after rebuilding organic acquisition and content strategy</div></div>
+      <div class="c"><div class="v">€250k</div><div class="l">ARR customer influenced by SEO-led discovery and content positioning</div></div>
+      <div class="c"><div class="v">+300%</div><div class="l">organic traffic in seven months, after fixing technical and content foundations</div></div>
+      <div class="c"><div class="v">600k+</div><div class="l">page programmatic content system, serving thousands of daily visits</div></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="sec">
+      <div class="sec-h">
+        <div class="idx">01 / What I do</div>
+        <h2>GEO strategy and execution that generates leads</h2>
+      </div>
+      <div class="row"><div class="num">01</div><div><h3>I find where you need to be visible in AI search</h3><p>By the time someone reaches your site they've already built a shortlist around recommendations from their AI engine. To be part of that recommendation set, you need your brand represented properly in the sources LLMs draw upon.</p></div></div>
+      <div class="row"><div class="num">02</div><div><h3>I write the briefs and edit the drafts</h3><p>Category, use case, comparison, integration and problem-led content — plus the editorial work that keeps it consistent, clear, and not obviously AI slop.</p></div></div>
+      <div class="row"><div class="num">03</div><div><h3>I do the technical work</h3><p>Site architecture and internal linking, rendering, indexability. A decade of learning how to recognise and fix them.</p></div></div>
+      <div class="row"><div class="num">04</div><div><h3>I build the tools I measure with</h3><p>When I need a specific set of answers, I build a tool for it: AI visibility tracking, sentiment across a prompt set, and the content that gets competitors mentioned.</p></div></div>
+      <div class="row"><div class="num">05</div><div><h3>I report against pipeline</h3><p>Share of search, LLM share of voice, assisted conversions, and a directional read on the channels that last-click no longer covers.</p></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="wrap">
+      <h2>Let's talk.</h2>
+      <p>If you need someone to own organic and AI search at your B2B SaaS company, start a conversation. I work with two or three retained clients at a time.</p>
+      <a href="#">Start a conversation &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== B · SLATE ============================== -->
+<div class="plate-bar">
+  <b>B · Slate</b>
+  <span>Dark, like now — but blue-grey and set in a sans, so it reads as a modern product company rather than a terminal. Amber instead of green.</span>
+  <span class="tag">Inter + JetBrains Mono · rounded 6px</span>
+</div>
+<section id="b" class="plate">
+  <div class="wrap">
+    <div class="nav">
+      <div class="logo"><i>▍</i> Joe Robinson</div>
+      <nav><a href="#">Work</a><a href="#">Services</a><a href="#">Writing</a><a class="btn" href="#">Contact</a></nav>
+    </div>
+    <div class="hero">
+      <span class="pill">Get more leads from search</span>
+      <h1>B2B SaaS SEO and GEO consultant</h1>
+      <p class="sig">Hi, I'm Joe Robinson,</p>
+      <p class="lede">Hands-on SEO and GEO consultant, I build strategies and lead implementation that get more leads across search platforms.</p>
+      <p class="lede">I find exactly who is being recommended for the real language your customers use in LLMs, and what specifically needs to happen to get you into the answers that turn into leads.</p>
+      <a class="cta" href="#">Talk to me about SEO and AI search &rarr;</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="v">+40%</div><div class="l">monthly MQLs after rebuilding organic acquisition and content strategy</div></div>
+      <div class="stat"><div class="v">€250k</div><div class="l">ARR customer influenced by SEO-led discovery and content positioning</div></div>
+      <div class="stat"><div class="v">+300%</div><div class="l">organic traffic in seven months, after fixing technical and content foundations</div></div>
+      <div class="stat"><div class="v">600k+</div><div class="l">page programmatic content system, serving thousands of daily visits</div></div>
+    </div>
+    <p class="note">These came from running the channel week to week and staying accountable for the numbers.</p>
+    <div class="sec">
+      <div class="eyebrow">01 — What I do</div>
+      <h2>GEO strategy and execution that generates leads</h2>
+      <p class="sub">Five things I actually do, week to week.</p>
+      <div class="item"><div class="n">01</div><div><h3>I find where you need to be visible in AI search</h3><p>Buyers build a shortlist around recommendations from their AI engine before they ever reach your site. Being part of that set means your brand is represented properly in the sources LLMs draw upon for commercially relevant queries.</p></div></div>
+      <div class="item"><div class="n">02</div><div><h3>I write the briefs and edit the drafts</h3><p>I build the pages that enter buying conversations: category, use case, comparison, integration and problem-led content, and do the editorial work that ensures consistency and clarity.</p></div></div>
+      <div class="item"><div class="n">03</div><div><h3>I do the technical work</h3><p>Site architecture and internal linking, rendering, indexability — the things that matter most for AI search and still matter for traditional SEO.</p></div></div>
+      <div class="item"><div class="n">04</div><div><h3>I build the tools I measure with</h3><p>An AI visibility tracker that shows how LLMs reach their recommendations, sentiment across a prompt set, and a prompt builder that scrapes real customer language.</p></div></div>
+      <div class="item"><div class="n">05</div><div><h3>I report against pipeline</h3><p>Share of search, LLM share of voice, assisted conversions, and a directional read on the channels that last-click no longer covers.</p></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="wrap">
+      <h2>Let's talk.</h2>
+      <p>If you need someone to own organic and AI search at your B2B SaaS company, start a conversation. I work with two or three retained clients at a time.</p>
+      <a class="cta" href="#" style="margin-top:26px">Start a conversation &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== C · BROADSHEET ============================== -->
+<div class="plate-bar">
+  <b>C · Broadsheet</b>
+  <span>Cold white, heavy condensed display type, hard black rules, one red. Confident and journalistic — the loudest of the four.</span>
+  <span class="tag">Archivo + Instrument Serif italic · #C8102E</span>
+</div>
+<section id="c" class="plate">
+  <div class="wrap">
+    <div class="nav">
+      <div class="logo">Joe Robinson</div>
+      <nav><a href="#">Work</a><a href="#">Services</a><a href="#">Writing</a><a href="#">Contact</a></nav>
+    </div>
+    <div class="strap">
+      <span>B2B SaaS · Organic &amp; AI search</span>
+      <span class="hi">Get more leads from search</span>
+      <span>Two or three clients at a time</span>
+    </div>
+    <div class="hero">
+      <h1>B2B SaaS SEO and <em>GEO</em> consultant</h1>
+      <div class="cols">
+        <div>
+          <p class="sig">Hi, I'm Joe Robinson,</p>
+          <p>Hands-on SEO and GEO consultant, I build strategies and lead implementation that get more leads across search platforms.</p>
+        </div>
+        <div>
+          <p>I find exactly who is being recommended for the real language your customers use in LLMs, and what specifically needs to happen to get you into the answers that turn into leads.</p>
+          <a class="cta" href="#">Talk to me about SEO and AI search</a>
+        </div>
+        <div class="fig">
+          <div class="lab">Results</div>
+          <div class="r"><div class="v">+40%</div><div class="d">monthly MQLs after rebuilding organic acquisition</div></div>
+          <div class="r"><div class="v">€250k</div><div class="d">ARR customer influenced by SEO-led discovery</div></div>
+          <div class="r"><div class="v">+300%</div><div class="d">organic traffic in seven months</div></div>
+          <div class="r"><div class="v">600k+</div><div class="d">page programmatic content system</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-h"><h2>What I do</h2><span class="s">GEO strategy and execution that generates leads</span></div>
+      <div class="grid">
+        <div class="art"><div class="n">01</div><h3>I find where you need to be visible in AI search</h3><p>Buyers build a shortlist from their AI engine long before they reach your site. Being in that set means your brand is represented in the sources LLMs actually draw upon.</p></div>
+        <div class="art"><div class="n">02</div><h3>I write the briefs and edit the drafts</h3><p>Category, use case, comparison, integration and problem-led pages — with the editorial work that keeps them clear and human.</p></div>
+        <div class="art"><div class="n">03</div><h3>I do the technical work</h3><p>Architecture, internal linking, rendering, indexability. A decade of recognising and fixing them.</p></div>
+        <div class="art"><div class="n">04</div><h3>I build the tools I measure with</h3><p>Visibility tracking, prompt-set sentiment, and the competitor content behind the mentions.</p></div>
+        <div class="art"><div class="n">05</div><h3>I report against pipeline</h3><p>Share of search, LLM share of voice, assisted conversions, and a directional read on what last-click misses.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="wrap">
+      <h2>Let's talk.</h2>
+      <p>If you need someone to own organic and AI search at your B2B SaaS company, start a conversation. I work with two or three retained clients at a time.</p>
+      <a class="cta" href="#">Start a conversation</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== D · BLUEPRINT ============================== -->
+<div class="plate-bar">
+  <b>D · Blueprint</b>
+  <span>Keeps the technical, engineered feel of the current site, but in daylight: graph-paper ground, mono only on labels, cobalt instead of green.</span>
+  <span class="tag">Inter + JetBrains Mono · square corners</span>
+</div>
+<section id="d" class="plate">
+  <div class="sheet">
+    <div class="wrap">
+      <div class="nav">
+        <div class="logo"><i>▍</i> joerobinson.io</div>
+        <nav><a href="#">/work</a><a href="#">/services</a><a href="#">/writing</a><a href="#">/contact</a></nav>
+      </div>
+      <div class="hero">
+        <div class="tick">Get more leads from search</div>
+        <h1>B2B SaaS SEO and GEO consultant</h1>
+        <p class="who">Hi, I'm Joe Robinson,</p>
+        <p class="lede">Hands-on SEO and GEO consultant, I build strategies and lead implementation that get more leads across search platforms.</p>
+        <p class="lede">I find exactly who is being recommended for the real language your customers use in LLMs, and what specifically needs to happen to get you into the answers that turn into leads.</p>
+        <a class="cta" href="#"><span>&rarr;</span> Talk to me about SEO and AI search</a>
+      </div>
+    </div>
+    <div class="measure">
+      <div class="c"><div class="k">MQLs</div><div class="v">+40%</div><div class="l">monthly MQLs after rebuilding organic acquisition and content strategy</div></div>
+      <div class="c"><div class="k">Pipeline</div><div class="v">€250k</div><div class="l">ARR customer influenced by SEO-led discovery and content positioning</div></div>
+      <div class="c"><div class="k">Traffic</div><div class="v">+300%</div><div class="l">organic traffic in seven months, after fixing technical and content foundations</div></div>
+      <div class="c"><div class="k">Scale</div><div class="v">600k+</div><div class="l">page programmatic content system, serving thousands of daily visits</div></div>
+    </div>
+    <div class="wrap">
+      <div class="sec">
+        <div class="sec-h">
+          <div class="idx">[01] WHAT I DO</div>
+          <h2>GEO strategy and execution that generates leads</h2>
+          <p>Five things I actually do, week to week.</p>
+        </div>
+        <div class="spec"><div class="n">01</div><div class="b"><h3>I find where you need to be visible in AI search</h3><p>By the time someone reaches your site they've already built a shortlist around recommendations from their AI engine. To be consistently part of that set, your brand needs to be represented properly in the sources LLMs draw upon.</p></div></div>
+        <div class="spec"><div class="n">02</div><div class="b"><h3>I write the briefs and edit the drafts</h3><p>I build the pages that enter buying conversations: category, use case, comparison, integration and problem-led content, plus the editorial work behind them.</p></div></div>
+        <div class="spec"><div class="n">03</div><div class="b"><h3>I do the technical work</h3><p>Site architecture and internal linking, rendering, indexability — the ones that matter most, and that I've spent a decade learning to fix.</p></div></div>
+        <div class="spec"><div class="n">04</div><div class="b"><h3>I build the tools I measure with</h3><p>When I need a specific set of answers, I build a tool for it: an AI visibility tracker, prompt-set sentiment, and a prompt builder that scrapes real customer language.</p></div></div>
+        <div class="spec"><div class="n">05</div><div class="b"><h3>I report against pipeline</h3><p>Share of search, LLM share of voice, assisted conversions, and a directional read on the channels that last-click no longer covers.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="wrap">
+      <h2>Let's talk.</h2>
+      <p>If you need someone to own organic and AI search at your B2B SaaS company, start a conversation. I work with two or three retained clients at a time.</p>
+      <a href="#">&rarr; Start a conversation</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

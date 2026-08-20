@@ -20,8 +20,9 @@ const articles = allPosts.sort((a, b) => {
 >
   <SiteHeader />
 
-  <section class="border-b border-border">
-    <div class="container py-16 md:py-20">
+  <section>
+    <div class="container">
+      <div class="sheet sheet-top py-16 md:py-20">
       <span class="eyebrow">Writing</span>
       <h1 class="max-w-[16ch]">
         Notes on SEO, <span class="text-primary">AI search</span> and growth
@@ -29,11 +30,13 @@ const articles = allPosts.sort((a, b) => {
       <p class="mt-6 text-lg text-muted-foreground max-w-[52ch]">
         What I'm seeing in organic and AI search, and what I'd do about it.
       </p>
+      </div>
     </div>
   </section>
 
-  <section class="py-14 md:py-20">
+  <section>
     <div class="container">
+      <div class="sheet">
       <div class="flex flex-col">
         {articles.map((post) => (
           <ArticleCard
@@ -43,6 +46,7 @@ const articles = allPosts.sort((a, b) => {
             slug={post.slug}
           />
         ))}
+      </div>
       </div>
     </div>
   </section>

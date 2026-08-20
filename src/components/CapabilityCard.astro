@@ -8,11 +8,9 @@ interface Props {
 const { title, label, description } = Astro.props;
 ---
 
-<div class="border border-border p-6 h-full">
-  {label && <span class="block text-xs text-primary uppercase tracking-[0.08em] mb-3">{label}</span>}
-  <h3 class="mb-3">
-    <span class="text-primary mr-1.5" aria-hidden="true">&rarr;</span>{title}
-  </h3>
+<div class="border-t border-foreground/80 pt-5 h-full">
+  {label && <span class="label block text-primary mb-3">{label}</span>}
+  <h3 class="mb-3">{title}</h3>
   {description && <p class="text-sm text-muted-foreground leading-relaxed">{description}</p>}
   <div class="text-sm text-muted-foreground leading-relaxed space-y-3">
     <slot />

@@ -1,0 +1,190 @@
+# AI visibility tracking: build a prompt set from real buyer language
+
+AI visibility tracking measures how often a company appears in answers from tools such as ChatGPT, Claude and Google AI search, usually by running a fixed set of buyer questions repeatedly and tracking recommendations, mentions and citations over time.
+
+The first challenge is deciding which prompts belong in that set. This article covers how to build an AI-search prompt set from observed buyer language, and how to keep it stable enough for the results to remain comparable over time.
+
+## Whose voice is the prompt set written in?
+
+Whoever sets up AI-search tracking already knows the product, its positioning, category and competitors. That makes it easy to write prompts in the company's own language rather than the language buyers use to describe their problem.
+
+In a recent B2B SaaS audit, this showed up immediately. The website leaned heavily on “shoppable” as a positioning term, but autocomplete around “shoppable catalog” overwhelmingly substituted “shopping” instead. In one Reddit thread, someone described the same underlying need as turning a PDF into something customers could browse and buy from, without using the category terminology at all. The site also ranked 9th for “flipbook”, a 14,800-search-per-month definitional term, while missing most of the purchase-intent search volume around choosing a tool.
+
+The point is not that “shoppable” was wrong. It represented only one way of describing the problem. A prompt set written from the site alone would have inherited that same bias.
+
+---
+
+## What is an AI visibility prompt set actually trying to approximate?
+
+The prompt set is trying to approximate the range of ways real buyers describe their problem.
+
+- **Verbatim observed questions.** Forum posts, Reviews, People Also Ask, sales calls. Strongest evidence.
+- **Observed market vocabulary.** Category taxonomies, competitor sets, comparison phrasing.
+- **Constructed probes.** Written deliberately to test a hypothesis or a failure mode, and labelled as constructed.
+
+---
+
+## Where does the language come from?
+
+There is no canonical source mix. Gather buyer language from where it can reliably be found.
+
+### Best when available: first-party buyer conversations
+
+If your company records any of the following, start there:
+
+- demo-call and sales-call transcripts
+- chat conversations
+- support and pre-sales logs
+- onsite search queries, where the site is large enough for them to mean anything.
+
+These contain people describing their problem in their own words, before or during evaluation, rather than retrospectively after they have absorbed a vendor's vocabulary. A prospect describing their situation on a first call gives you exactly the language you would otherwise be reconstructing from forums.
+
+### Useful public substitutes
+
+- **Product reviews for your own product and competitors.** These give you retrospective customer language about workflows, frustrations, switching reasons and decision criteria. Your own reviews show how customers talk after choosing you; competitor reviews are useful for surfacing needs, comparisons and terminology that may be missing from your own customer base.
+- **Forums and community threads** are often buyers who don't yet know what the category is called.
+- **People Also Ask** has phrasing that has demonstrable demand behind it.
+- **Autocomplete** shows the comparison and qualifier language people use.
+- **Directory and category structures** supply the market's category names and competitors, written by vendors and biased.
+
+**Keep the users' phrasing.** If someone asks for the outcome without knowing the category term, do not rewrite the prompt to include the category term.
+
+---
+
+## How to get AI visibility prompts from raw language?
+
+When mining qualitative data for prompts, the goal is to find specific frustrations, decision criteria and reasons for switching, rather than broad themes.
+
+Generic themes make poor prompts. Nobody asks which product has the best “ease of use”. Specific workflow problems are much more useful because reviewers have often already described the problem in language that needs very little rewriting.
+
+In recent work for an employee scheduling product, the first extraction produced generic SaaS themes. A second, more specific pass produced much more useful results.
+
+|          | Generic extraction      | Specific extraction                                           |
+| :------- | :---------------------- | :------------------------------------------------------------ |
+| Desire 1 | “Ease of Use”           | **“Fill open shifts without rebuilding the rota”**            |
+| Desire 2 | “Good Mobile App”       | **“Let staff swap shifts without manager back-and-forth”**    |
+| Desire 3 | “Helpful Notifications” | **“Alert staff when their shift changes after publishing”**   |
+| Pain 1   | “Limited Reporting”     | **“Cannot compare scheduled hours with actual clock-ins”**    |
+| Pain 2   | “Poor Integrations”     | **“Approved leave does not automatically block scheduling”**  |
+| Pain 3   | “Limited Customisation” | **“Different locations cannot use different overtime rules”** |
+
+The first column is not necessarily wrong, but it is too broad to produce useful prompts. “Good mobile app” could apply to almost any software product.
+
+The second column describes actual jobs and frustrations. Those can be turned into plausible buyer questions with very little rewriting:
+
+> *“What scheduling software lets employees swap shifts without a manager approving every change?”*
+
+That is the level of specificity you want from qualitative research: not a category-level theme, but a problem someone might genuinely ask an AI assistant to solve.
+
+### Read the structured fields first
+
+Before asking a model to summarise qualitative data, **check whether the useful language is already there.** CRMs and onboarding forms often have fields such as `Switched from` or `Reason for choosing` that already capture why someone made a decision.
+
+---
+
+## What do the prompts look like in practice?
+
+Eight rows from the worked example, chosen to show materially different sources and buyer states rather than to represent the set proportionally:
+
+| Prompt                                                                                                | Source      | Where observed                                                 | Intent group   | Names subject |
+| :---------------------------------------------------------------------------------------------------- | :---------- | :------------------------------------------------------------- | :------------- | :------------ |
+| What scheduling software lets employees swap shifts without a manager approving every change?         | Reviews     | Repeated workflow complaint across competitor reviews          | `problem-led`  | No            |
+| Is there employee scheduling software that automatically blocks approved leave from the rota?         | Reviews     | Competitor review, recorded as a switching reason              | `problem-led`  | No            |
+| What's the best way to organise shifts for staff across several locations without using spreadsheets? | Forums      | Forum post phrased around the outcome rather than the category | `naive`        | No            |
+| What's the best free employee scheduling app?                                                         | PAA         | Google PAA on a category seed, verbatim                        | `naive`        | No            |
+| What is the best employee scheduling software for restaurants in 2026?                                | Category    | Directory taxonomy and category terminology                    | `best-of`      | No            |
+| What are the best alternatives to Vendor B for employee scheduling?                                   | Category    | Directory competitor set, closest functional peer              | `alternatives` | No            |
+| Vendor A vs Subject: which is better for managing shifts across multiple locations?                   | Category    | Directory competitor set, major named competitor               | `comparison`   | **Yes**       |
+| Is employee scheduling software worth paying for if we can just use spreadsheets and WhatsApp?        | Constructed | Probe based on the category-relevance question                 | `skeptic`      | No            |
+
+Two things matter here. **Source and intent are separate:** a prompt from reviews might still be an `alternatives` question, while a category-derived prompt might be `best-of`.
+
+Also, `Names subject` only asks whether the prompt names the company being measured. It can mention competitors and still be `No`.
+
+The full set in this assessment contained 50 prompts.
+
+### How many prompts should you track?
+
+Use enough prompts to cover genuinely different buyer questions. Do not add minor variations just to make the set bigger.
+
+A larger set can give you more detail, but only if the prompts are well researched. Weak prompts simply add noise. Smaller sets are useful for spotting movement, but less reliable for judging exactly how much things have changed.
+
+My tracking tends to use 50-100 prompts, sometimes more, but the right number depends on the category and how established the brand is. For a new product in a small or emerging category, you can get perfectly good results from 20 tracked prompts.
+
+---
+
+## Branded vs. non-branded prompts
+
+A branded prompt tests how the engine talks about your company once the user has already mentioned it. A non-branded prompt tests whether the engine surfaces your company without being prompted to.
+
+For discovery and visibility measurement, the non-branded set is usually the more important one. Branded prompts are still useful for measuring comparisons, positioning and how accurately the engine represents the brand, but combining the two can make overall visibility look stronger than it really is.
+
+---
+
+## Keep the prompt set consistent
+
+To connect strategy to outcomes, you need to be able to see a change over time. If you rewrite prompts between runs, you won't know whether the results came from your work or just from the new wording.
+
+So, once the core set is established:
+
+- **Keep the same prompts between runs.**
+- **Use the same engines.**
+- **Keep your metric definitions the same.**
+- **Record any changes you do make.**
+
+The set should not stay frozen forever. Buyer language changes, new competitors appear and categories evolve. The aim is not permanence, but useful comparison over time.
+
+A practical approach is to maintain two things:
+
+1. **A stable core set** used for regular measurement.
+2. **A separate list of new candidate prompts** from reviews, forums, calls, autocomplete and other research.
+
+When enough has changed to justify updating the core set, create a new version. It is better to have a clear break between v1 and v2 than a continuous trend line based on prompts that were changing.
+
+### Keep the metric definitions consistent too
+
+The same rule applies to the numbers you report. Define what each metric counts, then use the same definition every time.
+
+Imagine you track 50 prompts, 5 branded and 45 non-branded, across 3 LLMs, running each prompt 3 times because the same prompt does not always return the same answer.
+
+|                                 | Answers |
+| :------------------------------ | :------ |
+| 50 prompts × 3 LLMs × 3 runs    | **450** |
+| Branded answers                 | 45      |
+| **Non-branded answers**         | **405** |
+| At least one vendor recommended | **390** |
+| No vendor recommended           | 15      |
+
+
+
+> **Recommendation rate = answers recommending your company ÷ answers recommending at least one vendor**
+
+If your company appeared in 78 of those 390 answers:
+
+> **78 ÷ 390 = 20% recommendation rate**
+
+The total number of answers containing recommendations can rise or fall between runs. That is fine. What matters is that the definition stays the same: **when an answer recommends at least one vendor, how often is your company one of them?**
+
+---
+
+## Key takeaways for building an AI visibility prompt set
+
+**When you build the prompt set: get as close to observed buyer language as you can.** Every prompt traces back to something someone actually said, or is labelled as constructed.
+
+**When you measure it again: do not change the set unless you are deliberately starting a new tracking version.**
+
+Building from scratch, in order:
+
+1. **Start with first-party buyer language** if you have it: call transcripts, chat logs, support tickets, site search, CRM notes and structured fields such as `Switched from`, `Reason for choosing` or loss reasons.
+2. **Mine reviews**, your own and competitors', for specific frustrations, workflows, switching reasons and comparison criteria.
+3. **Take category naive questions verbatim** from forum posts and *People Also Ask.*
+4. **Check the balance:** no single source dominating, materially different decision states covered, and a deliberate and consistent split between branded and non-branded prompts.
+5. **Freeze the core set**, fix the metric definitions, and measure the same things each time.
+
+If you already have a prompt set, two audit questions cover most of it.
+
+> **For every prompt, can you say where its wording came from?**
+
+> **Has this prompt changed since the previous measurement?**
+
+Internally written prompts tend to reflect company assumptions rather than buyer language. Changing the prompts between runs makes the trend line unreliable.

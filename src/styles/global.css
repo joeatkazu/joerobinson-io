@@ -140,8 +140,47 @@
     @apply my-12 border-border;
   }
 
+  /* Posts that use `---` between sections would otherwise stack a rule
+     directly on the h2's own top rule. The heading already draws one. */
+  .prose hr:has(+ h2) {
+    @apply hidden;
+  }
+
   .prose img {
     @apply my-8 border border-border;
+  }
+
+  /* Tables: hairline rules only, mono header, scrolls inside its own
+     wrapper so wide tables never push the sheet sideways. */
+  .prose .table-wrap {
+    @apply my-8 overflow-x-auto;
+  }
+
+  .prose table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .prose thead th {
+    @apply font-mono text-[11px] uppercase text-foreground font-normal align-bottom;
+    @apply border-y border-border py-3 pr-6 text-left whitespace-nowrap;
+    letter-spacing: 0.14em;
+  }
+
+  .prose tbody td {
+    @apply border-b border-border py-3 pr-6 align-top leading-relaxed;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .prose tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .prose td:last-child, .prose th:last-child {
+    @apply pr-0;
+  }
+
+  .prose td code {
+    @apply whitespace-nowrap;
   }
 }
 

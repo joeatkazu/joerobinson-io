@@ -101,8 +101,18 @@
     @apply font-semibold text-foreground;
   }
 
+  /* A recessed panel rather than rules: posts use these as callouts, and
+     border-y put two more hairlines on the page for every one of them. */
   .prose blockquote {
-    @apply border-y border-border py-6 my-8 text-foreground;
+    @apply bg-secondary px-6 py-5 my-8 text-foreground;
+  }
+
+  .prose blockquote p {
+    @apply text-foreground;
+  }
+
+  .prose blockquote p:last-child {
+    @apply mb-0;
   }
 
   .prose code {

@@ -78,8 +78,10 @@
     @apply text-foreground max-w-[70ch];
   }
 
+  /* Space is split evenly above and below the rule, so it reads as a
+     divider rather than being pulled tight to the heading. */
   .prose h2 {
-    @apply mt-14 mb-4 pt-8 text-xl md:text-2xl border-t border-border;
+    @apply mt-11 mb-4 pt-11 text-xl md:text-2xl border-t border-border;
   }
 
   .prose h3 {

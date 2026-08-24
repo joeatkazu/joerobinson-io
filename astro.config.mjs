@@ -38,6 +38,7 @@ export default defineConfig({
     mdx(),
   ],
   redirects: {
+    '/blog/ai-visibility-tracking': '/blog/ai-prompt-sets',
     '/blog/internal-link-mapping-how-to-create-a-visual-link-map': '/blog/link-map',
     '/blog/why-ai-search-attribution-cannot-be-trusted': '/blog/ai-attribution-issues',
     '/why-seo-and-ai-search-attribution-cannot-be-trusted/': '/blog/ai-attribution-issues',

@@ -8,7 +8,7 @@ The first challenge is deciding which prompts belong in that set. This article c
 
 Whoever sets up AI-search tracking already knows the product, its positioning, category and competitors. That makes it easy to write prompts in the company's own language rather than the language buyers use to describe their problem.
 
-In a recent B2B SaaS audit, this showed up immediately. The website leaned heavily on “shoppable” as a positioning term, but autocomplete around “shoppable catalog” overwhelmingly substituted “shopping” instead. In one Reddit thread, someone described the same underlying need as turning a PDF into something customers could browse and buy from, without using the category terminology at all. The site also ranked 9th for “flipbook”, a 14,800-search-per-month definitional term, while missing most of the purchase-intent search volume around choosing a tool.
+In a recent SaaS audit, this showed up immediately. The website leaned heavily on “shoppable” as a positioning term, but autocomplete around “shoppable catalog” overwhelmingly substituted “shopping” instead. In one Reddit thread, someone described the same underlying need as turning a PDF into something customers could browse and buy from, without using the category terminology at all. The site also ranked 9th for “flipbook”, a 14,800-search-per-month definitional term, while missing most of the purchase-intent search volume around choosing a tool.
 
 The point is not that “shoppable” was wrong. It represented only one way of describing the problem. A prompt set written from the site alone would have inherited that same bias.
 

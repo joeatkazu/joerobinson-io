@@ -1,0 +1,326 @@
+---
+title: "How I build a GEO roadmap in hours and start measuring results within 30 days"
+description: "A day-by-day process for GEO research: define the market, build a fixed prompt set from buyer language, inspect the pages assistants cite and retrieve, then turn that evidence into a prioritised roadmap you can start on day five and remeasure on day 30."
+author: "Joe Robinson"
+publishedDate: "2026-09-12"
+tags:
+  - "AI search"
+  - "GEO"
+  - "Measurement"
+  - "Strategy"
+---
+
+I used to work at an agency that spent the first five weeks of a new client engagement on onboarding, auditing and strategy. That is a long time for a client to wait before any of the recommended work begins.
+
+Some projects need substantial preparation, particularly large or complex sites. But I want to get useful work under way in the first week wherever possible. That means collecting enough information to decide what to do, making those decisions and getting started.
+
+A lot of SEO strategies I have seen amount to doing what the team already knows how to do. A content team recommends more articles; an outreach team recommends more links. The client may need either, but the research should establish that first.
+
+An AI visibility audit can fall into the same habit. It shows how often the brand appears, which competitors do better and which websites get cited, then finishes with recommendations that could have been written before the research began.
+
+For generative engine optimisation, or GEO, I want the research to tell me which pages to improve, what is missing from them, whether there is a technical problem and which external sources are worth approaching. A low visibility score alone gives me very little basis for choosing between those actions.
+
+My starting point is the questions buyers ask and the pages AI assistants use to answer them. I collect the customer language, run a fixed set of prompts, inspect the answers and sources, then use those findings to build the roadmap. Once that work is done, putting the roadmap together takes a few hours.
+
+The aim is to begin implementation on day five and repeat the measurement on day 30. By then, I want published work to assess and an early indication of whether it is reaching the answers we targeted.
+
+## The first 30 days
+
+The timing depends on the category, access to source material and the work required on the site. This is the schedule I work towards:
+
+| Timing | Work | Output |
+| --- | --- | --- |
+| Days 1–2 | Define the market, research buyer language and search demand, then build the prompt set | A fixed set of buyer questions, with their sources recorded |
+| Day 3 | Run the prompts, establish baseline visibility and inspect cited and retrieved pages | Findings for each question group and the relevant source pages |
+| Day 4 | Build the roadmap | Prioritised content, technical and off-page actions |
+| Day 5 | Start implementation, beginning with content | Briefs, page updates and new content in production |
+| Days 6–29 | Continue implementation | Published content, technical changes and off-page work under way |
+| Day 30 | Run the original prompts again | A comparison of retrieval, citations, mentions and recommendations |
+
+Automation cuts down the time spent collecting answers, extracting URLs and calculating results. I can then spend more time reviewing the sources and deciding whether an action makes sense for the business. The eight stages below explain how that work fits together.
+
+## 1. Define the market before measuring the brand
+
+I start by agreeing which market and buyers the work should cover. A company may serve several audiences, countries or related categories. A marketplace has at least two sides to consider. A single visibility figure can hide quite different results for each.
+
+Before collecting answers, I define:
+
+1. **Category:** the market in which the company wants to compete.
+2. **Audience:** the person choosing the product or dealing with the problem.
+3. **Locale:** the country and language the research should represent.
+4. **Decisions:** what we need to be able to decide once the research is complete.
+
+That fourth point keeps the work focused. If the business needs to decide which comparison pages to build or whether to fund an off-page campaign, the assessment must gather the evidence for those decisions.
+
+I check current rankings as part of the starting position, but I am careful about using them to define the research. They reflect the searches the website already reaches. If I build the prompt set around those alone, I risk overlooking the parts of the market where the company has little presence.
+
+## 2. Research the questions buyers ask
+
+The results will only be useful if the prompts represent decisions the company's buyers actually face. I build them from customer reviews, observed search demand and competitor research.
+
+### Mine customer language from reviews
+
+Reviews contain explanations that rarely fit into a search query: why someone abandoned a product, what went wrong during implementation, or which feature persuaded them to buy.
+
+For software, I often start with G2 and Capterra. Reddit, specialist forums and other review sites can add useful detail. I look for:
+
+- What the customer wanted to achieve.
+- The problem that started their search.
+- How they describe the product and its features.
+- Why they chose it over the alternatives.
+- What they used before.
+- What disappointed them after purchase.
+
+Fields such as “reason for choosing” and “switched from” are particularly useful because the customer has already explained the connection between two products.
+
+I analyse each company's reviews separately before comparing the themes. If everything goes into one batch at the start, the differences between companies tend to disappear into a general account of the category.
+
+I also record gaps in collection. A blocked review site, a missing company profile and a search with no relevant results mean different things. I need to know which occurred before drawing conclusions from the material available.
+
+The collection process is covered in my guide to mining G2 reviews for buyer language.
+
+### Check observed search demand
+
+Next, I collect search data around the category's main terms:
+
+- People Also Ask questions.
+- Related searches and autocomplete suggestions.
+- Organic search results.
+- AI Overview sources, where an overview appears.
+
+This supplies wording for the prompts and shows which topics and pages search engines associate with the category.
+
+I inspect the results before accepting them. A phrase can make perfect sense within a company while Google interprets it as a different product, profession or technical subject. That is an easy way to end up measuring visibility in the wrong market.
+
+I retain the original search responses so I can revisit the filtering without collecting a fresh, potentially different set of results. My guide to collecting and cleaning search demand for GEO research explains the practical steps.
+
+### Find the competitors buyers encounter
+
+The client's competitor list is a starting point. I also look at the companies ranking for category terms, products recommended in early AI answers, AI Overview sources, review directories and recurring “alternative to” discussions.
+
+I want the research to cover the choices buyers are likely to weigh. That may include a market leader, a close competitor, a product aimed at a different priority and an alternative way of solving the problem altogether.
+
+I also check why a company appears. A product that comes up repeatedly because people want to replace it occupies a different position from one assistants regularly recommend. Frequency alone will not tell me which is happening.
+
+There is more detail in how I find competitors for an AI visibility study.
+
+## 3. Build a fixed prompt set
+
+I turn that research into a manageable set of questions to run repeatedly. Each prompt has a recorded source and a reason for inclusion.
+
+The questions come from four places:
+
+1. **Customer reviews:** recurring needs, frustrations and reasons for buying.
+2. **Competitor research:** the products and alternatives buyers compare.
+3. **Search data:** questions and wording observed in search results.
+4. **Specific hypotheses:** questions I write to investigate a potential gap.
+
+A question I write myself can be useful, provided I label it accordingly. We may need to test an important product comparison even if the research did not produce that exact wording. The record should make clear how the question was chosen.
+
+### Cover different buying decisions
+
+I group the prompts by what the buyer is trying to decide. A typical set includes broad category questions, specific problems or use cases, shortlists, alternatives to a known provider and direct comparisons. I include questions about the client's brand separately, along with distinct buyer groups where necessary.
+
+This breakdown can reveal a gap that the overall score obscures. A company might appear regularly when buyers ask for an alternative to the category leader, yet be absent when they describe a problem without naming any brands. That gives me a particular group of questions to investigate.
+
+For those broad discovery questions, I use the market research rather than deriving them from the client's existing pages or positioning. Otherwise, I would be building the test around how the company already describes itself.
+
+### Keep the baseline questions unchanged
+
+Before running the prompts, I remove duplicates and record each question's source, purpose, group and whether it names the client.
+
+I then keep that set unchanged for the comparison. If I rewrite questions after seeing the results, I lose the ability to make a straightforward assessment of what has moved. I can still investigate new questions, but I keep them in a separate set.
+
+By the end of day two, I aim to have the scope agreed and the prompts ready. The [guide to building a GEO prompt set](/blog/ai-prompt-sets) covers question selection in more detail.
+
+## 4. Collect repeated answers and keep the original responses
+
+On day three, I run each question several times across the selected assistants. Answers vary, so I need repeated samples before I use the results to recommend where a client should spend money.
+
+For each answer, I retain:
+
+- The full response and original question.
+- The question group, engine, date and sample number.
+- Cited URLs.
+- Retrieved URLs, where the engine exposes them.
+- Any available follow-up searches and their associated pages.
+- The classification of companies mentioned or recommended.
+
+I save the original response before processing it. If I later need to correct a classification or calculation, I can return to the same evidence. A fresh answer from the assistant would change the baseline.
+
+The reports and charts are built from those stored responses. The technical workflow is covered in how I collect AI answers, citations and retrieval data.
+
+## 5. Measure mentions and recommendations separately
+
+I distinguish three ways a company can appear:
+
+- **Mentioned:** it appears anywhere in the answer.
+- **Recommended:** the answer presents it positively as a suitable choice.
+- **Leading recommendation:** it is the first or principal choice.
+
+A company can be mentioned as an expensive option, a poor fit, a product to replace or a comparison point. Counting all of those as recommendations flatters the result.
+
+### Be clear about what each percentage measures
+
+For market visibility, I generally use prompts that do not name the client. An assistant will often repeat a company name supplied in the question; that tells me little about whether it would have suggested the company unaided.
+
+Brand-specific questions still have a purpose. They reveal how assistants describe the product, which competitors they associate with it and whether they understand its positioning. I report those results separately.
+
+I show the counts alongside percentages, particularly for small question groups. A 20 per cent mention rate based on two appearances in ten answers needs to be read with that sample size in mind. Missing or unclassified answers also remain labelled as such.
+
+### Look for differences between question groups
+
+I break the results down by buying decision, audience and engine. The overall figure may conceal strong performance in comparisons, poor visibility for problem-led questions or a substantial difference between two buyer groups.
+
+Those findings narrow the next stage of the work. If the company is absent from a commercially important group of questions, I inspect the sources behind those answers to see what we could improve.
+
+Every reported figure uses the same underlying counts, with its denominator recorded. The [visibility metrics guide](/blog/ai-visibility-metrics) explains the definitions and calculations.
+
+## 6. Inspect the pages assistants cited and retrieved
+
+I spend the rest of day three examining the sources behind the answers, particularly for question groups where the company performs poorly.
+
+There are three types of evidence to work with.
+
+### Cited pages
+
+These are the pages the assistant presents as sources in its answer. They show which material received a visible citation, although a citation alone cannot establish that the page caused a recommendation or received a click.
+
+### Retrieved pages
+
+Some engines expose additional pages found or opened while preparing the answer. These can include pages that were never cited.
+
+If the client's page was retrieved but left uncited, I compare it with the cited material. It may lack a direct answer, useful product detail or supporting evidence. Retrieval data alone will not explain the omission, so any proposed change remains a hypothesis to test.
+
+### Fan-out searches
+
+An assistant may break a buyer's question into several narrower searches. These are often called fan-out searches.
+
+They can reveal details the original prompt did not mention, such as implementation, compatibility or pricing. I use relevant subtopics in the content brief; several may belong within one page.
+
+### Establish who owns each source
+
+I classify sources as the client's own pages, competitor pages, independent editorial, review platforms, communities, video, or other relevant organisations. Anything inaccessible or unclear remains unresolved.
+
+If competitor guides dominate the answers, I inspect what those guides cover and whether the client has an equivalent. The likely work is on the client's own site: a missing page, an incomplete comparison or product evidence that has never been published.
+
+An independent comparison may justify outreach. I check whether the product fits the article and whether there is a credible reason for the publisher to include it. A repeatedly cited page can still be unsuitable for the client.
+
+Forum discussions and videos need their own assessment. Their presence may point towards a format or channel that deserves attention, rather than another article on the company blog.
+
+If I cannot access a source during the audit, I record that limitation. I cannot infer from my failed request that the assistant was unable to access it earlier.
+
+### Examine the individual pages
+
+One publisher may have a single relevant comparison page and hundreds of articles that have nothing to do with the client's market. The roadmap needs to identify the page and the possible action.
+
+For recurring or commercially important sources, I record:
+
+- Which buyer question the page answers.
+- Where it appeared, including the prompt, sample and engine.
+- Its format and the products it covers.
+- Whether the client is included, omitted or described inaccurately.
+- The claims and supporting evidence.
+- How clearly the headings and opening address the question.
+- Whether the page is current, indexable and accessible.
+- Whether we could seek an update, contribute useful material or publish a better page ourselves.
+
+The findings lead to different kinds of work:
+
+| Observed pattern | What I investigate | Possible action |
+| --- | --- | --- |
+| Competitor guides dominate a question group | Whether the client has a suitable page and comparable product evidence | Create or improve the relevant page |
+| A client page is retrieved but seldom cited | How its answer, evidence, structure and access compare with cited pages | Test the most plausible improvement |
+| Independent comparisons recur and omit the client | Product fit, accuracy and the prospect of an editorial update | Prioritise suitable pages for outreach |
+| Communities or videos appear repeatedly | What those formats contribute to the answer | Develop relevant activity in that format or channel |
+| The client's pages earn citations but the product is rarely recommended | Comparative detail, positioning and external corroboration | Strengthen the evidence for choosing the product |
+
+This gives me a specific basis for an off-page budget: the relevant pages, the questions they appeared for and the prospect of securing useful coverage. The source analysis guide covers the inspection fields in full.
+
+## 7. Build the roadmap in a few hours
+
+By day four, I have the weak question groups, customer language, source pages and potential actions in front of me. I can decide what takes priority and who needs to do it.
+
+I organise the roadmap into three workstreams.
+
+### Content on the client's site
+
+For each priority question group, I decide whether we need a new page, an update, a consolidation of overlapping pages or better evidence on an existing page. I also consider whether useful content is unnecessarily difficult to retrieve.
+
+The brief draws on the buyer questions, review language, relevant fan-out searches and pages already appearing in answers. It also needs the client's own evidence for the claims we intend to make.
+
+Several prompts may belong in one brief. I separate them into different pages where the buying decision, necessary detail or format warrants it. The content briefing guide explains that process.
+
+### Off-page work
+
+I start with the external pages found in the research and remove competitor-owned sources, irrelevant pages and those with no realistic route to inclusion.
+
+For the remaining opportunities, I consider how often the page appears, the commercial relevance of its questions, whether the client is missing or misrepresented, and the likelihood of earning coverage. I also assess whether the format suits the buyer's needs.
+
+The resulting list may be quite short. That is useful if it concentrates effort on pages worth approaching. My off-page prioritisation guide goes into more detail.
+
+### Technical work
+
+I include technical changes where the research identifies a relevant problem. An important page may be unavailable, difficult to parse or incorrectly canonicalised. A page missing from retrieval may warrant investigation, although its absence alone does not establish a technical fault.
+
+Each proposed fix should explain which page or question it affects and what we expect it to improve. A broad technical audit may be warranted on some sites, but it should not automatically hold up ready content updates.
+
+### Record the reason for each action
+
+The roadmap includes enough detail for someone to carry out the work and understand why it comes first.
+
+| Field | What it records |
+| --- | --- |
+| Action | The page, update, placement, fix or experiment |
+| Buyer question | The decision or question group it addresses |
+| Evidence | The relevant prompts, answers, sources or customer comments |
+| Diagnosis | What we observed and what still needs testing |
+| Priority | Why this action deserves attention now |
+| Owner | Who is responsible |
+| Success measure | What we will look for in the next measurement |
+
+I prioritise using commercial importance, strength and recurrence of the evidence, feasibility and effort. There is judgement involved, and I make the reasons explicit.
+
+The roadmap itself takes a few hours because the earlier research has already narrowed the choices. That time is for reviewing and ordering the actions; collecting the evidence occupies the preceding days.
+
+## 8. Start implementation on day five, then remeasure on day 30
+
+I begin with a small group of well-supported actions that can be completed reasonably quickly. That might include updating a page already being retrieved, publishing a missing comparison, fixing access to an important resource or approaching a relevant independent publisher.
+
+Content creation starts on day five. Technical and off-page work can proceed alongside it, according to their dependencies. A ready page update does not need to wait for the outreach list to be finished.
+
+On day 30, I run the original prompt set again using the same engines, definitions and counting rules. I assess what has gone live, then look for changes in:
+
+- Retrieval of new or updated pages.
+- Citations to the client's site.
+- Mentions and recommendations in the question groups we targeted.
+- Coverage on relevant independent pages.
+- The competitors and sources appearing in the answers.
+
+I pay particular attention to changes repeated across samples, related questions or engines. A small movement in one question group may be noise. Even a broader improvement needs to be considered alongside the timing of the work and other changes in the results.
+
+There is no need to wait until every roadmap item is complete. The first comparison helps me decide whether to continue with the planned work or revisit a diagnosis. The remeasurement guide explains how I keep those comparisons consistent.
+
+## What I expect to have by day 30
+
+The client should have a recorded baseline, the source-page research, a prioritised roadmap and the first round of implementation completed or under way. The repeat measurement should show what changed and where further attention is needed.
+
+The early results I look for are relevant pages entering retrieval, new citations and more frequent mentions or recommendations in the questions we targeted. Some groups may show no improvement. Some pages will need longer, and external publishers work to their own schedules.
+
+I want the month-end review to be specific: which work went live, what appeared in the new answers and what we should do next. If a targeted gap has not moved, that needs examination too.
+
+## What the measurement can establish
+
+The comparison shows how the selected assistants answered a fixed set of questions at two points in time. It provides a repeatable way to assess visibility and inspect the sources associated with those answers.
+
+It does not measure every personalised answer a buyer might receive, audience reach or clicks. It also cannot isolate the effect of one page change or establish commercial return before the work has had time to affect leads and revenue. Those require further measurement.
+
+I use the first month's findings to set the next round of priorities, with those limits in mind.
+
+## Getting started
+
+The part of this process I find most useful is being able to explain a recommendation down to the question and page involved. I can show the client where they are missing, what assistants currently cite and why a particular update or placement deserves attention.
+
+That makes it much easier to agree the work and get it moving within the first week.
+
+If you want to build the process yourself, start with the [guide to creating a GEO prompt set](/blog/ai-prompt-sets). I also run this as a focused 30-day GEO sprint, covering the baseline, source analysis, roadmap, first round of implementation and repeat measurement.

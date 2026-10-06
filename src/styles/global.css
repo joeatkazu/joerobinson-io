@@ -4,36 +4,41 @@
 
 @layer base {
   :root {
-    /* Ruled direction: pale ground, white sheet, cobalt accent.
-       Rules are horizontal only — the sheet edges are the sole verticals. */
-    --background: 220 16% 96%;     /* #F4F5F7 paper */
-    --foreground: 220 23% 8%;      /* #0F1218 ink */
+    /* Plain white page, near-black ink, one deep green accent. Structure
+       comes from type and spacing; rules are used sparingly. */
+    --background: 0 0% 100%;
+    --foreground: 222 18% 11%;     /* #171A20 ink */
 
-    --card: 0 0% 100%;             /* the sheet */
-    --card-foreground: 220 23% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 18% 11%;
 
-    --primary: 225 76% 50%;        /* #2050E0 cobalt */
+    --primary: 162 55% 23%;        /* #1A5B48 spruce */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 20% 97%;      /* recessed panel inside the sheet */
-    --secondary-foreground: 220 23% 8%;
+    --secondary: 210 14% 96.5%;    /* recessed panel */
+    --secondary-foreground: 222 18% 11%;
 
-    --muted: 220 20% 97%;
-    --muted-foreground: 215 9% 39%; /* #5B626C */
+    --muted: 210 14% 96.5%;
+    --muted-foreground: 220 8% 37%; /* #575D67 */
 
-    --accent: 225 76% 50%;
+    --accent: 162 55% 23%;
     --accent-foreground: 0 0% 100%;
 
-    --border: 217 13% 88%;         /* #DDE0E5 hairline */
-    --input: 217 13% 88%;
-    --ring: 225 76% 50%;
+    --border: 220 10% 88%;         /* hairline */
+    --input: 220 10% 80%;
+    --ring: 162 55% 23%;
 
     --radius: 0px;
   }
 
   ::selection {
-    background-color: #2050e0;
+    background-color: hsl(var(--primary));
     color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
   }
 
   * {
@@ -55,25 +60,25 @@
   }
 
   h1 {
-    @apply text-4xl sm:text-5xl md:text-[3.5rem];
-    line-height: 1.05;
-    letter-spacing: -0.04em;
+    @apply text-[2.25rem] sm:text-[2.75rem] lg:text-[2.875rem];
+    line-height: 1.08;
+    letter-spacing: -0.025em;
   }
 
   h2 {
-    @apply text-2xl md:text-3xl;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
-  }
-
-  h3 {
-    @apply text-[17px] md:text-lg;
-    line-height: 1.35;
+    @apply text-2xl md:text-[1.875rem];
+    line-height: 1.2;
     letter-spacing: -0.02em;
   }
 
-  /* Long-form reading. Same face as the rest of the site — mono is
-     reserved for labels, indices and nav. */
+  h3 {
+    @apply text-lg;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  /* Long-form reading. Same face as the rest of the site; mono is
+     reserved for code. */
   .prose {
     @apply text-foreground max-w-[70ch];
   }
@@ -162,7 +167,7 @@
     @apply my-8 border border-border;
   }
 
-  /* Tables: hairline rules only, mono header, scrolls inside its own
+  /* Tables: hairline rules only, small header, scrolls inside its own
      wrapper so wide tables never push the sheet sideways. */
   .prose .table-wrap {
     @apply my-8 overflow-x-auto;
@@ -173,9 +178,8 @@
   }
 
   .prose thead th {
-    @apply font-mono text-[11px] uppercase text-foreground font-normal align-bottom;
+    @apply text-[13px] text-foreground font-semibold align-bottom;
     @apply border-y border-border py-3 pr-6 text-left whitespace-nowrap;
-    letter-spacing: 0.14em;
   }
 
   .prose tbody td {
@@ -197,68 +201,47 @@
 }
 
 @layer components {
-  /* The sheet: white panels stacked on the paper ground. Each one carries
-     its own bottom rule, so consecutive sheets read as one ruled column. */
+  /* A page section: content sits on the plain page, with a single rule
+     closing each section. */
   .sheet {
-    @apply bg-card border-x border-b border-border px-6 sm:px-8 md:px-12 py-14 md:py-16;
+    @apply border-b border-border py-14 md:py-20;
   }
 
-  /* First sheet on a page needs the closing rule at the top. */
+  /* First section on a page needs the rule at the top as well. */
   .sheet-top {
     @apply border-t;
   }
 
-  /* Ink block — used once per page, at the contact prompt. */
-  .sheet-ink {
-    @apply bg-foreground border-foreground text-background;
-  }
-
-  /* Crop marks on the hero sheet. Parent needs `relative`. */
-  .tick {
-    @apply absolute w-[9px] h-[9px] pointer-events-none;
-  }
-
-  .tick::before,
-  .tick::after {
-    content: "";
-    @apply absolute bg-primary;
-  }
-
-  .tick::before {
-    @apply w-[9px] h-px top-0 left-0;
-  }
-
-  .tick::after {
-    @apply w-px h-[9px] top-0 left-0;
-  }
-
-  .tick-tl { @apply -top-px -left-px; }
-  .tick-tr { @apply -top-px -right-px -scale-x-100; }
-  .tick-bl { @apply -bottom-px -left-px -scale-y-100; }
-  .tick-br { @apply -bottom-px -right-px -scale-100; }
-
-  /* Small mono label: section indices, field keys, meta. */
+  /* Small label for meta and form fields. */
   .label {
-    @apply font-mono text-[11px] uppercase;
-    letter-spacing: 0.14em;
+    @apply text-[13px] font-medium tracking-normal;
   }
 
-  /* Cobalt section marker, e.g. [01] WHAT I DO */
+  /* Short section label above a heading. */
   .eyebrow {
-    @apply label block text-primary mb-4;
+    @apply block text-sm font-semibold text-primary mb-4;
   }
 
-  /* Solid cobalt button */
+  /* Solid accent button */
   .btn {
-    @apply inline-flex items-center gap-2.5 bg-primary text-primary-foreground px-6 py-4 text-sm font-medium hover:bg-primary/90 transition-colors;
+    @apply inline-flex items-center gap-2.5 bg-primary text-primary-foreground px-6 py-3.5 text-[15px] font-medium hover:bg-primary/90 transition-colors;
   }
 
-  /* Outlined button for use on the ink block */
+  /* Light button for use on the ink band */
   .btn-invert {
-    @apply inline-flex items-center gap-2.5 font-mono text-[13.5px] text-background border border-background/25 px-5 py-3.5 hover:border-background/60 transition-colors;
+    @apply inline-flex items-center gap-2.5 bg-white text-foreground px-6 py-3.5 text-[15px] font-medium hover:bg-white/90 transition-colors;
   }
 
+  /* Inline so a wrapped label keeps its arrow on the last line. */
   .link-accent {
-    @apply inline-flex items-center gap-2 text-primary hover:underline underline-offset-4 transition-colors;
+    @apply text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary transition-colors;
+  }
+
+  .link-accent > span[aria-hidden]:last-child {
+    @apply inline-block ml-1.5 no-underline;
+  }
+
+  .link-accent > span[aria-hidden]:first-child {
+    @apply inline-block mr-1.5 no-underline;
   }
 }

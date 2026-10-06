@@ -16,6 +16,11 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 const date = post.data.publishedDate ?? post.data.published ?? '';
+const parsedDate = date ? new Date(date) : null;
+const displayDate =
+  parsedDate && !Number.isNaN(parsedDate.getTime())
+    ? parsedDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+    : date;
 ---
 
 <BaseLayout title={`${post.data.title} | Joe Robinson`} description={post.data.description}>
@@ -47,7 +52,7 @@ const date = post.data.publishedDate ?? post.data.published ?? '';
       </a>
 
       {date && (
-        <span class="label block text-primary mb-5">{date}</span>
+        <time datetime={date} class="label block text-muted-foreground mb-5">{displayDate}</time>
       )}
       <h1 class="max-w-[20ch]">{post.data.title}</h1>
       {post.data.description && (
@@ -69,7 +74,7 @@ const date = post.data.publishedDate ?? post.data.published ?? '';
 
   <CTABlock
     heading="Working on this yourself?"
-    text="If you need someone to own organic and AI search at your SaaS or tech company, start a conversation."
+    text="If you need someone to own organic and AI search at your B2B SaaS company, start a conversation."
   />
   <SiteFooter />
 </BaseLayout>

@@ -9,15 +9,15 @@ export default {
         sm: '640px',
         md: '768px',
         lg: '1024px',
-        xl: '940px',
+        xl: '1100px',
       },
     },
     extend: {
       fontFamily: {
-        heading: ['Inter', 'system-ui', 'sans-serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
+        body: ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        sans: ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: 'hsl(var(--border))',

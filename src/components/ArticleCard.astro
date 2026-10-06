@@ -4,17 +4,25 @@ interface Props {
   excerpt: string;
   date: string;
   slug: string;
+  /** Clamp the excerpt to two lines, for short lists such as the homepage. */
+  compact?: boolean;
 }
 
-const { title, excerpt, date, slug } = Astro.props;
+const { title, excerpt, date, slug, compact = false } = Astro.props;
+
+const parsed = date ? new Date(date) : null;
+const displayDate =
+  parsed && !Number.isNaN(parsed.getTime())
+    ? parsed.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+    : date;
 ---
 
 <a href={`/blog/${slug}`} class="group block border-t border-border py-6">
-  <div class="grid md:grid-cols-[7.5rem_1fr] gap-2 md:gap-5">
-    {date ? <time class="font-mono text-xs text-muted-foreground/70 md:pt-1.5">{date}</time> : <span></span>}
+  <div class="grid md:grid-cols-[10rem_1fr] gap-1.5 md:gap-6">
+    {date ? <time datetime={date} class="text-sm text-muted-foreground md:pt-1">{displayDate}</time> : <span></span>}
     <div>
       <h3 class="max-w-[52ch] group-hover:text-primary transition-colors">{title}</h3>
-      <p class="mt-2 text-sm text-muted-foreground leading-relaxed max-w-[68ch]">{excerpt}</p>
+      <p class:list={['mt-2 text-[15px] text-muted-foreground leading-relaxed max-w-[68ch]', compact && 'line-clamp-2']}>{excerpt}</p>
     </div>
   </div>
 </a>

@@ -2,23 +2,20 @@
 interface Props {
   title?: string;
   subtitle?: string;
-  index?: string;
   class?: string;
   id?: string;
   /** Kept for compatibility — the sheet always carries its own bottom rule. */
   noRule?: boolean;
 }
 
-const { title, subtitle, index, class: className = '', id } = Astro.props;
+const { title, subtitle, class: className = '', id } = Astro.props;
 ---
 
 <section id={id}>
   <div class="container">
     <div class:list={['sheet', className]}>
       {title && (
-        <span class="eyebrow">
-          {index && <span>[{index}]</span>}{' '}{title}
-        </span>
+        <span class="eyebrow">{title}</span>
       )}
       {subtitle && <h2 class="max-w-[26ch] mb-10">{subtitle}</h2>}
       <slot />

@@ -16,13 +16,13 @@ const articles = allPosts.sort((a, b) => {
 
 <BaseLayout
   title="Writing on SEO, GEO and organic growth | Joe Robinson"
-  description="Writing on SEO, AI search, content systems and organic growth for SaaS and tech companies."
+  description="Writing on SEO, AI search, content systems and organic growth for B2B SaaS companies."
 >
   <SiteHeader />
 
   <section>
     <div class="container">
-      <div class="sheet sheet-top py-16 md:py-20">
+      <div class="sheet sheet-top border-b-0 pt-16 pb-8 md:pt-20 md:pb-10">
       <span class="eyebrow">Writing</span>
       <h1 class="max-w-[16ch]">
         Notes on SEO, <span class="text-primary">AI search</span> and growth
@@ -36,7 +36,7 @@ const articles = allPosts.sort((a, b) => {
 
   <section>
     <div class="container">
-      <div class="sheet">
+      <div class="sheet pt-0 md:pt-0">
       <div class="flex flex-col">
         {articles.map((post) => (
           <ArticleCard

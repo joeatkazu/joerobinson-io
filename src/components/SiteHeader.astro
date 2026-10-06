@@ -15,20 +15,21 @@ function isActive(linkPath: string): boolean {
 ---
 
 <header class="w-full">
-  <div class="container flex justify-between items-center py-5">
-    <a href="/" class="font-mono text-sm text-foreground hover:text-primary transition-colors">
-      <span class="text-primary mr-1.5" aria-hidden="true">&#9613;</span>Joe Robinson
+  <div class="container flex flex-wrap justify-between items-baseline gap-x-8 gap-y-2 py-5 md:py-6">
+    <a href="/" class="text-[17px] font-semibold tracking-[-0.01em] text-foreground hover:text-primary transition-colors">
+      Joe Robinson
     </a>
-    <nav class="flex items-center gap-4 sm:gap-6 font-mono text-xs sm:text-[13px]">
+    <nav aria-label="Main" class="flex items-center gap-5 sm:gap-7 text-[15px]">
       {navLinks.map((link) => (
         <a
           href={link.path}
+          aria-current={isActive(link.path) ? 'page' : undefined}
           class:list={[
             'transition-colors hover:text-primary',
-            isActive(link.path) ? 'text-primary' : 'text-muted-foreground',
+            isActive(link.path) ? 'text-foreground underline decoration-primary decoration-2 underline-offset-[6px]' : 'text-muted-foreground',
           ]}
         >
-          <span class="text-border" aria-hidden="true">/</span>{link.label}
+          {link.label}
         </a>
       ))}
     </nav>

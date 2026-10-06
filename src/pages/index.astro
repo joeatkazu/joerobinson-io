@@ -27,48 +27,23 @@ const results = [
   { value: '600k+', label: 'page programmatic content system, serving thousands of daily visits' },
 ];
 
-// First crawl of the GPTBot study, as published in
-// /blog/blocked-gptbot-in-the-top-1-million-websites
-const gptbotBlocking = [
-  { band: 'Top 100', share: '14.0' },
-  { band: 'Top 1,000', share: '14.2' },
-  { band: 'Top 10,000', share: '7.46' },
-  { band: 'Top 100,000', share: '3.14' },
-  { band: 'Top 1,000,000', share: '1.1' },
-];
-const chartMax = 15;
-
 const responsibilities = [
   {
-    title: 'I find where you need to be visible in AI search',
+    title: "I build your brand's visibility in AI search",
     body: [
       "By the time someone reaches your site they've already built a shortlist around recommendations from their AI engine. To be consistently part of that recommendation set, you need your brand represented properly in the sources LLMs draw upon to answer commercially relevant queries for your market. This can include work both on your website and on third-party sites.",
     ],
   },
   {
-    title: 'I write the briefs and edit the drafts',
+    title: 'Content',
     body: [
       "I build the pages that enter buying conversations: category, use case, comparison, integration and problem-led content, and do the editorial work that ensures consistency, clarity, and writing that doesn't seem like AI slop.",
     ],
   },
   {
-    title: 'I do the technical work',
+    title: 'Technical issues fixed',
     body: [
       "Technical work for GEO involves making sure AI search systems can easily find and understand your pages. Site architecture and internal linking, rendering, indexability, are the most important to get right. They also play an important role in traditional SEO, and I've spent a decade learning how to recognise and fix them.",
-    ],
-  },
-  {
-    title: 'I build the tools I measure with',
-    body: [
-      'When I need a specific set of answers, I build a tool for it: an AI visibility tracker that identifies how the LLMs are coming to their recommendations, sentiment around a set of prompts, the specific content that is getting your competitors mentioned, and a prompt builder that scrapes real customer language to show us what to track.',
-    ],
-    link: { href: '/blog/ai-prompt-sets', text: 'How I build a prompt set from buyer language' },
-  },
-  {
-    title: 'I report against pipeline',
-    body: [
-      'Share of search, LLM share of voice, assisted conversions, and a directional read on the channels that last-click no longer covers.',
-      'I have spent years reporting SEO to finance teams, so the tracking I set up answers the questions they ask.',
     ],
   },
 ];
@@ -125,57 +100,15 @@ const firstYear = [
             </dl>
           </div>
         </div>
-
-        <!-- Published research -->
-        <div class="mt-16 md:mt-20 grid lg:grid-cols-12 gap-x-12 gap-y-8 border-t border-border pt-12">
-          <div class="lg:col-span-4">
-            <h3 class="text-xl">Published research: who blocks GPTBot?</h3>
-            <p class="mt-4 text-[15px] text-muted-foreground leading-relaxed">
-              In September 2023, shortly after OpenAI announced its GPTBot crawler, I wrote a script to fetch the robots.txt file of every site in the Majestic Million and check whether it blocked GPTBot.
-            </p>
-            <p class="mt-3 text-[15px] text-muted-foreground leading-relaxed">
-              Blocking was concentrated among the largest sites: around one in seven of the top 1,000, against about one in a hundred across the full million.
-            </p>
-            <a href="/blog/blocked-gptbot-in-the-top-1-million-websites" class="link-accent inline-block mt-5 text-[15px]">
-              Read the study and method
-              <span aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-
-          <figure class="lg:col-span-8 bg-white px-5 py-6 sm:px-8 sm:py-8 border border-border">
-            <figcaption class="text-[15px] font-semibold text-foreground">
-              Share of sites blocking GPTBot in robots.txt, by popularity rank
-            </figcaption>
-            <p class="mt-1 text-sm text-muted-foreground">Majestic Million, first crawl on 27 September 2023</p>
-            <table class="mt-6 w-full border-collapse text-[15px]">
-              <thead class="sr-only">
-                <tr><th scope="col">Rank band</th><th scope="col">Share blocking GPTBot</th></tr>
-              </thead>
-              <tbody>
-                {gptbotBlocking.map((row) => (
-                  <tr>
-                    <th scope="row" class="w-[6.5rem] sm:w-[8rem] py-2 pr-3 text-left font-normal text-muted-foreground whitespace-nowrap align-middle">{row.band}</th>
-                    <td class="py-2 align-middle">
-                      <div class="flex items-center gap-3">
-                        <span class="block h-5 bg-primary shrink-0" style={`width: ${(Number(row.share) / chartMax) * 82}%`} aria-hidden="true"></span>
-                        <span class="tabular-nums font-medium text-foreground">{row.share}%</span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </figure>
-        </div>
       </div>
     </section>
 
-    <!-- What I take responsibility for -->
+    <!-- What I deliver -->
     <section aria-labelledby="scope-heading">
       <div class="container py-14 md:py-20">
         <div class="grid lg:grid-cols-12 gap-x-12 gap-y-8">
           <div class="lg:col-span-4">
-            <h2 id="scope-heading" class="lg:sticky lg:top-8 max-w-[18ch]">What I can take responsibility for</h2>
+            <h2 id="scope-heading" class="lg:sticky lg:top-8 max-w-[18ch]">What I deliver</h2>
           </div>
           <ol class="lg:col-span-8">
             {responsibilities.map((item) => (
@@ -184,12 +117,6 @@ const firstYear = [
                 <div class="mt-3 space-y-3 text-muted-foreground leading-relaxed max-w-[66ch]">
                   {item.body.map((para) => <p>{para}</p>)}
                 </div>
-                {item.link && (
-                  <a href={item.link.href} class="link-accent inline-block mt-4 text-[15px]">
-                    {item.link.text}
-                    <span aria-hidden="true">&rarr;</span>
-                  </a>
-                )}
               </li>
             ))}
           </ol>

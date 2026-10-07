@@ -10,43 +10,65 @@ tags:
   - "Strategy"
 ---
 
-I used to work at an agency that spent the first five weeks of a new client engagement on onboarding, auditing and strategy. That is a long time for a client to wait before any of the recommended work begins.
+I once worked at an SEO agency that spent the first five weeks with a new client auditing and building a strategy doc, followed by a good couple more weeks before anything was actually executed.
 
-Some projects need substantial preparation, particularly large or complex sites. But I want to get useful work under way in the first week wherever possible. That means collecting enough information to decide what to do, making those decisions and getting started.
+It felt like a long time. Coming from a freelance background, I'd spent years building efficiencies to allow for "real" work to get going as quickly as possible.
 
-A lot of [SEO strategies I have seen](/blog/seo-sameness) amount to doing what the team already knows how to do. A content team recommends more articles; an outreach team recommends more links. The client may need either, but the research should establish that first.
+Nowadays I still focus on getting useful work delivered in the first week. That means collecting enough information to decide what to do, then making decisions and getting started.
 
-An AI visibility audit can fall into the same habit. It shows how often the brand appears, which competitors do better and which websites get cited, then finishes with recommendations that could have been written before the research began.
+A lot of [SEO strategies I have seen](/blog/seo-sameness) end up doing the same analysis with the same tools, and coming to similar conclusions as everyone else. This is one of the biggest challenges to the agency model - operationalised homogeneity.
 
-For generative engine optimisation, or GEO, I want the research to tell me which pages to improve, what is missing from them, whether there is a technical problem and which external sources are worth approaching. A low visibility score alone gives me very little basis for choosing between those actions.
+AI visibility work can suffer the same fate. The research may show how often the brand appears, which competitors do better, and which websites get cited, but finish with a strategy that could have been written without the research part.
 
-My starting point is the questions buyers ask and the pages AI assistants use to answer them. I collect the customer language, run a fixed set of prompts, inspect the answers and sources, then use those findings to build the roadmap. Once that work is done, putting the roadmap together takes a few hours.
+This is, in my opninion, partly thanks to our obsession with being "data-focused". People who have no business analysing data think they need to do so in order to prove the validity of their work. This can lead to a lack of precision and poor decision making.
 
-The aim is to begin implementation on day five and repeat the measurement on day 30. By then, I want published work to assess and an early indication of whether it is reaching the answers we targeted.
+I want GEO visibility testing to tell me:
+
+- What AI tools understand about the company, whether it's accurate, the sentiment, and what factors may be contributing to this (passages on specific URLs, for example).
+- Whether the company is being recommended to potential customers, and if not, are they being mentioned or cited, and what is causing the gap.
+- Whether there is consistency across multiple tries of the same prompt, on a single LLM and across several.
+- What are the exact pages being cited when a brand is recommended, what is the type of content, and who owns it.
+- How do things change over time, and whether there's correlation between changes in AI visibility and branded search and direct traffic.
+
+A visibility "score" gives very little to work with.
+
+The starting point is to work out what buyers are likely to actually be asking their AI assistants. Unlike in SEO, there are no keyword volumes for AI search, so we're essentially having to make an educated guess as to what people are prompting. I haven't seen a good argument against that yet.
+
+So how can we actually do that?
+
+I collect customer and category-focused language from range of sources such as sales calls or any direct communication with potential customers, as well as review sites, e.g. G2, Capterra, Google Reviews, etc. and public discussions on Reddit. This "message mining" gives me a load of insight into how people describe their problem at different stages of the buying journey and beyond.
+
+
+
+I'll turn this into a fixed set of categorised prompts that will be sent several times through each AI assistant, then analyse the answers and sources.
+
+Once the initial research is collected and I feel confident that the results are robust (working with AI, sometimes you have to redo stuff, and that's ok), we should be able to identify possible issues such as outdated content on or off the website being used to provide inaccurate answers about the company, negative reviews being cited, gaps in content coverage,  presence on external sites, etc.
+
+Then putting the roadmap together is quite logical, with a few core decisions coming from experience.
+
+There's no one-size-fits-all method, but the roadmap will often include new content, and perhaps rewriting existing content. In this case, the aim is to begin publishing either new content or page updates in week one, and repeat the measurement on day 30. By then, I expect to see an early indication of progress.
 
 ## The first 30 days
 
-The timing depends on the category, access to source material and the work required on the site. This is the schedule I work towards:
+This is the schedule I work towards:
 
-| Timing | Work | Output |
-| --- | --- | --- |
-| Days 1–2 | Define the market, research buyer language and search demand, then build the prompt set | A fixed set of buyer questions, with their sources recorded |
-| Day 3 | Run the prompts, establish baseline visibility and inspect cited and retrieved pages | Findings for each question group and the relevant source pages |
-| Day 4 | Build the roadmap | Prioritised content, technical and off-page actions |
-| Day 5 | Start implementation, beginning with content | Briefs, page updates and new content in production |
-| Days 6–29 | Continue implementation | Published content, technical changes and off-page work under way |
-| Day 30 | Run the original prompts again | A comparison of retrieval, citations, mentions and recommendations |
+| Timing    | Work                                                                                 | Output                                                             |
+| --------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| Days 1–2  | Define the market, research buyer language and search demand, build the prompt set   | A fixed set of buyer questions                                     |
+| Day 3     | Run the prompts, establish baseline visibility and inspect cited and retrieved pages | Findings for each question group and the relevant source pages     |
+| Day 4     | Build the roadmap                                                                    | Prioritised content, technical and off-page actions                |
+| Day 5     | Start implementation, beginning with content                                         | Briefs, page updates and new content in production                 |
+| Days 6–29 | Continue implementation                                                              | Published content, technical changes and off-page work under way   |
+| Day 30    | Run the original prompts again                                                       | A comparison of retrieval, citations, mentions and recommendations |
 
 Automation cuts down the time spent collecting answers, extracting URLs and calculating results. I can then spend more time reviewing the sources and deciding whether an action makes sense for the business. The eight stages below explain how that work fits together.
 
-## 1. Define the market before measuring the brand
-
-I start by agreeing which market and buyers the work should cover. A company may serve several audiences, countries or related categories. A marketplace has at least two sides to consider. A single visibility figure can hide quite different results for each.
+## 1. Define the market before measuring anything
 
 Before collecting answers, I define:
 
 1. **Category:** the market in which the company wants to compete.
-2. **Audience:** the person choosing the product or dealing with the problem.
+2. **Audience:** the person researching or buying the product or dealing with the problem.
 3. **Locale:** the country and language the research should represent.
 4. **Decisions:** what we need to be able to decide once the research is complete.
 
@@ -223,13 +245,13 @@ For recurring or commercially important sources, I record:
 
 The findings lead to different kinds of work:
 
-| Observed pattern | What I investigate | Possible action |
-| --- | --- | --- |
-| Competitor guides dominate a question group | Whether the client has a suitable page and comparable product evidence | Create or improve the relevant page |
-| A client page is retrieved but seldom cited | How its answer, evidence, structure and access compare with cited pages | Test the most plausible improvement |
-| Independent comparisons recur and omit the client | Product fit, accuracy and the prospect of an editorial update | Prioritise suitable pages for outreach |
-| Communities or videos appear repeatedly | What those formats contribute to the answer | Develop relevant activity in that format or channel |
-| The client's pages earn citations but the product is rarely recommended | Comparative detail, positioning and external corroboration | Strengthen the evidence for choosing the product |
+| Observed pattern                                                        | What I investigate                                                      | Possible action                                     |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | --------------------------------------------------- |
+| Competitor guides dominate a question group                             | Whether the client has a suitable page and comparable product evidence  | Create or improve the relevant page                 |
+| A client page is retrieved but seldom cited                             | How its answer, evidence, structure and access compare with cited pages | Test the most plausible improvement                 |
+| Independent comparisons recur and omit the client                       | Product fit, accuracy and the prospect of an editorial update           | Prioritise suitable pages for outreach              |
+| Communities or videos appear repeatedly                                 | What those formats contribute to the answer                             | Develop relevant activity in that format or channel |
+| The client's pages earn citations but the product is rarely recommended | Comparative detail, positioning and external corroboration              | Strengthen the evidence for choosing the product    |
 
 This gives me a specific basis for an off-page budget: the relevant pages, the questions they appeared for and the prospect of securing useful coverage.
 
@@ -265,15 +287,15 @@ Each proposed fix should explain which page or question it affects and what we e
 
 The roadmap includes enough detail for someone to carry out the work and understand why it comes first.
 
-| Field | What it records |
-| --- | --- |
-| Action | The page, update, placement, fix or experiment |
-| Buyer question | The decision or question group it addresses |
-| Evidence | The relevant prompts, answers, sources or customer comments |
-| Diagnosis | What we observed and what still needs testing |
-| Priority | Why this action deserves attention now |
-| Owner | Who is responsible |
-| Success measure | What we will look for in the next measurement |
+| Field           | What it records                                             |
+| --------------- | ----------------------------------------------------------- |
+| Action          | The page, update, placement, fix or experiment              |
+| Buyer question  | The decision or question group it addresses                 |
+| Evidence        | The relevant prompts, answers, sources or customer comments |
+| Diagnosis       | What we observed and what still needs testing               |
+| Priority        | Why this action deserves attention now                      |
+| Owner           | Who is responsible                                          |
+| Success measure | What we will look for in the next measurement               |
 
 I prioritise using commercial importance, strength and recurrence of the evidence, feasibility and effort. There is judgement involved, and I make the reasons explicit.
 

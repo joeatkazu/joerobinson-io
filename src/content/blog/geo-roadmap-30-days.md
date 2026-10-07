@@ -20,7 +20,7 @@ A lot of [SEO strategies I have seen](/blog/seo-sameness) end up doing the same 
 
 AI visibility work can suffer the same fate. The research may show how often the brand appears, which competitors do better, and which websites get cited, but finish with a strategy that could have been written without the research part.
 
-This is, in my opninion, partly thanks to our obsession with being "data-focused". People who have no business analysing data think they need to do so in order to prove the validity of their work. This can lead to a lack of precision and poor decision making.
+This is, in my opinion, partly thanks to our obsession with being "data-focused". People who have no business analysing data think they need to do so in order to prove the validity of their work. This can lead to a lack of precision and poor decision making.
 
 I want GEO visibility testing to tell me:
 
@@ -36,13 +36,11 @@ The starting point is to work out what buyers are likely to actually be asking t
 
 So how can we actually do that?
 
-I collect customer and category-focused language from range of sources such as sales calls or any direct communication with potential customers, as well as review sites, e.g. G2, Capterra, Google Reviews, etc. and public discussions on Reddit. This "message mining" gives me a load of insight into how people describe their problem at different stages of the buying journey and beyond.
-
-
+I collect customer and category-focused language from a range of sources such as sales calls or any direct communication with potential customers, as well as review sites, e.g. G2, Capterra, Google Reviews, etc. and public discussions on Reddit. This "message mining" gives me a load of insight into how people describe their problem at different stages of the buying journey and beyond.
 
 I'll turn this into a fixed set of categorised prompts that will be sent several times through each AI assistant, then analyse the answers and sources.
 
-Once the initial research is collected and I feel confident that the results are robust (working with AI, sometimes you have to redo stuff, and that's ok), we should be able to identify possible issues such as outdated content on or off the website being used to provide inaccurate answers about the company, negative reviews being cited, gaps in content coverage,  presence on external sites, etc.
+Once the initial research is collected and I feel confident that the results are robust (working with AI, sometimes you have to redo stuff, and that's ok), we should be able to identify possible issues such as outdated content on or off the website being used to provide inaccurate answers about the company, negative reviews being cited, gaps in content coverage, presence on external sites, etc.
 
 Then putting the roadmap together is quite logical, with a few core decisions coming from experience.
 

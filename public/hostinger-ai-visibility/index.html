@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hostinger | AI visibility dashboard</title>
+  <meta name="description" content="How often ChatGPT, Perplexity and Google AI Overviews include Hostinger in answers to web hosting questions, how they describe it, and which sources they cite.">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --ink: #0f172a;
+      --ink-2: #334155;
+      --ink-3: #475569;
+      --muted: #64748b;
+      --faint: #94a3b8;
+      --line: #e2e8f0;
+      --line-soft: #f1f5f9;
+      --chip: #f1f5f9;
+      --accent: #2a78d6;
+      --other: #cbd5e1;
+      --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+      --ord-1: #184f95; --ord-2: #3987e5; --ord-3: #86b6ef;
+      --tone-pos: #16a34a; --tone-mix: #d97706; --tone-neu: #cbd5e1; --tone-neg: #dc2626;
+      --good-ink: #166534; --bad-ink: #991b1b;
+      --unmeasured: #f1f5f9;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #0f172a; --surface: #172033; --ink: #f1f5f9; --ink-2: #e2e8f0; --ink-3: #cbd5e1;
+        --muted: #94a3b8; --faint: #64748b; --line: #334155; --line-soft: #1e293b; --chip: #1e293b;
+        --accent: #3987e5; --other: #475569;
+        --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+        --ord-1: #b7d3f6; --ord-2: #5598e7; --ord-3: #256abf;
+        --tone-pos: #22a052; --tone-mix: #d08a12; --tone-neu: #64748b; --tone-neg: #e05252;
+        --good-ink: #86efac; --bad-ink: #fca5a5;
+        --unmeasured: #1e293b;
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #0f172a; --surface: #172033; --ink: #f1f5f9; --ink-2: #e2e8f0; --ink-3: #cbd5e1;
+      --muted: #94a3b8; --faint: #64748b; --line: #334155; --line-soft: #1e293b; --chip: #1e293b;
+      --accent: #3987e5; --other: #475569;
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+      --ord-1: #b7d3f6; --ord-2: #5598e7; --ord-3: #256abf;
+      --tone-pos: #22a052; --tone-mix: #d08a12; --tone-neu: #64748b; --tone-neg: #e05252;
+      --good-ink: #86efac; --bad-ink: #fca5a5;
+      --unmeasured: #1e293b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--bg); }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: var(--ink-2);
+      background: var(--bg);
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+      line-height: 1.45;
+    }
+    @media (min-width: 640px) { body { padding: 2rem 1.5rem 4rem; } }
+    header { margin-bottom: 1.5rem; }
+    header h1 { font-size: 1.75rem; font-weight: 700; color: var(--ink); }
+    header .sub { font-size: 1rem; color: var(--ink-3); margin-top: 0.15rem; }
+    header .meta { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; }
+    section { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+    h2 { font-size: 1.1rem; font-weight: 700; text-transform: uppercase;
+         letter-spacing: 0.05em; color: var(--ink-3); margin-bottom: 0.25rem; }
+    h3 { font-size: 0.9rem; font-weight: 600; color: var(--ink-2); margin: 1.5rem 0 0.5rem; }
+    .section-sub { font-size: 0.8rem; color: var(--faint); margin-bottom: 1rem; }
+    .section-desc { font-size: 0.875rem; color: var(--ink-3); line-height: 1.6; margin-bottom: 1.25rem; max-width: 72ch; }
+    .axis-note { font-size: 0.75rem; color: var(--faint); font-weight: 400; }
+    strong { color: var(--ink); }
+
+    /* key findings */
+    .findings {
+      border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 6px;
+      background: var(--surface); padding: 1rem 1.25rem; margin-top: 1.25rem;
+    }
+    .findings h4 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--faint); margin-bottom: 0.5rem; }
+    .findings ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.875rem; color: var(--ink-3); }
+
+    /* stat cards */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem; margin: 1.25rem 0; }
+    .card { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--surface); }
+    .card-val { font-size: 1.4rem; font-weight: 700; color: var(--ink); }
+    .card-lbl { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+    .card-foot { font-size: 0.7rem; color: var(--faint); margin-top: 0.15rem; }
+
+    .stat-glossary { margin: 0.75rem 0 0.5rem; display: flex; flex-direction: column; gap: 0.35rem; }
+    .stat-glossary .stat-line { font-size: 0.8rem; }
+    .stat-glossary dt { display: inline; font-weight: 600; color: var(--ink); }
+    .stat-glossary dd { display: inline; color: var(--ink-3); margin: 0; }
+
+    /* charts */
+    .chart { position: relative; width: 100%; }
+    .chart canvas { display: block; }
+    .legend { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; font-size: 0.78rem; color: var(--ink-3); margin: 0.25rem 0 0.75rem; }
+    .legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+    .two-col { display: grid; grid-template-columns: 1fr; gap: 1.5rem 2rem; }
+    .two-col > * { min-width: 0; }
+    @media (min-width: 760px) { .two-col { grid-template-columns: 1fr 1fr; } }
+
+    /* tables */
+    .table-wrap { overflow-x: auto; margin-top: 0.5rem; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    thead tr { background: var(--surface); }
+    th { text-align: left; padding: 0.5rem 0.65rem; font-weight: 600; color: var(--ink-3);
+         border-bottom: 2px solid var(--line); white-space: nowrap; }
+    td { padding: 0.45rem 0.65rem; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    td.ctr, th.ctr { text-align: center; }
+    .prompt-cell { min-width: 240px; max-width: 380px; }
+    tr.me td { font-weight: 600; color: var(--ink); }
+    .muted { color: var(--faint); }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 0.4rem; vertical-align: 0; }
+
+    details.as-table { margin-top: 0.75rem; font-size: 0.8rem; }
+    details.as-table summary { cursor: pointer; color: var(--muted); }
+    details.as-table summary:hover { color: var(--ink-3); }
+
+    /* heat table */
+    .heat td.cell { text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; min-width: 74px; border-radius: 4px; border: 2px solid var(--bg); }
+    .heat td.nr { background: var(--unmeasured); color: var(--faint); font-size: 0.72rem; }
+    .flag { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.02em;
+            color: var(--bad-ink); border: 1px solid currentColor; border-radius: 3px; padding: 0 0.3em; margin-left: 0.35rem; vertical-align: 1px; white-space: nowrap; }
+
+    /* tags & dots */
+    .tags { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+    .tag { font-size: 0.72rem; padding: 0.1em 0.45em; border-radius: 3px; background: var(--chip); color: var(--ink-3); white-space: nowrap; }
+    .type-tag { font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
+    .dots { white-space: nowrap; letter-spacing: 1px; }
+    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--accent); margin-right: 3px; vertical-align: -1px; }
+    .dot.on { background: var(--accent); }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 0.25rem; }
+    .chips button {
+      font: inherit; font-size: 0.78rem; padding: 0.3rem 0.7rem; border-radius: 999px; cursor: pointer;
+      border: 1px solid var(--line); background: var(--bg); color: var(--ink-3);
+    }
+    .chips button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    .notice { background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+      padding: 0.75rem 1rem; color: var(--muted); font-size: 0.8rem; margin-top: 0.75rem; line-height: 1.55; }
+
+    .limitations {
+      margin-top: 3rem; padding: 1rem 1.25rem;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+      font-size: 0.85rem; color: var(--ink-3); line-height: 1.6;
+    }
+    .limitations h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--faint); margin-bottom: 0.6rem; }
+    .limitations ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.45rem; }
+    footer { margin-top: 1.5rem; font-size: 0.72rem; color: var(--faint); word-break: break-all; }
+    .byline { margin-top: 0.35rem; font-size: 0.85rem; color: var(--ink-3); }
+    .chart-note { font-size: 0.75rem; color: var(--muted); margin: -0.25rem 0 0.5rem; }
+    .table-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; }
+    .next p { font-size: 0.875rem; color: var(--ink-3); line-height: 1.6; margin-bottom: 0.75rem; max-width: 72ch; }
+    .fig-note { font-size: 0.8rem; color: var(--ink-3); margin: 0.75rem 0 0.5rem; max-width: 72ch; }
+    footer a { color: var(--ink-3); }
+    footer details { margin-top: 0.4rem; }
+    footer summary { cursor: pointer; }
+    footer .ref { margin-top: 0.35rem; word-break: break-all; }
+  </style>
+  <script src="/hostinger-ai-visibility/vendor/chart.umd.min.js"></script>
+  <script src="/hostinger-ai-visibility/data.js"></script>
+</head>
+<body>
+
+<header>
+  <h1>Hostinger</h1>
+  <p class="sub"><strong>AI visibility in web hosting</strong></p>
+  <p class="byline">Research by Joe Robinson</p>
+  <p class="meta">Test date: <span data-k="test_date"></span> &nbsp;·&nbsp; <span data-k="question_count"></span> questions &nbsp;·&nbsp; <span data-k="platform_count"></span> AI platforms &nbsp;·&nbsp; <span data-k="answer_count"></span> answers</p>
+</header>
+
+<p class="section-desc" style="margin-bottom:0.75rem">I tested how often ChatGPT, Perplexity and Google AI Overviews included Hostinger in answers to <span data-k="question_count"></span> web hosting questions. The questions were based on themes from 290 G2 reviews of Hostinger and 28 competitors, plus observed search questions. None named a brand.</p>
+<p class="section-desc">The analysis records which hosts appeared, whether they were recommended, and which websites each answer cited.</p>
+
+<div class="findings" id="findings">
+  <h4>Key findings</h4>
+  <ul></ul>
+</div>
+
+<!-- Next steps -->
+<section class="next">
+  <h2>What I would investigate next</h2>
+  <p style="margin-top:0.75rem"><strong>Check whether the gaps persist.</strong> Repeat the relevant questions to see whether Hostinger’s absence is consistent or varies between answers.</p>
+  <p><strong>Examine the answers and sources.</strong> Review how competitors are described on those questions and which pages are cited. This would give us specific product pages, comparisons and third-party coverage to examine.</p>
+  <p><strong>Review Hostinger’s relevant pages.</strong> Check whether they clearly explain the capabilities buyers asked about. Any proposed changes should follow that review; the results below do not establish why a host appeared or was absent.</p>
+</section>
+
+<!-- 1. Overall visibility -->
+<section>
+  <h2>1. Overall visibility</h2>
+  <p class="section-sub"><span data-k="assessed_answer_count"></span> assessed answers · <span data-k="included_host_count"></span> hosts included as options</p>
+  <p class="section-desc" style="margin-bottom:0.5rem">Hosts are ranked by the percentage of assessed answers that included them as an option. This includes top picks, other recommendations and list entries.</p>
+  <p class="section-desc">Hostinger is shown in blue and competitors in grey.</p>
+
+  <div class="chart" style="height:430px;max-width:720px"><canvas id="leaderboard-chart" role="img" aria-label="Bar chart showing the percentage of assessed answers that included each host as an option."></canvas></div>
+
+  <div class="cards" id="cards"></div>
+
+  <h3>What the figures mean</h3>
+  <dl class="stat-glossary">
+    <div class="stat-line"><dt>Included as an option:</dt> <dd>the answer presents Hostinger as a possible choice, whether as a top pick, another recommendation or a list entry.</dd></div>
+    <div class="stat-line"><dt>Rank in this test:</dt> <dd>Hostinger’s position among hosts included as options at least once.</dd></div>
+    <div class="stat-line"><dt>Recommended:</dt> <dd>the answer actively recommends Hostinger. This includes answers that make it the top pick.</dd></div>
+    <div class="stat-line"><dt>Top pick:</dt> <dd>the answer presents Hostinger as its single first choice.</dd></div>
+    <div class="stat-line"><dt>Hostinger website cited:</dt> <dd>the answer includes a link to a hostinger.com page as a source.</dd></div>
+  </dl>
+  <p class="fig-note">Top picks are included in the recommendation figure, and recommendations are included in the overall inclusion figure. These percentages should not be added together. An answer can include more than one host.</p>
+  <details class="as-table"><summary>View the figures</summary><div class="table-wrap" id="lb-table"></div><p class="table-note">Figures in brackets show the number of answers.</p></details>
+</section>
+
+<!-- 2. Strength -->
+<section>
+  <h2>2. How strongly hosts were recommended</h2>
+  <p class="section-sub">Top eight hosts · percentage of assessed answers</p>
+  <p class="section-desc">Each bar separates top picks, other recommendations and answers that only listed the host as an option. The full bar shows how often the host was included as an option.</p>
+  <div class="legend" id="strength-legend"></div>
+  <div class="chart" style="height:300px;max-width:720px"><canvas id="strength-chart" role="img" aria-label="Stacked bars separating top picks, other recommendations and list entries for the top eight hosts."></canvas></div>
+  <dl class="stat-glossary" style="margin-top:1rem">
+    <div class="stat-line"><dt>Top pick:</dt> <dd>the answer’s single first choice.</dd></div>
+    <div class="stat-line"><dt>Other recommendations:</dt> <dd>actively recommended, but not the single first choice.</dd></div>
+    <div class="stat-line"><dt>Listed only:</dt> <dd>included as an option without an active recommendation.</dd></div>
+  </dl>
+</section>
+
+<!-- 3. Platforms -->
+<section>
+  <h2>3. Results by AI platform</h2>
+  <p class="section-sub">Hostinger, SiteGround, DreamHost and IONOS · all questions</p>
+  <p class="section-desc">Each platform received the same questions. The chart shows how often each included these four hosts as options.</p>
+  <div class="legend" id="engine-legend"></div>
+  <div class="chart" style="height:300px;max-width:720px"><canvas id="engine-chart" role="img" aria-label="Grouped bars comparing how often each AI platform included Hostinger, SiteGround, DreamHost and IONOS as options."></canvas></div>
+  <details class="as-table"><summary>View the figures</summary><div class="table-wrap" id="engine-table"></div></details>
+</section>
+
+<!-- 4. Shared questions -->
+<section>
+  <h2>4. Comparison on shared questions</h2>
+  <p class="section-sub"><span data-k="hostinger_relevant_question_count"></span> questions relevant to Hostinger · <span data-k="shared_answer_count"></span> assessed answers on questions relevant to all four hosts</p>
+  <p class="section-desc" style="margin-bottom:0.5rem">This comparison uses questions relevant to each host’s services, based on its own website. For example, a question asking for a free hosting plan is included only where the website confirms that the host offers one.</p>
+  <p class="section-desc">The chart uses questions relevant to all four hosts. The table compares Hostinger with each competitor on questions relevant to both.</p>
+  <div>
+    <div style="max-width:520px">
+      <h3 style="margin-top:0">Questions relevant to all four hosts</h3>
+      <p class="chart-note" style="margin-top:0">Percentage of assessed answers that included each host as an option</p>
+      <div class="chart" style="height:200px"><canvas id="matched-chart" role="img" aria-label="Bar chart comparing inclusion as an option on questions relevant to all four hosts."></canvas></div>
+      <p class="legend" id="matched-values" style="margin-top:0.5rem"></p>
+    </div>
+    <div style="margin-top:1.75rem">
+      <h3 style="margin-top:0">Hostinger compared with each competitor</h3>
+      <div class="table-wrap" id="pairwise-table"></div>
+      <p class="table-note">Inclusion percentages use assessed answers to questions relevant to both hosts. Top picks are answer counts, with Hostinger shown first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Question types -->
+<section>
+  <h2>5. Results by question type</h2>
+  <p class="section-sub">Percentage of assessed answers that included each host as an option</p>
+  <p class="section-desc" style="margin-bottom:0.5rem">Some questions ask for providers: “What are the top 5 web hosting services?” Others ask for explanations: “What exactly is web hosting?”</p>
+  <p class="section-desc">An answer can be useful without naming a host. Low inclusion rates on explanatory questions do not necessarily indicate a visibility problem.</p>
+  <div class="legend" id="intent-legend"></div>
+  <div class="chart" style="height:320px"><canvas id="intent-chart" role="img" aria-label="Grouped bars comparing inclusion as an option across question types."></canvas></div>
+  <details class="as-table"><summary>View the figures</summary><div class="table-wrap" id="intent-table"></div></details>
+</section>
+
+<!-- 6. Tone -->
+<section>
+  <h2>6. How hosts were described</h2>
+  <p class="section-sub">Top ten hosts · answers that named each host</p>
+  <p class="section-desc" style="margin-bottom:0.5rem">This chart shows whether each host was described positively, negatively, neutrally or with a mixture of positive and negative comments. Each bar covers all assessed answers that named that host.</p>
+  <p class="section-desc">The table also shows how often an answer advised the buyer against choosing the host. This is a separate count, not an additional segment of the bar.</p>
+  <div class="legend" id="tone-legend"></div>
+  <div class="chart" style="height:380px;max-width:760px"><canvas id="tone-chart" role="img" aria-label="Stacked bars showing positive, mixed, neutral and negative descriptions of each host."></canvas></div>
+  <details class="as-table"><summary>View the figures</summary><div class="table-wrap" id="tone-table"></div><p class="table-note">All table figures are answer counts.</p></details>
+</section>
+
+<!-- 7. Needs -->
+<section>
+  <h2>7. Results by buyer need</h2>
+  <p class="section-sub">Answers that included each host as an option / assessed answers about that need</p>
+  <p class="section-desc" style="margin-bottom:0.5rem">Each row covers a buyer need that Hostinger’s website says its services meet. Darker cells mean the host appeared as an option in a larger proportion of answers.</p>
+  <p class="section-desc"><span class="flag" style="margin:0">Gap</span> marks a need where competitors appeared as options but Hostinger did not in this run. <strong>Not confirmed</strong> means the host’s website did not confirm the capability, so it was excluded from that comparison.</p>
+  <div class="table-wrap"><table class="heat" id="needs-table"></table></div>
+</section>
+
+<!-- 8. Gaps -->
+<section>
+  <h2>8. Questions where Hostinger was not included as an option</h2>
+  <p class="section-sub"><span data-k="gap_question_count"></span> of <span data-k="hostinger_relevant_question_count"></span> relevant questions</p>
+  <p class="section-desc" style="margin-bottom:0.5rem">These questions were relevant to Hostinger’s services, but none of the assessed answers included it as an option. At least one answer included another host.</p>
+  <p class="section-desc">“Mentioned only” counts answers that named Hostinger without presenting it as an option. These results identify questions to investigate further; a repeat run may produce different answers.</p>
+  <div class="table-wrap" id="gaps-table"></div>
+  <p class="table-note">Numbers beside other hosts show how many assessed answers included them as options.</p>
+</section>
+
+<!-- 9. Citations -->
+<section>
+  <h2>9. Websites cited in the answers</h2>
+  <p class="section-sub"><span data-k="citation_count"></span> citations · <span data-k="cited_domain_count"></span> domains · <span data-k="answer_count"></span> collected answers</p>
+  <p class="section-desc" style="margin-bottom:0.5rem" id="cite-lede"></p>
+  <p class="section-desc" style="margin-bottom:0.5rem">Some sources have not yet been classified. The unclassified group may include review sites and editorial publications, so it should not be treated as a separate type of publisher.</p>
+  <p class="section-desc">A citation records a link shown in an answer. It does not establish how much the page influenced that answer, or whether the host was recommended.</p>
+  <h3>Citations by source type</h3>
+  <div class="legend" id="cite-legend"></div>
+  <div class="chart" style="height:56px;max-width:760px"><canvas id="cite-share-chart" role="img" aria-label="Stacked bar showing the percentage of citations assigned to each source type."></canvas></div>
+  <p class="chart-note" style="margin-top:0.25rem">Each domain is counted once per answer, even if that answer links to several of its pages.</p>
+  <h3>Websites cited most often</h3>
+  <p class="chart-note">Number of answers citing each domain</p>
+  <div class="chart" style="height:440px;max-width:720px"><canvas id="cite-chart" role="img" aria-label="Bar chart showing how many answers cited each of the most frequently cited domains."></canvas></div>
+  <details class="as-table"><summary>View the figures</summary><div class="table-wrap" id="cite-table"></div></details>
+</section>
+
+<!-- 10. Per-question -->
+<section>
+  <h2>10. Results for each question</h2>
+  <p class="section-sub"><span data-k="hostinger_relevant_question_count"></span> relevant questions · Hostinger included as an option on <span data-k="questions_with_inclusion_count"></span></p>
+  <p class="section-desc" style="margin-bottom:0.5rem">This table covers every question assessed as relevant to Hostinger. The count shows how many assessed answers included it as an option.</p>
+  <p class="section-desc">Each dot represents one assessed answer. A filled dot means Hostinger was included as an option; an empty dot means it was not. Answers that could not be assessed are excluded.</p>
+  <div class="chips" id="prompt-filters" role="group" aria-label="Filter by question type"></div>
+  <div class="table-wrap" id="prompts-table"></div>
+</section>
+
+<div class="limitations">
+  <h4>About this research</h4>
+  <ul>
+    <li><strong>One answer per question on each platform.</strong> Results may change on a repeat run. Small differences between hosts should be treated cautiously.</li>
+    <li><strong>Relevance assessed from providers’ websites.</strong> The websites were reviewed on 5 October 2026. Where a website did not confirm a capability, the host was excluded from that comparison. SiteGround’s EU website was used.</li>
+    <li><strong>English-language questions.</strong> ChatGPT and Google were queried with US location settings. Google used desktop settings. Perplexity had no location setting. Claude was not included.</li>
+    <li><strong>Questions based on reviews and search.</strong> The set contained <span data-k="question_count"></span> questions, based on 290 G2 reviews and observed search questions. It did not include Reddit or forum research, or branded questions such as “Hostinger vs SiteGround”.</li>
+    <li><strong><span data-k="unassessed_answer_count"></span> answers excluded from the assessment of hosts’ appearances and recommendations.</strong> Of <span data-k="answer_count"></span> collected answers, <span data-k="assessed_answer_count"></span> could be assessed reliably for how they presented each host. Unassessed answers were not counted as absences. Citation figures use their own answer totals.</li>
+    <li><strong>This test records appearances and citations.</strong> It does not establish why a host appeared, why it was absent, or what effect an appearance had on enquiries or sales.</li>
+    <li><strong>hPanel references are included.</strong> References to hPanel, Hostinger’s control panel, were grouped under Hostinger. Some Hostinger appearances may therefore refer to its control panel rather than name the hosting provider directly.</li>
+  </ul>
+</div>
+
+<footer>
+  <p>Research by Joe Robinson · <a href="https://joerobinson.io/">joerobinson.io</a></p>
+  <details>
+    <summary>Research reference</summary>
+    <p class="ref">Dataset: <span data-k="export_id"></span> · Snapshot: <span data-k="snapshot_id"></span> · Schema: <span data-k="schema_version"></span> · Dashboard generated: <span data-k="generated_date"></span></p>
+  </details>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var D = window.DASH;
+  if (!D) { document.body.insertAdjacentHTML("afterbegin", "<p class='notice'>The dashboard data could not be loaded. Please try again.</p>"); return; }
+
+  var ME = "hostinger-com";
+  var FOCUS = D.focus;                          // Hostinger, SiteGround, DreamHost, IONOS — fixed colour order
+  var SERIES = ["--s1", "--s2", "--s3", "--s4"];
+  var INTENT_LABEL = { "best-of": "Best providers", "buying-criterion": "Buying criteria", "requirement": "Requirements",
+    "use-case": "Use cases", "segment": "Customer groups", "problem-led": "Problems to solve", "naive": "Basic questions" };
+  var CLASS_LABEL = { me: "Hostinger website", competitor: "Other providers’ websites", ugc: "Forums and video",
+    "review-platform": "Review platforms", unclassified: "Unclassified" };
+  var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  function pct(o) { return (o && o.d) ? (100 * o.n / o.d) : null; }
+  function fmtPct(o, dp) { var p = pct(o); return p === null ? "Not assessed" : p.toFixed(dp === undefined ? 1 : dp) + "%"; }
+  function frac(o) { return (o && o.d) ? o.n + " of " + o.d : "Not assessed"; }
+  function longDate(iso) { var p = iso.split("-"); return +p[2] + " " + MONTHS[+p[1] - 1] + " " + p[0]; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function $(id) { return document.getElementById(id); }
+  function vname(id) { return D.vendors[id] ? D.vendors[id].name : id; }
+  function byId(list, id) { return list.filter(function (r) { return r.id === id; })[0]; }
+  function sentenceStart(s) {   // lower-case an ordinary first word ("Root" → "root"), never a name like "WordPress" or "SSH"
+    return /^[A-Z][a-z]*$/.test(s.split(/[\s,]/)[0]) ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+  }
+  function legend(el, items) {
+    $(el).innerHTML = items.map(function (it) {
+      return "<span><i style='background:var(" + it[1] + ")'></i>" + esc(it[0]) + "</span>";
+    }).join("");
+  }
+  function table(head, rows) {
+    var h = "<table><thead><tr>" + head.map(function (c) {
+      return "<th" + (c.cls ? " class='" + c.cls + "'" : "") + ">" + c.t + "</th>"; }).join("") + "</tr></thead><tbody>";
+    rows.forEach(function (r) {
+      h += "<tr" + (r.cls ? " class='" + r.cls + "'" : "") + ">" + r.cells.map(function (c, i) {
+        var cls = head[i].cls || "";
+        return "<td" + (cls ? " class='" + cls + "'" : "") + ">" + c + "</td>"; }).join("") + "</tr>";
+    });
+    return h + "</tbody></table>";
+  }
+
+  /* ---------- figures used in the copy ---------- */
+  var M = D.meta, H = D.vendors[ME].overall, lb = D.leaderboard, C = D.citations;
+  var mAll = D.matched.all_four, mMe = byId(mAll, ME);
+  var mOthers = mAll.filter(function (r) { return r.id !== ME; }).sort(function (a, b) { return pct(b) - pct(a); });
+  var runnerUp = lb.filter(function (v) { return v.id !== ME; })[0];
+  var hTone = byId(D.tone, ME);
+  var hSite = C.top.filter(function (d) { return d.domain === "hostinger.com"; })[0];
+  var maxCited = Math.max.apply(null, C.top.map(function (d) { return d.citations; }));
+  var hSiteLeads = !!hSite && hSite.citations === maxCited &&
+    C.top.filter(function (d) { return d.citations === maxCited; }).length === 1;
+  var providerShare = (C.by_class.competitor || 0) / C.total;
+
+  var P = {
+    test_date: longDate(M.run_date), question_count: M.prompts, platform_count: M.engines.length, answer_count: M.answers,
+    assessed_answer_count: M.stance_read, unassessed_answer_count: M.answers - M.stance_read,
+    included_host_count: M.vendors_put_forward,
+    hostinger_relevant_question_count: D.prompts.length, shared_answer_count: mMe.d,
+    gap_question_count: D.gaps.length,
+    questions_with_inclusion_count: D.prompts.filter(function (p) { return p.pf > 0; }).length,
+    citation_count: C.total.toLocaleString("en-GB"), cited_domain_count: C.domains_total,
+    export_id: M.export_id, snapshot_id: M.snapshot, schema_version: M.schema, generated_date: longDate(M.generated)
+  };
+  Array.prototype.forEach.call(document.querySelectorAll("[data-k]"), function (el) {
+    var v = P[el.getAttribute("data-k")]; el.textContent = v === undefined || v === null ? "Not assessed" : v;
+  });
+
+  /* ---------- key findings (each claim checked against the data) ---------- */
+  var findings = [];
+  var tiedTop = lb.filter(function (v) { return v.id !== ME && v.put_forward.n === H.put_forward.n; });
+  var included = "It was included in " + fmtPct(H.put_forward) + " of assessed answers (" + frac(H.put_forward) + ")";
+  if (M.rank === 1 && !tiedTop.length) {
+    findings.push("<strong>Hostinger appeared most often as an option in this test.</strong> " + included +
+      ", ahead of " + esc(runnerUp.name) + " at " + fmtPct(runnerUp.put_forward) + ".");
+  } else if (tiedTop.length && H.put_forward.n === lb[0].put_forward.n) {
+    findings.push("<strong>Hostinger shared the top position for inclusion as an option.</strong> " + included +
+      ", level with " + tiedTop.map(function (v) { return esc(v.name); }).join(" and ") + ".");
+  } else {
+    findings.push("<strong>Hostinger ranked #" + M.rank + " for inclusion as an option.</strong> " + included + ".");
+  }
+  if (mOthers.length && pct(mMe) > pct(mOthers[0])) {
+    findings.push("<strong>It also led on questions relevant to all four comparison hosts.</strong> Hostinger appeared as an option in " +
+      fmtPct(mMe) + " of these answers, compared with " + fmtPct(mOthers[0]) + " for " + esc(mOthers[0].name) + ".");
+  } else {
+    findings.push("On questions relevant to all four hosts, Hostinger appeared as an option in " + fmtPct(mMe) + " of assessed answers.");
+  }
+  if (H.recommended.n < H.put_forward.n) {
+    findings.push("<strong>An appearance was not always a recommendation.</strong> Hostinger was actively recommended in " +
+      fmtPct(H.recommended) + " of assessed answers. It was the top pick in " + fmtPct(H.lead) + ".");
+  }
+  if (D.gap_needs.length) {
+    var ex = D.gap_needs.slice().sort(function (a, b) { return a.length - b.length; }).slice(0, 3).map(sentenceStart);
+    var exText = ex.length > 1 ? ex.slice(0, -1).join("; ") + "; and " + ex[ex.length - 1] : ex[0];
+    findings.push("<strong>There were gaps on " + D.gap_needs.length + " needs covered by Hostinger’s services.</strong> In this run, competitors appeared as options for these needs, but Hostinger did not. These included " + esc(exText) + ".");
+  }
+  var tonePart = hTone && hTone.named ? " Of the answers that named Hostinger, " + Math.round(100 * hTone.positive / hTone.named) + "% described it positively." : "";
+  if (hSiteLeads) {
+    findings.push("<strong>Hostinger’s website was the most frequently cited domain.</strong> It appeared as a source in " + hSite.citations + " answers." + tonePart);
+  } else if (hSite) {
+    findings.push("Hostinger’s website appeared as a source in " + hSite.citations + " answers." + tonePart);
+  } else if (tonePart) {
+    findings.push(tonePart.trim());
+  }
+  $("findings").querySelector("ul").innerHTML = findings.map(function (s) { return "<li>" + s + "</li>"; }).join("");
+
+  $("cite-lede").textContent = providerShare > 0.5
+    ? "Hosting providers’ websites accounted for most citations in this test." + (hSiteLeads ? " Hostinger.com appeared as a source in more answers than any other domain." : "")
+    : "The chart groups cited websites by source type.";
+
+  /* ---------- cards ---------- */
+  var cards = [
+    [fmtPct(H.put_forward), "Included as an option", frac(H.put_forward) + " answers"],
+    ["#" + M.rank + " of " + M.vendors_put_forward, "Rank in this test", "By inclusion as an option"],
+    [fmtPct(H.recommended), "Recommended", frac(H.recommended) + " answers"],
+    [fmtPct(H.lead), "Top pick", frac(H.lead) + " answers"],
+    [fmtPct(H.own_domain_cited), "Hostinger website cited", frac(H.own_domain_cited) + " answers"]
+  ];
+  $("cards").innerHTML = cards.map(function (c) {
+    return "<div class='card'><div class='card-val'>" + c[0] + "</div><div class='card-lbl'>" + c[1] +
+      "</div><div class='card-foot'>" + c[2] + "</div></div>";
+  }).join("");
+
+  /* ---------- tables ---------- */
+  function withCount(o) { return fmtPct(o) + (o && o.d ? " <span class='muted'>(" + o.n + ")</span>" : ""); }
+  $("lb-table").innerHTML = table(
+    [{ t: "Rank" }, { t: "Host" }, { t: "Included as an option", cls: "num" }, { t: "Recommended", cls: "num" }, { t: "Top pick", cls: "num" }, { t: "Own website cited", cls: "num" }],
+    lb.map(function (v, i) {
+      return { cls: v.id === ME ? "me" : "", cells: [i + 1, esc(v.name),
+        withCount(v.put_forward), withCount(v.recommended), withCount(v.lead), withCount(v.own_domain_cited)] };
+    }));
+
+  $("engine-table").innerHTML = table(
+    [{ t: "AI platform" }].concat(FOCUS.map(function (v) { return { t: esc(vname(v)), cls: "num" }; })),
+    M.engines.map(function (e) {
+      return { cells: [esc(e.label)].concat(FOCUS.map(function (v) {
+        var o = D.vendors[v].engine[e.id].put_forward; return fmtPct(o) + " <span class='muted'>(" + frac(o) + ")</span>"; })) };
+    }));
+
+  $("pairwise-table").innerHTML = table(
+    [{ t: "Competitor" }, { t: "Shared questions", cls: "num" }, { t: "Hostinger included", cls: "num" }, { t: "Competitor included", cls: "num" }, { t: "Top picks: Hostinger / competitor", cls: "num" }],
+    D.matched.pairwise.map(function (r) {
+      return { cells: [esc(r.peer), r.prompts, "<strong>" + fmtPct(r.me) + "</strong>", fmtPct(r.peer_pf), r.me_lead + " / " + r.peer_lead] };
+    }));
+
+  $("intent-table").innerHTML = table(
+    [{ t: "Question type" }].concat(FOCUS.map(function (v) { return { t: esc(vname(v)), cls: "num" }; })),
+    D.intents.map(function (i) {
+      return { cells: [INTENT_LABEL[i]].concat(FOCUS.map(function (v) {
+        var o = D.vendors[v].intent[i]; return fmtPct(o) + " <span class='muted'>(" + frac(o) + ")</span>"; })) };
+    }));
+
+  $("tone-table").innerHTML = table(
+    [{ t: "Host" }, { t: "Answers naming host", cls: "num" }, { t: "Positive", cls: "num" }, { t: "Mixed", cls: "num" }, { t: "Neutral", cls: "num" }, { t: "Negative", cls: "num" }, { t: "Advised against", cls: "num" }],
+    D.tone.map(function (t) {
+      return { cls: t.id === ME ? "me" : "", cells: [esc(t.name), t.named, t.positive, t.mixed, t.neutral, t.negative, t.discouraged] };
+    }));
+
+  // needs heat table
+  (function () {
+    var gaps = {}; D.gap_needs.forEach(function (g) { gaps[g] = true; });
+    var names = ["Hostinger", "SiteGround", "DreamHost", "IONOS"];
+    var rows = D.needs.slice().sort(function (a, b) {
+      return (gaps[a.need] ? 1 : 0) - (gaps[b.need] ? 1 : 0) || pct(b.Hostinger) - pct(a.Hostinger);
+    });
+    var h = "<thead><tr><th>Buyer need</th><th class='num'>Questions</th>" + names.map(function (n) { return "<th class='ctr'>" + n + "</th>"; }).join("") + "</tr></thead><tbody>";
+    rows.forEach(function (r) {
+      h += "<tr><td class='prompt-cell'>" + esc(r.need) + (gaps[r.need] ? "<span class='flag'>Gap</span>" : "") + "</td><td class='num'>" + r.prompts + "</td>";
+      names.forEach(function (n) {
+        var o = r[n];
+        if (!o) { h += "<td class='cell nr' title='" + n + "’s website did not confirm this capability. Excluded from this comparison.'>Not confirmed</td>"; return; }
+        var a = o.n ? Math.round(8 + pct(o) * 0.5) : 0;
+        var bg = "color-mix(in srgb, var(--accent) " + a + "%, var(--surface))";
+        h += "<td class='cell' style='background:" + bg + "' title='" + n + " was included as an option in " + o.n + " of " + o.d +
+          " assessed answers about this need.'>" + o.n + "/" + o.d + "</td>";
+      });
+      h += "</tr>";
+    });
+    $("needs-table").innerHTML = h + "</tbody>";
+  })();
+
+  $("gaps-table").innerHTML = table(
+    [{ t: "Question" }, { t: "Question type" }, { t: "Hostinger mentioned only", cls: "num" }, { t: "Other hosts included" }],
+    D.gaps.map(function (g) {
+      return { cells: ["<span class='prompt-cell' style='display:block'>" + esc(g.prompt) + "</span>",
+        "<span class='type-tag'>" + INTENT_LABEL[g.type] + "</span>", g.named,
+        "<div class='tags'>" + g.instead.split("; ").map(function (s) { return "<span class='tag'>" + esc(s) + "</span>"; }).join("") + "</div>"] };
+    }));
+
+  function citeClass(d) { return d.owner === ME ? "me" : (d.owner_class || "unclassified"); }
+  $("cite-table").innerHTML = table(
+    [{ t: "Domain" }, { t: "Source type" }, { t: "Answers citing this domain", cls: "num" }, { t: "Distinct questions", cls: "num" }],
+    C.top.map(function (d) { return { cls: d.owner === ME ? "me" : "", cells: [esc(d.domain), CLASS_LABEL[citeClass(d)], d.citations, d.prompts] }; }));
+
+  // per-question table with filters
+  (function () {
+    var types = ["all"].concat(D.intents.filter(function (i) { return D.prompts.some(function (p) { return p.type === i; }); }));
+    var active = "all";
+    function render() {
+      var rows = D.prompts.filter(function (p) { return active === "all" || p.type === active; })
+        .slice().sort(function (a, b) { return (b.pf / b.read) - (a.pf / a.read) || a.prompt.localeCompare(b.prompt); });
+      $("prompts-table").innerHTML = table(
+        [{ t: "Question" }, { t: "Question type" }, { t: "Answers including Hostinger", cls: "num" }, { t: "Results" }],
+        rows.map(function (p) {
+          var dots = ""; for (var i = 0; i < p.read; i++) dots += "<span class='dot" + (i < p.pf ? " on" : "") + "'></span>";
+          return { cells: ["<span class='prompt-cell' style='display:block'>" + esc(p.prompt) + "</span>",
+            "<span class='type-tag'>" + INTENT_LABEL[p.type] + "</span>", p.pf + " of " + p.read,
+            "<span class='dots' aria-hidden='true'>" + dots + "</span>"] };
+        }));
+    }
+    $("prompt-filters").innerHTML = types.map(function (t) {
+      var n = t === "all" ? D.prompts.length : D.prompts.filter(function (p) { return p.type === t; }).length;
+      return "<button type='button' data-t='" + t + "' aria-pressed='" + (t === active) + "'>" + (t === "all" ? "All" : INTENT_LABEL[t]) + " (" + n + ")</button>";
+    }).join("");
+    $("prompt-filters").addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      active = b.getAttribute("data-t");
+      Array.prototype.forEach.call(this.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      render();
+    });
+    render();
+  })();
+
+  /* ---------- legends ---------- */
+  var focusLegend = FOCUS.map(function (v, i) { return [vname(v), SERIES[i]]; });
+  legend("engine-legend", focusLegend);
+  legend("intent-legend", focusLegend);
+  legend("strength-legend", [["Top pick", "--ord-1"], ["Other recommendations", "--ord-2"], ["Listed only", "--ord-3"]]);
+  legend("tone-legend", [["Positive", "--tone-pos"], ["Mixed", "--tone-mix"], ["Neutral", "--tone-neu"], ["Negative", "--tone-neg"]]);
+  var classes = ["me", "competitor", "ugc", "review-platform", "unclassified"];
+  var classCol = { me: "--s1", competitor: "--s2", ugc: "--s3", "review-platform": "--s4", unclassified: "--other" };
+  var classTotals = { me: C.own_citations, competitor: (C.by_class.competitor || 0) - C.own_citations, ugc: C.by_class.ugc || 0,
+    "review-platform": C.by_class["review-platform"] || 0, unclassified: C.by_class.unclassified || 0 };
+  legend("cite-legend", classes.map(function (k) {
+    return [CLASS_LABEL[k] + " " + (100 * classTotals[k] / C.total).toFixed(0) + "%", classCol[k]];
+  }));
+  $("matched-values").innerHTML = FOCUS.map(function (id, i) {
+    var r = byId(mAll, id);
+    return "<span><i style='background:var(" + SERIES[i] + ")'></i>" + esc(r.name) + " " + fmtPct(r) + " (" + frac(r) + ")</span>";
+  }).join("");
+
+  /* ---------- charts ---------- */
+  if (typeof Chart === "undefined") return;
+  var charts = [];
+
+  function baseOpts(horizontal) {
+    var grid = css("--line-soft"), tick = css("--muted");
+    var valueAxis = { min: 0, grid: { color: grid }, border: { display: false },
+      ticks: { color: tick, callback: function (v) { return v + "%"; } } };
+    var catAxis = { grid: { display: false }, border: { color: css("--line") }, ticks: { color: css("--ink-3"), font: { size: 12 } } };
+    return {
+      indexAxis: horizontal ? "y" : "x", responsive: true, maintainAspectRatio: false,
+      animation: { duration: 300 },
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: css("--ink"), titleColor: css("--bg"), bodyColor: css("--bg"), footerColor: css("--bg"), padding: 10, cornerRadius: 6 } },
+      scales: horizontal ? { x: valueAxis, y: catAxis } : { x: catAxis, y: valueAxis }
+    };
+  }
+  function bar(id, cfg) { var c = new Chart($(id), cfg); charts.push(c); return c; }
+  var BAR = { borderRadius: 4, borderSkipped: "start", maxBarThickness: 20 };
+  function assessed(o) { return fmtPct(o) + " (" + frac(o) + " assessed answers)"; }
+  function axisTitle(text) { return { display: true, text: text, color: css("--muted"), font: { size: 11 } }; }
+
+  function draw() {
+    charts.forEach(function (c) { c.destroy(); }); charts = [];
+    Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+    Chart.defaults.color = css("--muted");
+    var surface = css("--bg");
+    function tip(o, cb) { o.plugins.tooltip.callbacks = cb; return o; }
+    function stacked(o, max) { o.scales.x.stacked = true; o.scales.y.stacked = true; o.scales.x.max = max; return o; }
+    function seg(i, n) {   // 2px surface gap between segments; round only the outer data-ends
+      return { borderColor: surface, borderWidth: { right: i === n - 1 ? 0 : 2 }, borderSkipped: false, maxBarThickness: 20,
+        borderRadius: { topLeft: i === 0 ? 4 : 0, bottomLeft: i === 0 ? 4 : 0, topRight: i === n - 1 ? 4 : 0, bottomRight: i === n - 1 ? 4 : 0 } };
+    }
+
+    // 1. overall visibility
+    var o1 = baseOpts(true); o1.scales.x.max = 40;
+    bar("leaderboard-chart", {
+      type: "bar",
+      data: { labels: lb.map(function (v) { return v.name; }),
+        datasets: [Object.assign({ label: "Included as an option", data: lb.map(function (v) { return pct(v.put_forward); }),
+          backgroundColor: lb.map(function (v) { return v.id === ME ? css("--accent") : css("--other"); }) }, BAR)] },
+      options: tip(o1, { label: function (c) { return " Included as an option: " + assessed(lb[c.dataIndex].put_forward); } })
+    });
+
+    // 2. strength (lead ⊂ recommended ⊂ put forward — split for display only)
+    var top8 = lb.slice(0, 8);
+    var parts = [
+      ["Top pick", "--ord-1", function (v) { return v.lead.n; }],
+      ["Other recommendations", "--ord-2", function (v) { return v.recommended.n - v.lead.n; }],
+      ["Listed only", "--ord-3", function (v) { return v.put_forward.n - v.recommended.n; }]
+    ];
+    bar("strength-chart", {
+      type: "bar",
+      data: { labels: top8.map(function (v) { return v.name; }),
+        datasets: parts.map(function (p, i) {
+          return Object.assign({ label: p[0], backgroundColor: css(p[1]),
+            data: top8.map(function (v) { return 100 * p[2](v) / v.put_forward.d; }), raw: top8.map(p[2]) }, seg(i, parts.length));
+        }) },
+      options: tip(stacked(baseOpts(true), 40), {
+        label: function (c) { return " " + c.dataset.label + ": " + c.dataset.raw[c.dataIndex] + " answers (" + c.parsed.x.toFixed(1) + "%)"; },
+        footer: function (items) { return "Included as an option overall: " + assessed(top8[items[0].dataIndex].put_forward); }
+      })
+    });
+
+    // 3. platforms
+    var o3 = baseOpts(false); o3.scales.y.max = 40; o3.scales.y.title = axisTitle("Percentage of assessed answers");
+    bar("engine-chart", {
+      type: "bar",
+      data: { labels: M.engines.map(function (e) { return e.label; }),
+        datasets: FOCUS.map(function (v, i) {
+          return Object.assign({ label: vname(v), backgroundColor: css(SERIES[i]),
+            data: M.engines.map(function (e) { return pct(D.vendors[v].engine[e.id].put_forward); }),
+            raw: M.engines.map(function (e) { return D.vendors[v].engine[e.id].put_forward; }) }, BAR);
+        }) },
+      options: tip(o3, { label: function (c) { return " " + c.dataset.label + ": " + assessed(c.dataset.raw[c.dataIndex]); } })
+    });
+
+    // 4. shared questions
+    var order = FOCUS.map(function (id) { return byId(mAll, id); });
+    var o4 = baseOpts(true); o4.scales.x.max = 40;
+    bar("matched-chart", {
+      type: "bar",
+      data: { labels: order.map(function (r) { return r.name; }),
+        datasets: [Object.assign({ label: "Included as an option", backgroundColor: FOCUS.map(function (v, i) { return css(SERIES[i]); }),
+          data: order.map(function (r) { return pct(r); }) }, BAR)] },
+      options: tip(o4, { label: function (c) { return " Included as an option: " + assessed(order[c.dataIndex]); } })
+    });
+
+    // 5. question types
+    var o5 = baseOpts(false); o5.scales.y.max = 100;
+    bar("intent-chart", {
+      type: "bar",
+      data: { labels: D.intents.map(function (i) { return INTENT_LABEL[i]; }),
+        datasets: FOCUS.map(function (v, k) {
+          return Object.assign({ label: vname(v), backgroundColor: css(SERIES[k]),
+            data: D.intents.map(function (i) { return pct(D.vendors[v].intent[i]); }),
+            raw: D.intents.map(function (i) { return D.vendors[v].intent[i]; }) }, BAR, { maxBarThickness: 16 });
+        }) },
+      options: tip(o5, { label: function (c) { return " " + c.dataset.label + ": " + assessed(c.dataset.raw[c.dataIndex]); } })
+    });
+
+    // 6. tone
+    var tones = [["Positive", "--tone-pos", "positive"], ["Mixed", "--tone-mix", "mixed"], ["Neutral", "--tone-neu", "neutral"], ["Negative", "--tone-neg", "negative"]];
+    var T = D.tone;
+    bar("tone-chart", {
+      type: "bar",
+      data: { labels: T.map(function (t) { return t.name + " (" + t.named + ")"; }),
+        datasets: tones.map(function (tn, i) {
+          return Object.assign({ label: tn[0], backgroundColor: css(tn[1]),
+            data: T.map(function (t) { return 100 * t[tn[2]] / t.named; }), raw: T.map(function (t) { return t[tn[2]]; }) }, seg(i, tones.length));
+        }) },
+      options: tip(stacked(baseOpts(true), 100), {
+        title: function (items) { return T[items[0].dataIndex].name; },
+        label: function (c) { return " " + c.dataset.label + ": " + c.dataset.raw[c.dataIndex] + " of " + T[c.dataIndex].named + " answers (" + c.parsed.x.toFixed(0) + "%)"; },
+        footer: function (items) { return "Advised against in " + T[items[0].dataIndex].discouraged + " answers"; }
+      })
+    });
+
+    // 9a. citations by source type
+    var o9 = baseOpts(true);
+    o9.scales = { x: { stacked: true, display: false, max: 100 }, y: { stacked: true, display: false } };
+    bar("cite-share-chart", {
+      type: "bar",
+      data: { labels: ["Citations"], datasets: classes.map(function (k, i) {
+        return Object.assign({ label: CLASS_LABEL[k], backgroundColor: css(classCol[k]),
+          data: [100 * classTotals[k] / C.total], raw: classTotals[k] }, seg(i, classes.length), { barThickness: 20 });
+      }) },
+      options: tip(o9, { title: function () { return ""; },
+        label: function (c) { return " " + c.dataset.label + ": " + c.dataset.raw + " citations (" + c.parsed.x.toFixed(1) + "%)"; } })
+    });
+
+    // 9b. most-cited domains
+    var o9b = baseOpts(true); o9b.scales.x.ticks.callback = function (v) { return v; };
+    bar("cite-chart", {
+      type: "bar",
+      data: { labels: C.top.map(function (d) { return d.domain; }),
+        datasets: [Object.assign({ label: "Answers citing this domain", backgroundColor: C.top.map(function (d) { return css(classCol[citeClass(d)]); }),
+          data: C.top.map(function (d) { return d.citations; }) }, BAR)] },
+      options: tip(o9b, { label: function (c) { var d = C.top[c.dataIndex];
+        return " Cited in " + d.citations + " of " + d.answers_read + " answers · " + d.prompts + " distinct questions · " + CLASS_LABEL[citeClass(d)]; } })
+    });
+  }
+
+  draw();
+  if (window.matchMedia) {
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    (mq.addEventListener ? mq.addEventListener.bind(mq, "change") : mq.addListener.bind(mq))(draw);
+  }
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+})();
+</script>
+</body>
+</html>
